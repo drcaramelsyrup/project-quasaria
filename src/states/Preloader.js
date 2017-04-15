@@ -24,5 +24,12 @@ exports.create = function (game) {
   // Here is a good place to initialize plugins dependent of any game asset.
   // Don't forget to `require` them first. Example:
   //game.myPlugin = game.plugins.add(MyPlugin/*, ... parameters ... */);
+
+  // Slick UI initialization; added from index.html
+  // NOTE: slick UI loads theme from cache
+  // between preload and create functions FOR EACH STATE
+  game.slickUI = game.plugins.add(Phaser.Plugin.SlickUI);
+
   game.state.start('Game');
+
 };

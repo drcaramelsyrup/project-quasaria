@@ -19,6 +19,7 @@ parserOptions:
 globals:
   PIXI: false
   Phaser: false
+  SlickUI: true
 
 extends: 'eslint:recommended'
 
