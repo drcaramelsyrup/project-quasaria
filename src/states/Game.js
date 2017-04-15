@@ -10,21 +10,30 @@
 var Logo = require('../objects/Logo');
 
 exports.preload = function(game) {
-  // preload all menu themes.
+  // preload all UI menu themes.
   game.slickUI.load('ui/kenney-theme/kenney.json');
 };
 
 exports.create = function (game) {
-  // TODO: Replace this with a really cool game code here :)
-  var x = game.world.centerX;
-  var y = game.world.centerY;
-  game.add.existing(new Logo(game, x, y));
+  // placeholder image
+  var logoX = game.world.centerX;
+  var logoY = game.world.centerY - game.width / 6;
+  game.add.existing(new Logo(game, logoX, logoY));
 
-  var panel;
-  game.slickUI.add(panel = new SlickUI.Element.Panel(8, 8, 150, game.height - 16));
+  // Basic dialogue window
+  var dialogPadding = 32;
+  var dialogHeight = game.height / 2;
+  var dialogWidth = game.width - dialogPadding;
 
-  var button;
-  panel.add(button = new SlickUI.Element.Button(0,0, 140, 80));
-  button.events.onInputUp.add(function () {console.log('Clicked button');});
-  button.add(new SlickUI.Element.Text(0,0, 'My button')).center();
+  var dialogX = dialogPadding / 2;
+  var dialogY = game.world.centerY;
+
+  var dialogPanel;
+  game.slickUI.add(dialogPanel = new SlickUI.Element.Panel(dialogX, dialogY, dialogWidth, dialogHeight));
+
+  // with a button!
+  var dialogButton;
+  dialogPanel.add(dialogButton = new SlickUI.Element.Button(0,0, 140, 80));
+  dialogButton.events.onInputUp.add(function () {console.log('Clicked button');});
+  dialogButton.add(new SlickUI.Element.Text(0,0, 'Dialogue button')).center();
 };

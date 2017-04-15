@@ -2,14 +2,14 @@
  * Logo
  * ====
  *
- * A sample prefab (extended game object class), displaying a spinning Phaser
+ * A sample prefab (extended game object class), displaying a spinning
  * logo.
  */
 
 'use strict';
 
 function Logo(game, x, y) {
-  Phaser.Sprite.call(this, game, x, y, 'phaser');
+  Phaser.Sprite.call(this, game, x, y, 'quasaria-logo');
 
   this.anchor.set(0.5);
 }

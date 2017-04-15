@@ -19,6 +19,6 @@ exports.boot = [{
 
 // -- General assets used throughout the game.
 exports.game = [{
-  key: 'phaser',
+  key: 'quasaria-logo',
   type: 'image'
 }];
