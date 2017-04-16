@@ -15,10 +15,15 @@ function Clickable(game, x, y, assetName) {
   this.inputEnabled = true;
   this.input.useHandCursor = true;
   this.events.onInputDown.add(click, this);
+  this.events.onInputOver.add(mouseover, this);
 
 }
 
 function click() {
+  this.destroy();
+}
+
+function mouseover() {
   this.alpha = 1;
 }
 
