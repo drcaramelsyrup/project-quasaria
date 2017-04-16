@@ -21,4 +21,8 @@ exports.boot = [{
 exports.game = [{
   key: 'quasaria-logo',
   type: 'image'
+}, {
+  key: 'prologue01',
+  type: 'json',
+  url: 'conversations/prologue01.json'
 }];
