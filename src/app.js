@@ -11,7 +11,7 @@
 var states = require('./states');
 
 exports.init = function () {
-  var game = new Phaser.Game(640, 480, Phaser.AUTO);
+  var game = new Phaser.Game(800, 600, Phaser.AUTO);
 
   // Dynamically add all required game states.
   Object
