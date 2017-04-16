@@ -8,6 +8,8 @@
 'use strict';
 
 var Logo = require('../objects/Logo');
+var Room = require('../objects/Room');
+var Clickable = require('../objects/Clickable');
 
 exports.preload = function(game) {
   // preload all UI menu themes.
@@ -19,6 +21,16 @@ exports.create = function (game) {
   var logoX = game.world.centerX;
   var logoY = game.world.centerY - game.width / 6;
   game.add.existing(new Logo(game, logoX, logoY));
+
+  // shuttle room background
+  var roomX = game.world.centerX;
+  var roomY = game.world.centerY;
+  game.add.existing(new Room(game, roomX, roomY, 'shuttle-bg'));
+
+  // clickable orb in room
+  var orbX = 150;
+  var orbY = 150;
+  game.add.existing(new Clickable(game, orbX, orbY, 'listener-obj'));
 
   // Basic dialogue window
   var dialogPadding = 32;
