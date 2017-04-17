@@ -9,18 +9,24 @@
 
 module.exports = DialogueWindow;
 
-function DialogueWindow(game/*, ...args*/) {
-  Phaser.Group.call(this, game/*, ...args*/);
+function DialogueWindow(game, convoManager/*, ...args*/) {
+  Phaser.Group.call(this, game, convoManager/*, ...args*/);
 
   // PROPERTIES
   // - dialogPanel
   // - speakerText
   // - dialogText
+  // - convoManager (passed in ConversationManager)
+  // - dialogWidth
+  // - dialogHeight
+  // - buttons
+
+  this.convoManager = convoManager;
 
   // Basic dialogue window
   var dialogPadding = 32;
-  var dialogHeight = game.height / 3 - dialogPadding / 2;
-  var dialogWidth = game.width - dialogPadding;
+  this.dialogHeight = game.height / 3 - dialogPadding / 2;
+  this.dialogWidth = game.width - dialogPadding;
   var dialogTextOriginX = 12;
   var dialogTextOriginY = 34;
 
@@ -28,24 +34,101 @@ function DialogueWindow(game/*, ...args*/) {
   var dialogY = game.height * 2 / 3;  // 1/3 from bottom of screen
 
   game.slickUI.add(
-    this.dialogPanel = new SlickUI.Element.Panel(dialogX, dialogY, dialogWidth, dialogHeight));
+    this.dialogPanel = new SlickUI.Element.Panel(dialogX, dialogY, this.dialogWidth, this.dialogHeight));
 
   // dialogue text
   this.dialogPanel.add(
     this.speakerText = new SlickUI.Element.Text(10, 0, 'Speaker')).centerHorizontally().text.alpha = 0.5;
   this.dialogPanel.add(
     this.dialogText = new SlickUI.Element.Text(dialogTextOriginX, dialogTextOriginY, 'Sample Speech'));
+  this.dialogText.size = 14;
+  this.dialogText.reset(this.dialogText.x, this.dialogText.y);
+
+  // past this index, children of this window will be removed
+  this.buttons = [];
+
+  // button panel
+  // this.dialogPanel.add(
+  //   this.buttonPanel = new SlickUI.Element.Panel(0,0, this.dialogWidth, this.dialogHeight));
 
   // with a navigation button!
-  var nextButton;
-  var nextButtonWidth = 32;
-  var nextButtonHeight = 32;
-  this.dialogPanel.add(nextButton = new SlickUI.Element.Button(dialogWidth - nextButtonWidth,dialogHeight / 2 - nextButtonHeight / 2, nextButtonWidth, nextButtonHeight));
-  nextButton.events.onInputUp.add(function () {console.log('Clicked button');});
-  nextButton.add(new SlickUI.Element.Text(0,0, '>')).center();
+  // var nextButton;
+  // var nextButtonWidth = 32;
+  // var nextButtonHeight = 32;
+
+  // this.dialogPanel.add(nextButton = new SlickUI.Element.Button(
+  //   this.dialogWidth - nextButtonWidth,this.dialogHeight / 2 - nextButtonHeight / 2, 
+  //   nextButtonWidth, nextButtonHeight));
+
+  // nextButton.events.onInputUp.add(
+  //   function () { this.next(); }, this
+  // );
+  // nextButton.add(new SlickUI.Element.Text(0,0, '>')).center();
 }
+
 DialogueWindow.prototype = Object.create(Phaser.Group.prototype);
 DialogueWindow.prototype.constructor = DialogueWindow;
+
+DialogueWindow.prototype.begin = function(game, jsonKey) {
+  this.convoManager.loadJSONConversation(game, jsonKey);
+  this.display();
+};
+
+DialogueWindow.prototype.display = function() {
+  this.removeButtons();
+  this.displayText();
+  this.displayResponses();
+};
+
+DialogueWindow.prototype.removeButtons = function () {
+  for (var i = 0; i < this.buttons.length; i++) {
+    var button = this.buttons[i];
+    button.container.displayGroup.removeAll(true);
+    button.container.displayGroup.destroy();
+    button.container.children = [];
+    button.container = undefined;
+    button.sprite = undefined;
+  }
+  this.buttons = [];
+};
+
+DialogueWindow.prototype.displayText = function () {
+  this.dialogText.value = this.convoManager.getCurrentText();
+};
+
+DialogueWindow.prototype.displayResponses = function () {
+  // pixel width
+  var textHeight = this.dialogText.size*1.1;
+  // round up number of lines
+  var lines = Math.ceil(this.dialogText.value.length * textHeight / this.dialogWidth);
+  var textBottom = this.dialogText.y 
+    + lines * textHeight;
+
+  // start rendering buttons at the bottom of dialogue
+
+  var responses = this.convoManager.getResponses();
+
+  for (var i = 0; i < responses.length; i++) {
+    var choiceButton;
+    this.dialogPanel.add(choiceButton = new SlickUI.Element.Button(0,textBottom + i*this.dialogText.size*2, this.dialogWidth, 24));
+    var response = responses[i];
+    choiceButton.events.onInputUp.add(
+      function () {
+        this.convoManager.idx = response['target'];
+        this.display();
+      }, this, response
+    );
+    var buttonText = new SlickUI.Element.Text(0,0, responses[i]['text']);
+    buttonText.size = this.dialogText.size;
+    choiceButton.add(buttonText).center();
+    this.buttons.push(choiceButton);
+  }
+};
+
+DialogueWindow.prototype.next = function() {
+  this.convoManager.idx++;
+  this.display();
+};
 
 DialogueWindow.prototype.update = function () {
   // TODO: Stub.

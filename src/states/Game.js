@@ -11,6 +11,7 @@ var Logo = require('../objects/Logo');
 var Room = require('../objects/Room');
 var Clickable = require('../objects/Clickable');
 var DialogueWindow = require('../objects/DialogueWindow');
+var ConversationManager = require('../objects/ConversationManager');
 
 exports.preload = function(game) {
   // preload all UI menu themes.
@@ -33,7 +34,10 @@ exports.create = function (game) {
   var orbY = 150;
   game.add.existing(new Clickable(game, orbX, orbY, 'listener-obj'));
 
+  // conversation manager
+  var convoManager = new ConversationManager(game);
   // dialogue window object
-  game.add.existing(new DialogueWindow(game));
+  var dialogueWindow = new DialogueWindow(game, convoManager);
+  dialogueWindow.begin(game, 'prologue01');
 };
 
