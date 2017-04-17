@@ -98,26 +98,24 @@ DialogueWindow.prototype.displayText = function () {
 
 DialogueWindow.prototype.displayResponses = function () {
   // pixel width
-  var textHeight = this.dialogText.size*1.1;
+  var textHeight = this.dialogText.size*1.3;
   // round up number of lines
-  var lines = Math.ceil(this.dialogText.value.length * textHeight / this.dialogWidth);
-  var textBottom = this.dialogText.y 
-    + lines * textHeight;
+  var lines = Math.ceil(this.dialogText.value.length * this.dialogText.size / this.dialogWidth);
+  var textBottom = this.dialogText.y + lines * textHeight;
 
   // start rendering buttons at the bottom of dialogue
-
   var responses = this.convoManager.getResponses();
-
   for (var i = 0; i < responses.length; i++) {
     var choiceButton;
-    this.dialogPanel.add(choiceButton = new SlickUI.Element.Button(0,textBottom + i*this.dialogText.size*2, this.dialogWidth, 24));
-    var response = responses[i];
+    this.dialogPanel.add(choiceButton = new SlickUI.Element.Button(0,textBottom + i*this.dialogText.size*1.5, this.dialogWidth, 24));
+
+    var responseTarget = responses[i]['target'];
     choiceButton.events.onInputUp.add(
       function () {
-        this.convoManager.idx = response['target'];
-        this.display();
-      }, this, response
-    );
+        this.dialogueWindow.convoManager.idx = this.responseTarget;
+        this.dialogueWindow.display();
+      }, {dialogueWindow: this, responseTarget: responseTarget});
+
     var buttonText = new SlickUI.Element.Text(0,0, responses[i]['text']);
     buttonText.size = this.dialogText.size;
     choiceButton.add(buttonText).center();
