@@ -111,6 +111,7 @@ DialogueWindow.prototype.cleanWindow = function () {
 
 DialogueWindow.prototype.displayText = function () {  
   this.dialogText.displayObject.text = this.convoManager.getCurrentText();
+  this.speakerText.value = this.convoManager.getSpeaker();
 };
 
 DialogueWindow.prototype.displayResponses = function () {

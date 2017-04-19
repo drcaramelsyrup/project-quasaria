@@ -46,6 +46,14 @@ ConversationManager.prototype.getResponses = function () {
   return this.conversation[this.idx]['responses'];
 };
 
+ConversationManager.prototype.getSpeaker = function () {
+  if (this.conversation === null) {
+    return [''];
+  }
+
+  return this.conversation[this.idx]['speaker'];
+};
+
 ConversationManager.prototype.update = function () {
   // TODO: Stub.
 };
