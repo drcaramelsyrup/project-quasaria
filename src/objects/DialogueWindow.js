@@ -23,47 +23,48 @@ function DialogueWindow(game, convoManager/*, ...args*/) {
 
   this.convoManager = convoManager;
 
-  // Basic dialogue window
-  var dialogPadding = 32;
-  this.dialogHeight = game.height / 3 - dialogPadding / 2;
-  this.dialogWidth = game.width - dialogPadding;
-  var dialogTextOriginX = 12;
-  var dialogTextOriginY = 34;
+  // private members specifying margin and padding
+  this._dialogTextOriginX = 12;
+  this._dialogTextOriginY = 34;
+  this._dialogPadding = 32;
 
-  var dialogX = dialogPadding / 2;
+  // dialogue window dimensions
+  this.dialogHeight = game.height / 3 - this._dialogPadding / 2;
+  this.dialogWidth = game.width - this._dialogPadding;
+
+  // dialog text dimensions (private)
+  this._dialogTextHeight = this.dialogHeight - 50;
+  this._dialogTextWidth = this.dialogWidth - 50;
+
+  // window coordinates
+  var dialogX = this._dialogPadding / 2;
   var dialogY = game.height * 2 / 3;  // 1/3 from bottom of screen
 
   game.slickUI.add(
     this.dialogPanel = new SlickUI.Element.Panel(dialogX, dialogY, this.dialogWidth, this.dialogHeight));
 
-  // dialogue text
+  // actual window contents
   this.dialogPanel.add(
     this.speakerText = new SlickUI.Element.Text(10, 0, 'Speaker')).centerHorizontally().text.alpha = 0.5;
-  this.dialogPanel.add(
-    this.dialogText = new SlickUI.Element.Text(dialogTextOriginX, dialogTextOriginY, 'Sample Speech'));
-  this.dialogText.size = 14;
-  this.dialogText.reset(this.dialogText.x, this.dialogText.y);
+  
+  var scrollMask = game.make.graphics(0, 0);
+  scrollMask.beginFill(0xffffff);
+  scrollMask.drawRect( this._dialogTextOriginX, this._dialogTextOriginY, this._dialogTextWidth, this._dialogTextHeight );
+  scrollMask.endFill();
 
-  // past this index, children of this window will be removed
+  // this.dialogue
+  var style = { font: '14px Arial', fill: '#000000', wordWrap: true, wordWrapWidth: this._dialogTextWidth, align: 'left' };
+  this.dialogPanel.add(
+    this.dialogText = new SlickUI.Element.DisplayObject(this._dialogTextOriginX, this._dialogTextOriginY, game.make.text(0, 0, 'placeholder text', style)));
+
+  this.dialogPanel.add(new SlickUI.Element.DisplayObject(0, 0, scrollMask));
+  this.dialogText.displayObject.mask = scrollMask;
+
+  this.dialogPanel.alpha = 0.8;
+
+  // for removing player choice buttons
   this.buttons = [];
 
-  // button panel
-  // this.dialogPanel.add(
-  //   this.buttonPanel = new SlickUI.Element.Panel(0,0, this.dialogWidth, this.dialogHeight));
-
-  // with a navigation button!
-  // var nextButton;
-  // var nextButtonWidth = 32;
-  // var nextButtonHeight = 32;
-
-  // this.dialogPanel.add(nextButton = new SlickUI.Element.Button(
-  //   this.dialogWidth - nextButtonWidth,this.dialogHeight / 2 - nextButtonHeight / 2, 
-  //   nextButtonWidth, nextButtonHeight));
-
-  // nextButton.events.onInputUp.add(
-  //   function () { this.next(); }, this
-  // );
-  // nextButton.add(new SlickUI.Element.Text(0,0, '>')).center();
 }
 
 DialogueWindow.prototype = Object.create(Phaser.Group.prototype);
@@ -77,7 +78,7 @@ DialogueWindow.prototype.begin = function(game, jsonKey) {
 DialogueWindow.prototype.display = function() {
   this.removeButtons();
   this.displayText();
-  this.displayResponses();
+  // this.displayResponses();
 };
 
 DialogueWindow.prototype.removeButtons = function () {
@@ -93,7 +94,21 @@ DialogueWindow.prototype.removeButtons = function () {
 };
 
 DialogueWindow.prototype.displayText = function () {
-  this.dialogText.value = this.convoManager.getCurrentText();
+  // this.dialogText.value = this.convoManager.getCurrentText();
+  
+  this.dialogText.displayObject.text = this.convoManager.getCurrentText();
+  if (this.dialogText.displayObject.getBounds().height > this.dialogHeight - 50) {
+    var slider = new SlickUI.Element.Slider(
+      this._dialogTextWidth + this._dialogPadding, this._dialogPadding, 
+      this._dialogTextHeight, 1 /* scrollbar starts at top, or 1; bottom is 0 */, true /* vertical */);
+    this.dialogPanel.add(slider);
+
+    var heightDiff = this.dialogText.displayObject.getBounds().height - (this.dialogHeight - 50);
+    slider.onDrag.add(function (value) {
+      // mapping height differences to scroll values
+      this.dialogText.y = this._dialogTextOriginY - heightDiff*(1-value);
+    }, this);
+  }
 };
 
 DialogueWindow.prototype.displayResponses = function () {
