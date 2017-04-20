@@ -38,6 +38,6 @@ exports.create = function (game) {
   var convoManager = new ConversationManager(game);
   // dialogue window object
   var dialogueWindow = new DialogueWindow(game, convoManager);
-  dialogueWindow.begin(game, 'prologue01');
+  dialogueWindow.begin('prologue01');
 };
 

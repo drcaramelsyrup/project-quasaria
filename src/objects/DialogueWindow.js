@@ -55,7 +55,7 @@ function DialogueWindow(game, convoManager/*, ...args*/) {
   this._scrollMask.drawRect( this._dialogTextOriginX, this._dialogTextOriginY, this._dialogTextWidth, this._dialogTextHeight );
   this._scrollMask.endFill();
 
-  var style = { font: '14px Arial', fill: '#000000', wordWrap: true, wordWrapWidth: this._dialogTextWidth, align: 'left' };
+  var style = { font: '14px Open Sans', fill: '#000000', wordWrap: true, wordWrapWidth: this._dialogTextWidth, align: 'left' };
   this.dialogPanel.add(
     this.dialogText = new SlickUI.Element.DisplayObject(this._dialogTextOriginX, this._dialogTextOriginY, game.make.text(0, 0, 'placeholder text', style)));
 
@@ -77,8 +77,8 @@ function DialogueWindow(game, convoManager/*, ...args*/) {
 DialogueWindow.prototype = Object.create(Phaser.Group.prototype);
 DialogueWindow.prototype.constructor = DialogueWindow;
 
-DialogueWindow.prototype.begin = function(game, jsonKey) {
-  this.convoManager.loadJSONConversation(game, jsonKey);
+DialogueWindow.prototype.begin = function(jsonKey) {
+  this.convoManager.loadJSONConversation(this._game, jsonKey);
   this.display();
 };
 
@@ -122,7 +122,7 @@ DialogueWindow.prototype.displayResponses = function () {
   var nextButtonY = textBottom;
   for (var i = 0; i < responses.length; i++) {
     // display text
-    var buttonTextStyle = { font: '14px Arial', fill: '#000000', wordWrap: true, wordWrapWidth: this._dialogTextWidth, align: 'left' };
+    var buttonTextStyle = { font: '14px Open Sans', fill: '#000000', wordWrap: true, wordWrapWidth: this._dialogTextWidth, align: 'left' };
     var responseText = this._game.make.text(0, 0, responses[i]['text'], buttonTextStyle);
     var buttonText = new SlickUI.Element.DisplayObject(
       Math.round(this.dialogWidth / 2 - responseText.width / 2),0, /* center text */
@@ -146,7 +146,7 @@ DialogueWindow.prototype.displayResponses = function () {
       }, {dialogueWindow: this, responseTarget: responseTarget});
     // add mask
     choiceButton.sprite.mask = this._scrollMask;
-    
+    buttonText.displayObject.mask = this._scrollMask;
     // keep track of buttons to be deleted
     this.buttons.push(choiceButton);
   }
