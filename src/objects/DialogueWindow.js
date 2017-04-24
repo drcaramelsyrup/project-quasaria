@@ -26,28 +26,37 @@ function DialogueWindow(game, convoManager/*, ...args*/) {
   this._game = game;
 
   // private members specifying margin and padding
-  this._dialogTextOriginX = 12;
-  this._dialogTextOriginY = 34;
+  this._dialogTextOriginX = 96;
+  this._dialogTextOriginY = 60;
   this._dialogPadding = 32;
 
   // dialogue window dimensions
-  this.dialogHeight = game.height / 3 - this._dialogPadding / 2;
+  this.dialogHeight = game.height * 3 / 8 /* 3/8 height */ - this._dialogPadding / 2;
   this.dialogWidth = game.width - this._dialogPadding;
 
   // dialog text dimensions (private)
-  this._dialogTextHeight = this.dialogHeight - 50;
-  this._dialogTextWidth = this.dialogWidth - 50;
+  this._dialogTextHeight = this.dialogHeight - this._dialogTextOriginY - 18;
+  this._dialogTextWidth = this.dialogWidth - 185;
 
   // window coordinates
   var dialogX = this._dialogPadding / 2;
-  var dialogY = game.height * 2 / 3;  // 1/3 from bottom of screen
+  var dialogY = game.height * 5 / 8;  // 5/8 down
 
   game.slickUI.add(
-    this.dialogPanel = new SlickUI.Element.Panel(dialogX, dialogY, this.dialogWidth, this.dialogHeight));
+    this.dialogPanel = new SlickUI.Element.DisplayObject(
+      dialogX, dialogY, game.make.sprite(0,0, 'dialogue-panel'),
+      this.dialogWidth, this.dialogHeight));
+  this.dialogPanel.displayObject.width = this.dialogWidth;
+  this.dialogPanel.displayObject.height = this.dialogHeight;
 
   // actual window contents
+  var speakerX = this._dialogPadding + 64;
+  var speakerY = this._dialogPadding / 4;
+  var speakerStyle = { font: '20px Goudy Bookletter 1911', fill: '#48f2ff', wordWrap: false, align: 'left' };
   this.dialogPanel.add(
-    this.speakerText = new SlickUI.Element.Text(10, 0, 'Speaker')).centerHorizontally().text.alpha = 0.5;
+    this.speakerText = new SlickUI.Element.DisplayObject(
+      Math.round(speakerX), speakerY, 
+      game.make.text(0, 0, 'Speaker', speakerStyle)));
   
   // using a mask for scrolling purposes
   this._scrollMask = game.make.graphics(0, 0);
@@ -55,9 +64,10 @@ function DialogueWindow(game, convoManager/*, ...args*/) {
   this._scrollMask.drawRect( this._dialogTextOriginX, this._dialogTextOriginY, this._dialogTextWidth, this._dialogTextHeight );
   this._scrollMask.endFill();
 
-  var style = { font: '14px Open Sans', fill: '#000000', wordWrap: true, wordWrapWidth: this._dialogTextWidth, align: 'left' };
+  var style = { font: '14px Open Sans', fill: '#48f2ff', wordWrap: true, wordWrapWidth: this._dialogTextWidth, align: 'left' };
   this.dialogPanel.add(
     this.dialogText = new SlickUI.Element.DisplayObject(this._dialogTextOriginX, this._dialogTextOriginY, game.make.text(0, 0, 'placeholder text', style)));
+  this.dialogText.displayObject.lineSpacing = 0;
 
   this.dialogPanel.add(new SlickUI.Element.DisplayObject(0, 0, this._scrollMask));
   this.dialogText.displayObject.mask = this._scrollMask;
@@ -111,7 +121,7 @@ DialogueWindow.prototype.cleanWindow = function () {
 
 DialogueWindow.prototype.displayText = function () {  
   this.dialogText.displayObject.text = this.convoManager.getCurrentText();
-  this.speakerText.value = this.convoManager.getSpeaker();
+  this.speakerText.displayObject.text = this.convoManager.getSpeaker().toUpperCase();
 };
 
 DialogueWindow.prototype.displayResponses = function () {
@@ -120,48 +130,110 @@ DialogueWindow.prototype.displayResponses = function () {
 
   var textBottom = this._dialogTextOriginY + this.dialogText.displayObject.getBounds().height;
   var nextButtonY = textBottom;
+
+  if (responses.length === 0) {
+    // end of dialogue
+    var endButton = this.addChoiceButton(this._dialogTextOriginX, nextButtonY,
+      'END', null);
+    this.buttons.push(endButton);
+  }
+
   for (var i = 0; i < responses.length; i++) {
-    // display text
-    var buttonTextStyle = { font: '14px Open Sans', fill: '#000000', wordWrap: true, wordWrapWidth: this._dialogTextWidth, align: 'left' };
-    var responseText = this._game.make.text(0, 0, responses[i]['text'], buttonTextStyle);
-    var buttonText = new SlickUI.Element.DisplayObject(
-      Math.round(this.dialogWidth / 2 - responseText.width / 2),0, /* center text */
-      responseText);
+    // // display text
+    
+    // var responseText = this._game.make.text(0, 0, responses[i]['text'], buttonTextStyle);
+    // var buttonText = new SlickUI.Element.DisplayObject(
+    //   Math.round(this._dialogTextWidth / 2 - responseText.width / 2),0, /* center text */
+    //   responseText);
 
-    // add to sized button
-    var choiceButton;
-    this.dialogPanel.add(choiceButton = new SlickUI.Element.Button(
-      0,nextButtonY, 
-      this.dialogWidth, responseText.height));
-    choiceButton.add(buttonText);
-    nextButtonY += responseText.height;
-    // useful for overflow scrolling
-    this._buttonsY.push(choiceButton.y);
+    // // add to sized button
+    // var choiceButton;
+    // this.dialogPanel.add(choiceButton = new SlickUI.Element.DisplayObject(
+    //   this._dialogTextOriginX,nextButtonY, 
+    //   this._game.make.button(0,0, 'choice-button'),
+    //   this.dialogWidth, responseText.height));
+    // choiceButton.add(buttonText);
+    // choiceButton.sprite.width = this._dialogTextWidth;
+    // choiceButton.sprite.height = responseText.height;
+    // nextButtonY += choiceButton.sprite.height;
+    // // useful for overflow scrolling
+    // this._buttonsY.push(choiceButton.y);
 
-    var responseTarget = responses[i]['target'];
-    choiceButton.events.onInputUp.add(
-      function () {
-        this.dialogueWindow.convoManager.idx = this.responseTarget;
-        this.dialogueWindow.display();
-      }, {dialogueWindow: this, responseTarget: responseTarget});
-    // add mask
-    choiceButton.sprite.mask = this._scrollMask;
-    buttonText.displayObject.mask = this._scrollMask;
+    // var responseTarget = responses[i]['target'];
+    // choiceButton.events.onInputUp.add(
+    //   function () {
+    //     this.dialogueWindow.convoManager.idx = this.responseTarget;
+    //     this.dialogueWindow.display();
+    //   }, {dialogueWindow: this, responseTarget: responseTarget});
+    // // add mask
+    // choiceButton.sprite.mask = this._scrollMask;
+    // buttonText.displayObject.mask = this._scrollMask;
+    // // keep track of buttons to be deleted
+    // this.buttons.push(choiceButton);
+
+    var button = this.addChoiceButton(
+      this._dialogTextOriginX, nextButtonY, 
+      responses[i]['text'], responses[i]['target']);
+
     // keep track of buttons to be deleted
-    this.buttons.push(choiceButton);
+    this.buttons.push(button);
+    // useful for overflow scrolling
+    this._buttonsY.push(button.y);
+    nextButtonY += button.sprite.height;
   }
 
   // last element is bottom of content
   this._buttonsY.push(nextButtonY);
 };
 
+DialogueWindow.prototype.addChoiceButton = function (x, y, responseTextField, responseTarget) {
+  // display text
+  var buttonSidePadding = 32;
+  var buttonTextStyle = { font: '14px Open Sans', fill: '#48f2ff', wordWrap: true, wordWrapWidth: this._dialogTextWidth - buttonSidePadding, align: 'left' };
+  var responseText = this._game.make.text(0, 0, responseTextField, buttonTextStyle);
+  var buttonText = new SlickUI.Element.DisplayObject(
+    Math.round(this._dialogTextWidth / 2 - responseText.width / 2),0, /* center text */
+    responseText);
+
+  // add to sized button
+  var choiceButton;
+  this.dialogPanel.add(choiceButton = new SlickUI.Element.DisplayObject(
+    x, y, 
+    this._game.make.button(0,0, 'choice-button'),
+    this.dialogWidth, responseText.height));
+  choiceButton.add(buttonText);
+  choiceButton.sprite.width = this._dialogTextWidth;
+  choiceButton.sprite.height = responseText.height;
+
+  // end of conversation. action deletes window
+  if (responseTarget === null) {
+    choiceButton.events.onInputUp.add(
+      function () {
+        this.dialogueWindow.hide();
+      }, {dialogueWindow: this});
+  }
+
+  choiceButton.events.onInputUp.add(
+    function () {
+      this.dialogueWindow.convoManager.idx = this.responseTarget;
+      this.dialogueWindow.display();
+    }, {dialogueWindow: this, responseTarget: responseTarget});
+  // add mask
+  choiceButton.sprite.mask = this._scrollMask;
+  buttonText.displayObject.mask = this._scrollMask;
+
+  return choiceButton;
+};
+
 DialogueWindow.prototype.addOverflowScroll = function () {
   // can we fit everything in the current window?
-  var heightDiff = this._buttonsY[this._buttonsY.length - 1] - this._dialogTextHeight;
+  var heightDiff = this._buttonsY[this._buttonsY.length - 1]
+    - (this._dialogTextOriginY + this._dialogTextHeight);
   // add a slider otherwise
   if (heightDiff > 0) {
     this.slider = new SlickUI.Element.Slider(
-      this._dialogTextWidth + this._dialogPadding, this._dialogPadding, 
+      this._dialogTextOriginX + this._dialogTextWidth + this._dialogPadding, 
+      this._dialogTextOriginY, 
       this._dialogTextHeight, 1 /* scrollbar starts at top, or 1; bottom is 0 */, true /* vertical */);
     this.dialogPanel.add(this.slider);
 
@@ -177,9 +249,9 @@ DialogueWindow.prototype.addOverflowScroll = function () {
   }
 };
 
-DialogueWindow.prototype.next = function() {
-  this.convoManager.idx++;
-  this.display();
+DialogueWindow.prototype.hide = function () {
+  this.cleanWindow();
+  this.visible = false;
 };
 
 DialogueWindow.prototype.update = function () {

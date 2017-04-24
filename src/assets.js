@@ -28,6 +28,14 @@ exports.game = [{
   key: 'listener-obj',
   type: 'image'
 }, {
+  key: 'choice-button',
+  type: 'image',
+  url: 'ui/choice-button.png'
+}, {
+  key: 'dialogue-panel',
+  type: 'image',
+  url: 'ui/dialogue-panel.png'
+}, {
   key: 'prologue01',
   type: 'json',
   url: 'conversations/prologue01.json'
