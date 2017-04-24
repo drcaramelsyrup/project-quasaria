@@ -241,7 +241,9 @@ DialogueWindow.prototype.addOverflowScroll = function () {
 
 DialogueWindow.prototype.hide = function () {
   this.cleanWindow();
-  this.visible = false;
+  //this.visible = false;
+  this.dialogPanel.visible = false;
+  this.avatar.container.displayGroup.removeAll(true);
 };
 
 DialogueWindow.prototype.update = function () {
