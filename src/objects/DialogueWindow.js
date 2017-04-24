@@ -102,6 +102,7 @@ DialogueWindow.prototype.begin = function(jsonKey) {
 
 DialogueWindow.prototype.display = function() {
   this.cleanWindow();
+  this.takeAction();
   this.displayAvatar();
   this.displayText();
   this.displayResponses();
@@ -128,6 +129,10 @@ DialogueWindow.prototype.cleanWindow = function () {
   this.dialogText.y = this._dialogTextOriginY;
 };
 
+DialogueWindow.prototype.takeAction = function() {
+  this.convoManager.takeAction(this._game);
+}
+
 DialogueWindow.prototype.displayAvatar = function() {
   var speaker = this.convoManager.getAvatar();
   if (speaker !== this.avatarName) {
@@ -143,7 +148,7 @@ DialogueWindow.prototype.displayText = function () {
 
 DialogueWindow.prototype.displayResponses = function () {
   // start rendering buttons at the bottom of dialogue
-  var responses = this.convoManager.getResponses();
+  var responses = this.convoManager.getResponses(this._game);
 
   var textBottom = this._dialogTextOriginY + this.dialogText.displayObject.getBounds().height;
   var nextButtonY = textBottom;

@@ -38,12 +38,36 @@ ConversationManager.prototype.getCurrentText = function () {
   return this.conversation[this.idx]['text'];
 };
 
-ConversationManager.prototype.getResponses = function () {
+ConversationManager.prototype.getResponses = function (game) {
   if (this.conversation === null) {
     return [''];
   }
+  var responses = this.conversation[this.idx]['responses'];
+  var ret = [];
+  for (var i = 0; i < responses.length; i++) {
+    if ('conditions' in responses[i]) {
+      var conditionsNeeded = 0;
+      var conditionsMet = 0;
+      for (var condition in responses[i]['conditions']) {
+        if (responses[i]['conditions'][condition].startsWith('!')) {
+          if (!(condition in game.player.variables) || game.player.variables[condition] !== responses[i]['conditions'][condition].substring(1)) {
+            conditionsMet++;
+          }
+        }
+        else if (condition in game.player.variables && game.player.variables[condition] === responses[i]['conditions'][condition]) {
+          conditionsMet++;
+        }
+        conditionsNeeded++;
+      }
+      if (conditionsMet >= conditionsNeeded) {
+        ret.push(responses[i]);
+      }
+    } else {
+      ret.push(responses[i]);
+    }
+  }
 
-  return this.conversation[this.idx]['responses'];
+  return ret;
 };
 
 ConversationManager.prototype.getSpeaker = function () {
@@ -60,7 +84,22 @@ ConversationManager.prototype.getAvatar = function() {
   }
 
   return this.conversation[this.idx]['speaker'].toLowerCase().replace(' ', '-');
-}
+};
+
+ConversationManager.prototype.takeAction = function(game) {
+  if (this.conversation === null) {
+    return;
+  }
+
+  if (this.conversation[this.idx]['actions'].length === 0) {
+    return;
+  }
+
+  for (var action in this.conversation[this.idx]['actions']) {
+    game.player.variables[action] = this.conversation[this.idx]['actions'][action];
+    return;
+  }
+};
 
 ConversationManager.prototype.update = function () {
   // TODO: Stub.

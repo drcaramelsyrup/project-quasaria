@@ -11,7 +11,8 @@ function Player(game) {
   Phaser.Group.call(this, game);
 
   this.inventory = [];
-  this.memoryBank = [];  
+  this.memoryBank = [];
+  this.variables = {};  
 }
 
 Player.prototype = Object.create(Phaser.Group.prototype);
