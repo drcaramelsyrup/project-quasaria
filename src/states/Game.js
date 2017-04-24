@@ -22,15 +22,7 @@ exports.create = function (game) {
   var logoY = game.world.centerY - game.width / 6;
   game.add.existing(new Logo(game, logoX, logoY));
 
-  // shuttle room background
-  var roomX = game.world.centerX;
-  var roomY = game.world.centerY;
-  game.add.existing(new Room(game, roomX, roomY, 'shuttle-bg'));
-
-  // clickable orb in room
-  var orbX = 150;
-  var orbY = 150;
-  game.add.existing(new Clickable(game, orbX, orbY, 'listener-obj'));
+  transitionRoom(game, 'shuttle');
 
   // Basic dialogue window
   var dialogPadding = 32;
@@ -58,3 +50,17 @@ exports.create = function (game) {
   nextButton.add(new SlickUI.Element.Text(0,0, '>')).center();
 };
 
+function transitionRoom(game, room) {
+  // shuttle room background
+  var roomX = game.world.centerX;
+  var roomY = game.world.centerY;
+  game.add.existing(new Room(game, roomX, roomY, 'shuttle-bg'));
+
+  // clickable orb in room
+  var orbX = 150;
+  var orbY = 150;
+  game.add.existing(new Clickable(game, orbX, orbY, 'listener-obj'));
+
+  // clickable note
+  game.add.existing(new Clickable(game, 600, 180, 'note-obj'));
+}
