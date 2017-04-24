@@ -139,38 +139,6 @@ DialogueWindow.prototype.displayResponses = function () {
   }
 
   for (var i = 0; i < responses.length; i++) {
-    // // display text
-    
-    // var responseText = this._game.make.text(0, 0, responses[i]['text'], buttonTextStyle);
-    // var buttonText = new SlickUI.Element.DisplayObject(
-    //   Math.round(this._dialogTextWidth / 2 - responseText.width / 2),0, /* center text */
-    //   responseText);
-
-    // // add to sized button
-    // var choiceButton;
-    // this.dialogPanel.add(choiceButton = new SlickUI.Element.DisplayObject(
-    //   this._dialogTextOriginX,nextButtonY, 
-    //   this._game.make.button(0,0, 'choice-button'),
-    //   this.dialogWidth, responseText.height));
-    // choiceButton.add(buttonText);
-    // choiceButton.sprite.width = this._dialogTextWidth;
-    // choiceButton.sprite.height = responseText.height;
-    // nextButtonY += choiceButton.sprite.height;
-    // // useful for overflow scrolling
-    // this._buttonsY.push(choiceButton.y);
-
-    // var responseTarget = responses[i]['target'];
-    // choiceButton.events.onInputUp.add(
-    //   function () {
-    //     this.dialogueWindow.convoManager.idx = this.responseTarget;
-    //     this.dialogueWindow.display();
-    //   }, {dialogueWindow: this, responseTarget: responseTarget});
-    // // add mask
-    // choiceButton.sprite.mask = this._scrollMask;
-    // buttonText.displayObject.mask = this._scrollMask;
-    // // keep track of buttons to be deleted
-    // this.buttons.push(choiceButton);
-
     var button = this.addChoiceButton(
       this._dialogTextOriginX, nextButtonY, 
       responses[i]['text'], responses[i]['target']);
