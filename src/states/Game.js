@@ -10,6 +10,7 @@
 var Logo = require('../objects/Logo');
 var Room = require('../objects/Room');
 var Clickable = require('../objects/Clickable');
+var Player = require('../objects/Player');
 
 exports.preload = function(game) {
   // preload all UI menu themes.
@@ -17,10 +18,7 @@ exports.preload = function(game) {
 };
 
 exports.create = function (game) {
-  // placeholder image
-  var logoX = game.world.centerX;
-  var logoY = game.world.centerY - game.width / 6;
-  game.add.existing(new Logo(game, logoX, logoY));
+  game.player = game.add.existing(new Player(game));
 
   transitionRoom(game, 'shuttle');
 

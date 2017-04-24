@@ -27,18 +27,12 @@ function Clickable(game, x, y, assetName) {
 function click() {
   this.destroy();
   this._game.add.existing(new Toast(this._game, 'You\'ve acquired ' + this.name + '!', 5));
-  //this._game.slickUI.add(this.popup = new SlickUI.Element.Panel(8,8,this._game.width-16,50));
-  //this.popup.add(new SlickUI.Element.Text(0,0,"You've acquired " + this.name + "!")).centerHorizontally().centerVertically().text.alpha=0.5;
-  //this._game.time.events.add(Phaser.Timer.SECOND * 5, destroyPopup, this);
+  this._game.player.inventory.push(this.name);
 }
 
 function mouseover() {
   this.alpha = 1;
 }
-
-/*function destroyPopup() {
-  this.popup.destroy();
-}*/
 
 Clickable.prototype = Object.create(Phaser.Sprite.prototype);
 module.exports = Clickable.prototype.constructor = Clickable;
