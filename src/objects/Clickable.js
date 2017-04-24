@@ -28,6 +28,7 @@ function click() {
   this.destroy();
   this._game.add.existing(new Toast(this._game, 'You\'ve acquired ' + this.name + '!', 5));
   this._game.player.inventory.push(this.name);
+  this._game.dialogueWindow.display(); //refresh dialogue display
 }
 
 function mouseover() {
