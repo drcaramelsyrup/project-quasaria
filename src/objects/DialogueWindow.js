@@ -30,6 +30,11 @@ function DialogueWindow(game, convoManager/*, ...args*/) {
   this._dialogTextOriginY = 60;
   this._dialogPadding = 32;
 
+  // speaker avatar display
+  game.slickUI.add(this.avatar = new SlickUI.Element.DisplayObject(
+    400, 100, game.make.sprite(0, 0, "invisible"),
+    400, 500));
+
   // dialogue window dimensions
   this.dialogHeight = game.height * 3 / 8 /* 3/8 height */ - this._dialogPadding / 2;
   this.dialogWidth = game.width - this._dialogPadding;
@@ -82,6 +87,9 @@ function DialogueWindow(game, convoManager/*, ...args*/) {
   // also keeps track of how low our content goes; last element is content bottom
   this._buttonsY = [];
 
+  //for keeping track of whether the avatar needs to be updated (performance intensive)
+  this.avatarName = "invisible";
+
 }
 
 DialogueWindow.prototype = Object.create(Phaser.Group.prototype);
@@ -94,6 +102,7 @@ DialogueWindow.prototype.begin = function(jsonKey) {
 
 DialogueWindow.prototype.display = function() {
   this.cleanWindow();
+  this.displayAvatar();
   this.displayText();
   this.displayResponses();
   this.addOverflowScroll();
@@ -117,6 +126,14 @@ DialogueWindow.prototype.cleanWindow = function () {
     this.slider.displayGroup.removeAll(true);
   }
   this.dialogText.y = this._dialogTextOriginY;
+};
+
+DialogueWindow.prototype.displayAvatar = function() {
+  var speaker = this.convoManager.getAvatar();
+  if (speaker !== this.avatarName) {
+    this.avatar.displayObject.loadTexture(speaker);
+    this.avatarName = speaker;
+  }
 };
 
 DialogueWindow.prototype.displayText = function () {  

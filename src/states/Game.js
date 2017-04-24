@@ -43,5 +43,5 @@ function transitionRoom(game, room) {
   game.add.existing(new Clickable(game, orbX, orbY, 'listener-obj'));
 
   // clickable note
-  game.add.existing(new Clickable(game, 600, 180, 'note-obj'));
+  game.add.existing(new Clickable(game, 720, 200, 'note-obj'));
 }

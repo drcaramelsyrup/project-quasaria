@@ -54,6 +54,14 @@ ConversationManager.prototype.getSpeaker = function () {
   return this.conversation[this.idx]['speaker'];
 };
 
+ConversationManager.prototype.getAvatar = function() {
+  if (this.conversation === null) {
+    return [''];
+  }
+
+  return this.conversation[this.idx]['speaker'].toLowerCase().replace(' ', '-');
+}
+
 ConversationManager.prototype.update = function () {
   // TODO: Stub.
 };
