@@ -72,7 +72,10 @@
         "responses": [
             {
                 "target": 5,
-                "text": "Found it!"
+                "text": "Found it!",
+                "conditions": {
+                    "invListener": "true"
+                }
             }
         ],
         "speaker": "Mysterious Voice",
@@ -404,7 +407,7 @@
             },
             {
                 "target": 28,
-                "text": "(Wait)"
+                "text": "..."
             }
         ],
         "speaker": "Mysterious Voice",
@@ -574,7 +577,7 @@
         "responses": [
             {
                 "target": 33,
-                "text": "(Continue)"
+                "text": "..."
             }
         ],
         "speaker": "Mysterious Voice",
@@ -587,7 +590,7 @@
         "responses": [
             {
                 "target": 33,
-                "text": "(Continue)"
+                "text": "..."
             }
         ],
         "speaker": "Mysterious Voice",
@@ -600,7 +603,7 @@
         "responses": [
             {
                 "target": 33,
-                "text": "(Continue)"
+                "text": "..."
             }
         ],
         "speaker": "Mysterious Voice",
@@ -629,7 +632,7 @@
     },
     "34": {
         "actions": {
-            "askedWhyNot": "true"
+            "varAskedWhyNot": "true"
         },
         "comments": [
             "<!-- The player is provided with several investigative options here from the previous node, which should each disappear after the player explores them. No loops. Once the player has taken all of them, show the last option (progress). This will require some code. -->"
@@ -642,23 +645,23 @@
             },
             {
                 "conditions": {
-                    "askedStationZero": "!true"
+                    "varAskedStationZero": "!true"
                 },
                 "target": 35,
                 "text": "What is Station Zero, anyway?"
             },
             {
                 "conditions": {
-                    "askedNewSpecies": "!true"
+                    "varAskedNewSpecies": "!true"
                 },
                 "target": 36,
                 "text": "You said I'm a \"new species?\""
             },
             {
                 "conditions": {
-                    "askedNewSpecies": "true",
-                    "askedStationZero": "true",
-                    "askedWhyNot": "true"
+                    "varAskedNewSpecies": "true",
+                    "varAskedStationZero": "true",
+                    "varAskedWhyNot": "true"
                 },
                 "target": 38,
                 "text": "I still have more questions, but I don't even know where to start."
@@ -669,7 +672,7 @@
     },
     "35": {
         "actions": {
-            "askedStationZero": "true"
+            "varAskedStationZero": "true"
         },
         "comments": [
             "<!-- The player is provided with several investigative options here from the previous node, which should each disappear after the player explores them. No loops. Once the player has taken all of them, show the last option (progress). This will require some code. -->"
@@ -682,23 +685,23 @@
             },
             {
                 "conditions": {
-                    "askedWhyNot": "!true"
+                    "varAskedWhyNot": "!true"
                 },
                 "target": 34,
                 "text": "Why aren't you coming with me?"
             },
             {
                 "conditions": {
-                    "askedNewSpecies": "!true"
+                    "varAskedNewSpecies": "!true"
                 },
                 "target": 36,
                 "text": "You said I'm a \"new species?\""
             },
             {
                 "conditions": {
-                    "askedNewSpecies": "true",
-                    "askedStationZero": "true",
-                    "askedWhyNot": "true"
+                    "varAskedNewSpecies": "true",
+                    "varAskedStationZero": "true",
+                    "varAskedWhyNot": "true"
                 },
                 "target": 38,
                 "text": "I still have more questions, but I don't even know where to start."
@@ -709,7 +712,7 @@
     },
     "36": {
         "actions": {
-            "askedNewSpecies": "true"
+            "varAskedNewSpecies": "true"
         },
         "comments": [
             "<!-- The player is provided with several investigative options here from the previous node, which should each disappear after the player explores them. No loops. Once the player has taken all of them, show the last option (progress). This will require some code. -->"
@@ -722,23 +725,23 @@
             },
             {
                 "conditions": {
-                    "askedWhyNot": "!true"
+                    "varAskedWhyNot": "!true"
                 },
                 "target": 34,
                 "text": "Why aren't you coming with me?"
             },
             {
                 "conditions": {
-                    "askedStationZero": "!true"
+                    "varAskedStationZero": "!true"
                 },
                 "target": 35,
                 "text": "What is Station Zero, anyway?"
             },
             {
                 "conditions": {
-                    "askedNewSpecies": "true",
-                    "askedStationZero": "true",
-                    "askedWhyNot": "true"
+                    "varAskedNewSpecies": "true",
+                    "varAskedStationZero": "true",
+                    "varAskedWhyNot": "true"
                 },
                 "target": 38,
                 "text": "I still have more questions, but I don't even know where to start."
@@ -756,23 +759,23 @@
         "responses": [
             {
                 "conditions": {
-                    "askedStationZero": "!true"
+                    "varAskedStationZero": "!true"
                 },
                 "target": 35,
                 "text": "What is Station Zero, anyway?"
             },
             {
                 "conditions": {
-                    "askedNewSpecies": "!true"
+                    "varAskedNewSpecies": "!true"
                 },
                 "target": 36,
                 "text": "You said I'm a \"new species?\""
             },
             {
                 "conditions": {
-                    "askedNewSpecies": "true",
-                    "askedStationZero": "true",
-                    "askedWhyNot": "true"
+                    "varAskedNewSpecies": "true",
+                    "varAskedStationZero": "true",
+                    "varAskedWhyNot": "true"
                 },
                 "target": 38,
                 "text": "I still have more questions, but I don't even know where to start."
@@ -811,23 +814,23 @@
         "responses": [
             {
                 "conditions": {
-                    "askedWhyNot": "!true"
+                    "varAskedWhyNot": "!true"
                 },
                 "target": 34,
                 "text": "Why aren't you coming with me?"
             },
             {
                 "conditions": {
-                    "askedNewSpecies": "!true"
+                    "varAskedNewSpecies": "!true"
                 },
                 "target": 36,
                 "text": "You said I'm a \"new species?\""
             },
             {
                 "conditions": {
-                    "askedNewSpecies": "true",
-                    "askedStationZero": "true",
-                    "askedWhyNot": "true"
+                    "varAskedNewSpecies": "true",
+                    "varAskedStationZero": "true",
+                    "varAskedWhyNot": "true"
                 },
                 "target": 38,
                 "text": "I still have more questions, but I don't even know where to start."
@@ -845,23 +848,23 @@
         "responses": [
             {
                 "conditions": {
-                    "askedWhyNot": "!true"
+                    "varAskedWhyNot": "!true"
                 },
                 "target": 34,
                 "text": "Why aren't you coming with me?"
             },
             {
                 "conditions": {
-                    "askedStationZero": "!true"
+                    "varAskedStationZero": "!true"
                 },
                 "target": 35,
                 "text": "What is Station Zero, anyway?"
             },
             {
                 "conditions": {
-                    "askedNewSpecies": "true",
-                    "askedStationZero": "true",
-                    "askedWhyNot": "true"
+                    "varAskedNewSpecies": "true",
+                    "varAskedStationZero": "true",
+                    "varAskedWhyNot": "true"
                 },
                 "target": 38,
                 "text": "I still have more questions, but I don't even know where to start."

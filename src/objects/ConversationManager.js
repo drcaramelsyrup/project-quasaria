@@ -49,12 +49,7 @@ ConversationManager.prototype.getResponses = function (game) {
       var conditionsNeeded = 0;
       var conditionsMet = 0;
       for (var condition in responses[i]['conditions']) {
-        if (responses[i]['conditions'][condition].startsWith('!')) {
-          if (!(condition in game.player.variables) || game.player.variables[condition] !== responses[i]['conditions'][condition].substring(1)) {
-            conditionsMet++;
-          }
-        }
-        else if (condition in game.player.variables && game.player.variables[condition] === responses[i]['conditions'][condition]) {
+        if (checkCondition(game, condition, responses[i]['conditions'][condition])) {
           conditionsMet++;
         }
         conditionsNeeded++;
@@ -69,6 +64,29 @@ ConversationManager.prototype.getResponses = function (game) {
 
   return ret;
 };
+
+function checkCondition(game, condition, value) {
+  if (condition.startsWith('var')) {
+    var variable = condition.substring(3);
+    if (value.startsWith('!')) {
+      if (!(variable in game.player.variables) || game.player.variables[variable] !== value.substring(1)) {
+        return true;
+      }
+    } else if (variable in game.player.variables && game.player.variables[variable] === value) {
+      return true;
+    }
+  } else if (condition.startsWith('inv')) {
+    var item = condition.substring(3);
+    if (value.startsWith('!')) {
+      if (game.player.inventory.indexOf(item) === -1) {
+        return true;
+      }
+    } else if (game.player.inventory.indexOf(item) > -1) {
+      return true;
+    }
+  }
+  return false;
+}
 
 ConversationManager.prototype.getSpeaker = function () {
   if (this.conversation === null) {
@@ -86,7 +104,7 @@ ConversationManager.prototype.getAvatar = function() {
   return this.conversation[this.idx]['speaker'].toLowerCase().replace(' ', '-');
 };
 
-ConversationManager.prototype.takeAction = function(game) {
+ConversationManager.prototype.takeActions = function(game) {
   if (this.conversation === null) {
     return;
   }
@@ -96,10 +114,33 @@ ConversationManager.prototype.takeAction = function(game) {
   }
 
   for (var action in this.conversation[this.idx]['actions']) {
-    game.player.variables[action] = this.conversation[this.idx]['actions'][action];
+    takeAction(game, action, this.conversation[this.idx]['actions'][action]);
     return;
   }
 };
+
+function takeAction(game, action, value) {
+  if (action.startsWith('var')) {
+    var variable = action.substring(3);
+    if (value.startsWith('!')) {
+      delete game.player.variables[variable];
+    } else {
+      game.player.variables[variable] = value;
+    }
+  } else if (action.startsWith('inv')) {
+    var item = action.substring(3);
+    if (value.startsWith('!')) {
+      if (!(item in game.player.inventory)) {
+        var index = game.player.inventory.indexOf(item);
+        if (index > -1) {
+          game.player.inventory.splice(index, 1);
+        }
+      }
+    } else {
+      game.player.inventory.push(item);
+    }
+  }
+}
 
 ConversationManager.prototype.update = function () {
   // TODO: Stub.

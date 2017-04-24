@@ -102,7 +102,7 @@ DialogueWindow.prototype.begin = function(jsonKey) {
 
 DialogueWindow.prototype.display = function() {
   this.cleanWindow();
-  this.takeAction();
+  this.takeActions();
   this.displayAvatar();
   this.displayText();
   this.displayResponses();
@@ -129,8 +129,8 @@ DialogueWindow.prototype.cleanWindow = function () {
   this.dialogText.y = this._dialogTextOriginY;
 };
 
-DialogueWindow.prototype.takeAction = function() {
-  this.convoManager.takeAction(this._game);
+DialogueWindow.prototype.takeActions = function() {
+  this.convoManager.takeActions(this._game);
 }
 
 DialogueWindow.prototype.displayAvatar = function() {
