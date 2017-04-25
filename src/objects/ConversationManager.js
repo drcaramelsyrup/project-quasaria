@@ -15,6 +15,8 @@ function ConversationManager(game/*, ...args*/) {
   // PROPERTIES:
   // - conversation - json conversation
 
+  this._game = game;
+
   this.conversation = null;
   this.idx = 0;
 }
@@ -24,8 +26,8 @@ ConversationManager.prototype.constructor = ConversationManager;
 /* Assumes JSON has already been loaded into cache!
  * Use game.load.json otherwise
  */
-ConversationManager.prototype.loadJSONConversation = function (game, jsonKey) {
-  var json = game.cache.getJSON(jsonKey);
+ConversationManager.prototype.loadJSONConversation = function (jsonKey) {
+  var json = this._game.cache.getJSON(jsonKey);
 
   this.conversation = json;
 };
@@ -38,7 +40,7 @@ ConversationManager.prototype.getCurrentText = function () {
   return this.conversation[this.idx]['text'];
 };
 
-ConversationManager.prototype.getResponses = function (game) {
+ConversationManager.prototype.getResponses = function () {
   if (this.conversation === null) {
     return [''];
   }
@@ -49,7 +51,7 @@ ConversationManager.prototype.getResponses = function (game) {
       var conditionsNeeded = 0;
       var conditionsMet = 0;
       for (var condition in responses[i]['conditions']) {
-        if (checkCondition(game, condition, responses[i]['conditions'][condition])) {
+        if (checkCondition(this._game, condition, responses[i]['conditions'][condition])) {
           conditionsMet++;
         }
         conditionsNeeded++;
@@ -104,7 +106,7 @@ ConversationManager.prototype.getAvatar = function() {
   return this.conversation[this.idx]['speaker'].toLowerCase().replace(' ', '-');
 };
 
-ConversationManager.prototype.takeActions = function(game) {
+ConversationManager.prototype.takeActions = function() {
   if (this.conversation === null) {
     return;
   }
@@ -114,7 +116,7 @@ ConversationManager.prototype.takeActions = function(game) {
   }
 
   for (var action in this.conversation[this.idx]['actions']) {
-    takeAction(game, action, this.conversation[this.idx]['actions'][action]);
+    takeAction(this._game, action, this.conversation[this.idx]['actions'][action]);
     return;
   }
 };

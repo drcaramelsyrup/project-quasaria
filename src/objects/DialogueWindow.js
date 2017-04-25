@@ -96,7 +96,7 @@ DialogueWindow.prototype = Object.create(Phaser.Group.prototype);
 DialogueWindow.prototype.constructor = DialogueWindow;
 
 DialogueWindow.prototype.begin = function(jsonKey) {
-  this.convoManager.loadJSONConversation(this._game, jsonKey);
+  this.convoManager.loadJSONConversation(jsonKey);
   this.display();
 };
 
