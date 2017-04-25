@@ -10,6 +10,7 @@
 var Logo = require('../objects/Logo');
 var Room = require('../objects/Room');
 var Clickable = require('../objects/Clickable');
+var Player = require('../objects/Player');
 var DialogueWindow = require('../objects/DialogueWindow');
 var ConversationManager = require('../objects/ConversationManager');
 
@@ -19,11 +20,18 @@ exports.preload = function(game) {
 };
 
 exports.create = function (game) {
-  // placeholder image
-  var logoX = game.world.centerX;
-  var logoY = game.world.centerY - game.width / 6;
-  game.add.existing(new Logo(game, logoX, logoY));
+  game.player = game.add.existing(new Player(game));
 
+  transitionRoom(game, 'shuttle');
+
+  // conversation manager
+  var convoManager = new ConversationManager(game);
+  // dialogue window object
+  game.dialogueWindow = new DialogueWindow(game, convoManager);
+  game.dialogueWindow.begin('prologue01');
+};
+
+function transitionRoom(game, room) {
   // shuttle room background
   var roomX = game.world.centerX;
   var roomY = game.world.centerY;
@@ -34,10 +42,6 @@ exports.create = function (game) {
   var orbY = 150;
   game.add.existing(new Clickable(game, orbX, orbY, 'listener-obj'));
 
-  // conversation manager
-  var convoManager = new ConversationManager(game);
-  // dialogue window object
-  var dialogueWindow = new DialogueWindow(game, convoManager);
-  dialogueWindow.begin('prologue01');
-};
-
+  // clickable note
+  game.add.existing(new Clickable(game, 720, 200, 'note-obj'));
+}

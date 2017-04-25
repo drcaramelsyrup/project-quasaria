@@ -28,6 +28,9 @@ exports.game = [{
   key: 'listener-obj',
   type: 'image'
 }, {
+  key: 'note-obj',
+  type: 'image'
+}, {
   key: 'choice-button',
   type: 'image',
   url: 'ui/choice-button.png'
@@ -39,4 +42,10 @@ exports.game = [{
   key: 'prologue01',
   type: 'json',
   url: 'conversations/prologue01.json'
+}, {
+  key: 'mysterious-voice',
+  type: 'image'
+}, {
+  key: 'invisible',
+  type: 'image'
 }];

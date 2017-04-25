@@ -30,6 +30,11 @@ function DialogueWindow(game, convoManager/*, ...args*/) {
   this._dialogTextOriginY = 60;
   this._dialogPadding = 32;
 
+  // speaker avatar display
+  game.slickUI.add(this.avatar = new SlickUI.Element.DisplayObject(
+    400, 100, game.make.sprite(0, 0, "invisible"),
+    400, 500));
+
   // dialogue window dimensions
   this.dialogHeight = game.height * 3 / 8 /* 3/8 height */ - this._dialogPadding / 2;
   this.dialogWidth = game.width - this._dialogPadding;
@@ -82,18 +87,23 @@ function DialogueWindow(game, convoManager/*, ...args*/) {
   // also keeps track of how low our content goes; last element is content bottom
   this._buttonsY = [];
 
+  //for keeping track of whether the avatar needs to be updated (performance intensive)
+  this.avatarName = "invisible";
+
 }
 
 DialogueWindow.prototype = Object.create(Phaser.Group.prototype);
 DialogueWindow.prototype.constructor = DialogueWindow;
 
 DialogueWindow.prototype.begin = function(jsonKey) {
-  this.convoManager.loadJSONConversation(this._game, jsonKey);
+  this.convoManager.loadJSONConversation(jsonKey);
   this.display();
 };
 
 DialogueWindow.prototype.display = function() {
   this.cleanWindow();
+  this.takeActions();
+  this.displayAvatar();
   this.displayText();
   this.displayResponses();
   this.addOverflowScroll();
@@ -119,6 +129,18 @@ DialogueWindow.prototype.cleanWindow = function () {
   this.dialogText.y = this._dialogTextOriginY;
 };
 
+DialogueWindow.prototype.takeActions = function() {
+  this.convoManager.takeActions(this._game);
+}
+
+DialogueWindow.prototype.displayAvatar = function() {
+  var speaker = this.convoManager.getAvatar();
+  if (speaker !== this.avatarName) {
+    this.avatar.displayObject.loadTexture(speaker);
+    this.avatarName = speaker;
+  }
+};
+
 DialogueWindow.prototype.displayText = function () {  
   this.dialogText.displayObject.text = this.convoManager.getCurrentText();
   this.speakerText.displayObject.text = this.convoManager.getSpeaker().toUpperCase();
@@ -126,16 +148,17 @@ DialogueWindow.prototype.displayText = function () {
 
 DialogueWindow.prototype.displayResponses = function () {
   // start rendering buttons at the bottom of dialogue
-  var responses = this.convoManager.getResponses();
+  var responses = this.convoManager.getResponses(this._game);
 
   var textBottom = this._dialogTextOriginY + this.dialogText.displayObject.getBounds().height;
   var nextButtonY = textBottom;
 
   if (responses.length === 0) {
-    // end of dialogue
-    var endButton = this.addChoiceButton(this._dialogTextOriginX, nextButtonY,
+    // no responses - waiting on player to do something to progress
+    var waitButton = this.addChoiceButton(this._dialogTextOriginX, nextButtonY,
       'END', null);
-    this.buttons.push(endButton);
+    waitButton.visible = false;
+    this.buttons.push(waitButton);
   }
 
   for (var i = 0; i < responses.length; i++) {
@@ -174,7 +197,7 @@ DialogueWindow.prototype.addChoiceButton = function (x, y, responseTextField, re
   choiceButton.sprite.height = responseText.height;
 
   // end of conversation. action deletes window
-  if (responseTarget === null) {
+  if (responseTarget < 0) {
     choiceButton.events.onInputUp.add(
       function () {
         this.dialogueWindow.hide();
@@ -219,7 +242,9 @@ DialogueWindow.prototype.addOverflowScroll = function () {
 
 DialogueWindow.prototype.hide = function () {
   this.cleanWindow();
-  this.visible = false;
+  //this.visible = false;
+  this.dialogPanel.visible = false;
+  this.avatar.container.displayGroup.removeAll(true); //remove avatar
 };
 
 DialogueWindow.prototype.update = function () {
