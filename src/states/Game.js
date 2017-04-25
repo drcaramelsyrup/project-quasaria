@@ -7,7 +7,6 @@
 
 'use strict';
 
-var Logo = require('../objects/Logo');
 var Room = require('../objects/Room');
 var Clickable = require('../objects/Clickable');
 var Player = require('../objects/Player');
@@ -20,9 +19,10 @@ exports.preload = function(game) {
 };
 
 exports.create = function (game) {
+  this.camera.flash('#000000', 2000);
   game.player = game.add.existing(new Player(game));
 
-  transitionRoom(game, 'shuttle');
+  transitionRoom(game, 'shuttle-bg');
 
   // conversation manager
   var convoManager = new ConversationManager(game);
@@ -35,7 +35,7 @@ function transitionRoom(game, room) {
   // shuttle room background
   var roomX = game.world.centerX;
   var roomY = game.world.centerY;
-  game.add.existing(new Room(game, roomX, roomY, 'shuttle-bg'));
+  game.add.existing(new Room(game, roomX, roomY, room));
 
   // clickable orb in room
   var orbX = 150;
