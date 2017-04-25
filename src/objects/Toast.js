@@ -14,14 +14,35 @@ function Toast(game, message, timeout) {
   this._game = game;
   this.message = message;
   this.timeout = timeout;
-  game.slickUI.add(this.popup = new SlickUI.Element.Panel(8,8,game.width-16,50));
-  this.popup.add(new SlickUI.Element.Text(0, 0, message)).centerHorizontally().centerVertically().text.alpha=0.5;
+
+  // private members specifying margin and padding
+  this.toastTextY = 16;
+
+  this.toastHeight = game.height * 1/12;
+  this.toastWidth = game.width * 1/2;
+
+  this.toastX = game.width * 1/2 - this.toastWidth * 1/2;
+  this.toastY = 8;
+
+  game.slickUI.add(this.toast = new SlickUI.Element.DisplayObject(
+    this.toastX, this.toastY, game.make.sprite(0, 0, 'toast'),
+    this.toastWidth, this.toastHeight));
+  this.toast.displayObject.width = this.toastWidth;
+  this.toast.displayObject.height = this.toastHeight;
+
+  var style = { font: '14px Open Sans', fill: '#48f2ff', boundsAlignH: 'center'};
+  this.toast.add(
+    this.toastText = new SlickUI.Element.DisplayObject(0, 0, game.make.text(0, this.toastTextY, message, style)));
+  this.toastText.displayObject.setTextBounds(0, this.toastTextY, this.toastWidth, this.toastHeight);
+
+  this.toast.alpha = 0.8;
+
   game.time.events.add(Phaser.Timer.SECOND * timeout, destroyPopup, this);
 }
 
 function destroyPopup() {
-  this.popup.destroy();
-	this.destroy();
+  this.toast.container.displayGroup.removeAll();
+  this.destroy();
 }
 
 Toast.prototype = Object.create(Phaser.Group.prototype);
