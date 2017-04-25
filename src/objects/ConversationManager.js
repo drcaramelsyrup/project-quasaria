@@ -55,10 +55,10 @@ ConversationManager.prototype.getResponses = function (game) {
         conditionsNeeded++;
       }
       if (conditionsMet >= conditionsNeeded) {
-        ret.push(responses[i]);
+        ret.push(responses[i]); //if all conditions are met, display response
       }
     } else {
-      ret.push(responses[i]);
+      ret.push(responses[i]);   //no conditions on this response, display it
     }
   }
 
@@ -70,19 +70,19 @@ function checkCondition(game, condition, value) {
     var variable = condition.substring(3);
     if (value.startsWith('!')) {
       if (!(variable in game.player.variables) || game.player.variables[variable] !== value.substring(1)) {
-        return true;
+        return true;    //player does not have this variable set, or has it set to a different value
       }
     } else if (variable in game.player.variables && game.player.variables[variable] === value) {
-      return true;
+      return true;      //player has this variable set to this value
     }
   } else if (condition.startsWith('inv')) {
     var item = condition.substring(3);
     if (value.startsWith('!')) {
       if (game.player.inventory.indexOf(item) === -1) {
-        return true;
+        return true;    //player does not have this inventory item
       }
     } else if (game.player.inventory.indexOf(item) > -1) {
-      return true;
+      return true;      //player has this inventory item
     }
   }
   return false;
@@ -123,9 +123,9 @@ function takeAction(game, action, value) {
   if (action.startsWith('var')) {
     var variable = action.substring(3);
     if (value.startsWith('!')) {
-      delete game.player.variables[variable];
+      delete game.player.variables[variable]; //remove variable from player
     } else {
-      game.player.variables[variable] = value;
+      game.player.variables[variable] = value;  //set variable on player
     }
   } else if (action.startsWith('inv')) {
     var item = action.substring(3);
@@ -133,11 +133,11 @@ function takeAction(game, action, value) {
       if (!(item in game.player.inventory)) {
         var index = game.player.inventory.indexOf(item);
         if (index > -1) {
-          game.player.inventory.splice(index, 1);
+          game.player.inventory.splice(index, 1); //remove item from player inventory
         }
       }
     } else {
-      game.player.inventory.push(item);
+      game.player.inventory.push(item); //add item to player inventory
     }
   }
 }

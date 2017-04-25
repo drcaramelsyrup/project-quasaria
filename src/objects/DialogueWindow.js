@@ -154,10 +154,11 @@ DialogueWindow.prototype.displayResponses = function () {
   var nextButtonY = textBottom;
 
   if (responses.length === 0) {
-    // end of dialogue
-    var endButton = this.addChoiceButton(this._dialogTextOriginX, nextButtonY,
+    // no responses - waiting on player to do something to progress
+    var waitButton = this.addChoiceButton(this._dialogTextOriginX, nextButtonY,
       'END', null);
-    this.buttons.push(endButton);
+    waitButton.visible = false;
+    this.buttons.push(waitButton);
   }
 
   for (var i = 0; i < responses.length; i++) {
@@ -196,7 +197,7 @@ DialogueWindow.prototype.addChoiceButton = function (x, y, responseTextField, re
   choiceButton.sprite.height = responseText.height;
 
   // end of conversation. action deletes window
-  if (responseTarget === null) {
+  if (responseTarget < 0) {
     choiceButton.events.onInputUp.add(
       function () {
         this.dialogueWindow.hide();
@@ -243,7 +244,7 @@ DialogueWindow.prototype.hide = function () {
   this.cleanWindow();
   //this.visible = false;
   this.dialogPanel.visible = false;
-  this.avatar.container.displayGroup.removeAll(true);
+  this.avatar.container.displayGroup.removeAll(true); //remove avatar
 };
 
 DialogueWindow.prototype.update = function () {

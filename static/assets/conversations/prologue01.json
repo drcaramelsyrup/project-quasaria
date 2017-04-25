@@ -933,7 +933,12 @@
         "actions": {},
         "comments": [],
         "id": 45,
-        "responses": [],
+        "responses": [
+            {
+                "target": -1,
+                "text": "END"
+            }
+        ],
         "speaker": "Mysterious Voice",
         "text": "Good luck with the welcome party. Remember, be on your best behavior. I'll talk to you again soon."
     }
