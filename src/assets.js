@@ -54,6 +54,10 @@ exports.game = [{
   type: 'image',
   url: 'ui/toast.png'
 }, {
+  key: 'memory-bank-button',
+  type: 'image',
+  url: 'ui/memory-bank-button.png'
+}, {
   key: 'prologue01',
   type: 'json',
   url: 'conversations/prologue01.json'
