@@ -9,13 +9,14 @@
 
 module.exports = ConversationManager;
 
-function ConversationManager(game/*, ...args*/) {
+function ConversationManager(game, customActions/*, ...args*/) {
   Phaser.Group.call(this, game/*, ...args*/);
 
   // PROPERTIES:
   // - conversation - json conversation
 
   this._game = game;
+  this.customActions = customActions;
 
   this.conversation = null;
   this.idx = 0;
@@ -30,6 +31,7 @@ ConversationManager.prototype.loadJSONConversation = function (jsonKey) {
   var json = this._game.cache.getJSON(jsonKey);
 
   this.conversation = json;
+  this.idx = 0;
 };
 
 ConversationManager.prototype.getCurrentText = function () {
@@ -143,6 +145,17 @@ function takeAction(game, action, value) {
     }
   }
 }
+
+ConversationManager.prototype.endConversation = function() {
+  if (this.conversation === null) {
+    return;
+  }
+
+  if ('onEnd' in this.conversation) {
+    console.log(this.customActions);
+    this.customActions.customAction(this.conversation['onEnd']);
+  }
+};
 
 ConversationManager.prototype.update = function () {
   // TODO: Stub.

@@ -97,6 +97,7 @@ DialogueWindow.prototype.constructor = DialogueWindow;
 
 DialogueWindow.prototype.begin = function(jsonKey) {
   this.convoManager.loadJSONConversation(jsonKey);
+  this.show();
   this.display();
 };
 
@@ -209,6 +210,7 @@ DialogueWindow.prototype.addChoiceButton = function (x, y, responseTextField, re
     choiceButton.events.onInputUp.add(
       function () {
         this.dialogueWindow.hide();
+        this.dialogueWindow.convoManager.endConversation();  // take any actions that trigger when this conversation ends
       }, {dialogueWindow: this});
   }
 
@@ -248,20 +250,21 @@ DialogueWindow.prototype.addOverflowScroll = function () {
   }
 };
 
-DialogueWindow.prototype.removeAvatar = function() {
+DialogueWindow.prototype.hideAvatar = function() {
   var fadeOutTween = this._game.add.tween(this.avatar);
   var fadeOut = 200;
   fadeOutTween.to({alpha: 0}, fadeOut, Phaser.Easing.Linear.None, true);
-  fadeOutTween.onComplete.add(function() {
-    this.avatar.container.displayGroup.removeAll(true);
-  }, this);
+};
+
+DialogueWindow.prototype.show = function() {
+  this.dialogPanel.visible = true;
 };
 
 DialogueWindow.prototype.hide = function () {
   this.cleanWindow();
   //this.visible = false;
   this.dialogPanel.visible = false;
-  this.removeAvatar(); //remove avatar
+  this.hideAvatar(); //hide avatar
 };
 
 DialogueWindow.prototype.update = function () {

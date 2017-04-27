@@ -12,6 +12,7 @@ var Clickable = require('../objects/Clickable');
 var Player = require('../objects/Player');
 var DialogueWindow = require('../objects/DialogueWindow');
 var ConversationManager = require('../objects/ConversationManager');
+var CustomActions = require('../utils/CustomActions');
 
 exports.preload = function(game) {
   // preload all UI menu themes.
@@ -24,11 +25,13 @@ exports.create = function (game) {
 
   transitionRoom(game, 'shuttle-bg');
 
+  // custom actions for conversations
+  var customActions = new CustomActions(game);
   // conversation manager
-  var convoManager = new ConversationManager(game);
+  var convoManager = new ConversationManager(game, customActions);
   // dialogue window object
   game.dialogueWindow = new DialogueWindow(game, convoManager);
-  game.dialogueWindow.begin('prologue02');
+  game.dialogueWindow.begin('prologue01');
 };
 
 function transitionRoom(game, room) {

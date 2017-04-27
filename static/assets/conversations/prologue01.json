@@ -941,5 +941,6 @@
         ],
         "speaker": "Mysterious Voice",
         "text": "Good luck with the welcome party. Remember, be on your best behavior. I'll talk to you again soon."
-    }
+    },
+    "onEnd": "startConv:prologue02"
 }
