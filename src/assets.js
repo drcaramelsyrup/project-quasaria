@@ -50,6 +50,9 @@ exports.game = [{
   key: 'mysterious-voice',
   type: 'image'
 }, {
+  key: 'kismet',
+  type: 'image'
+}, {
   key: 'invisible',
   type: 'image'
 }];
