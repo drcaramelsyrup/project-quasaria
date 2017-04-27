@@ -41,7 +41,10 @@ exports.game = [{
   key: 'shuttle-placeable',
   type: 'image',
   url: 'items/shuttle-placeable.png'
-}, {
+}];
+
+// -- UI-specific assets.
+exports.ui = [{
   key: 'choice-button',
   type: 'image',
   url: 'ui/choice-button.png'
@@ -65,7 +68,9 @@ exports.game = [{
   key: 'memory-bank',
   type: 'image',
   url: 'ui/memory-bank.png'
-}, {
+}];
+
+exports.conversations = [{
   key: 'prologue01',
   type: 'json',
   url: 'conversations/prologue01.json'
