@@ -118,12 +118,12 @@ ConversationManager.prototype.takeActions = function() {
   }
 
   for (var action in this.conversation[this.idx]['actions']) {
-    takeAction(this._game, action, this.conversation[this.idx]['actions'][action]);
+    this.takeAction(this._game, action, this.conversation[this.idx]['actions'][action]);
     return;
   }
 };
 
-function takeAction(game, action, value) {
+ConversationManager.prototype.takeAction = function(game, action, value) {
   if (action.startsWith('var')) {
     var variable = action.substring(3);
     if (value.startsWith('!')) {
@@ -143,6 +143,8 @@ function takeAction(game, action, value) {
     } else {
       game.player.inventory.push(item); //add item to player inventory
     }
+  } else if (action === 'custom') {
+    this.customActions.customAction(value);
   }
 }
 
@@ -152,7 +154,6 @@ ConversationManager.prototype.endConversation = function() {
   }
 
   if ('onEnd' in this.conversation) {
-    console.log(this.customActions);
     this.customActions.customAction(this.conversation['onEnd']);
   }
 };

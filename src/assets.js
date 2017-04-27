@@ -22,14 +22,17 @@ exports.game = [{
   key: 'quasaria-logo',
   type: 'image'
 }, {
-  key: 'shuttle-bg',
-  type: 'image'
+  key: 'shuttle',
+  type: 'image',
+  url: 'backgrounds/shuttle.png'
 }, {
-  key: 'listener-obj',
-  type: 'image'
+  key: 'listener',
+  type: 'image',
+  url: 'items/listener.png'
 }, {
-  key: 'note-obj',
-  type: 'image'
+  key: 'note',
+  type: 'image',
+  url: 'items/note.png'
 }, {
   key: 'choice-button',
   type: 'image',
@@ -62,6 +65,10 @@ exports.game = [{
   key: 'gleaming-shoal',
   type: 'image',
   url: 'avatars/gleaming-shoal.png'
+}, {
+  key: 'unknown-alien',
+  type: 'image',
+  url: 'avatars/gleaming-shoal-silhouette.png'
 }, {
   key: 'invisible',
   type: 'image',

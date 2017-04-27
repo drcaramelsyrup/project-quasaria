@@ -23,7 +23,7 @@ exports.create = function (game) {
   this.camera.flash('#000000', 2000);
   game.player = game.add.existing(new Player(game));
 
-  transitionRoom(game, 'shuttle-bg');
+  transitionRoom(game, 'shuttle');
 
   // custom actions for conversations
   var customActions = new CustomActions(game);
@@ -43,8 +43,8 @@ function transitionRoom(game, room) {
   // clickable orb in room
   var orbX = 150;
   var orbY = 150;
-  game.add.existing(new Clickable(game, orbX, orbY, 'listener-obj'));
+  game.add.existing(new Clickable(game, orbX, orbY, 'listener'));
 
   // clickable note
-  game.add.existing(new Clickable(game, 720, 200, 'note-obj'));
+  game.add.existing(new Clickable(game, 720, 200, 'note'));
 }

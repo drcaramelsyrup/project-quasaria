@@ -74,7 +74,7 @@
                 "target": 5,
                 "text": "Found it!",
                 "conditions": {
-                    "invListener": "true"
+                    "invlistener": "true"
                 }
             }
         ],

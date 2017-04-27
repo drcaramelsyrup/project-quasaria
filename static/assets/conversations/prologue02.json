@@ -15,7 +15,7 @@
                 "text": "I can't understand you!"
             }
         ],
-        "speaker": "Gleaming Shoal",
+        "speaker": "Unknown Alien",
         "text": "Mragrasohrra rramramra! Sha rrakarra rrasohgraka karra kakagra. Grasoh shamra rra."
     },
     "1": {
@@ -135,7 +135,7 @@
                 "text": "What's he saying?"
             }
         ],
-        "speaker": "Gleaming Shoal",
+        "speaker": "Unknown Alien",
         "text": "Rragra gra sha mrasha karra! Mramra sha rrasohgraka, rra mra' rraka sha rramramra ss rramra."
     },
     "7": {
@@ -203,7 +203,9 @@
         "text": "Private channel, remember? Only you can hear me. And it'll just make things worse if they know I'm here."
     },
     "11": {
-        "actions": {},
+        "actions": {
+            "custom": "fadeInAndOut2000"
+        },
         "comments": [
             "<!-- Fade to black, then back in again with Gleaming Shoal's avatar present in the shuttle scene. -->",
             "<!-- Translation: It's an alien. Right, Kismet? -->"
@@ -512,7 +514,7 @@
                 "target": 29,
                 "text": "Wait. I have a note that might help explain.",
                 "conditions": {
-                    "invIndecipherable Note": "true"
+                    "invnote": "true"
                 }
             },
             {
@@ -536,7 +538,7 @@
                 "target": 29,
                 "text": "Wait. I have a note that might help explain.",
                 "conditions": {
-                    "invIndecipherable Note": "true"
+                    "invnote": "true"
                 }
             },
             {
