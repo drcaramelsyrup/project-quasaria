@@ -12,6 +12,7 @@ var Player = require('../objects/Player');
 var DialogueWindow = require('../objects/DialogueWindow');
 var ConversationManager = require('../objects/ConversationManager');
 var CustomActions = require('../utils/CustomActions');
+var MemoryBankWindow = require('../objects/MemoryBankWindow');
 
 exports.preload = function(game) {
   // preload all UI menu themes.
@@ -31,5 +32,8 @@ exports.create = function (game) {
   var convoManager = new ConversationManager(game, customActions);
   // dialogue window object
   game.dialogueWindow = new DialogueWindow(game, convoManager);
+  // memory bank window object
+  game.memoryBankWindow = new MemoryBankWindow(game);
+
   game.dialogueWindow.begin('prologue01');
 };

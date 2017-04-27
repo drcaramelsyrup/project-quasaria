@@ -262,7 +262,6 @@ DialogueWindow.prototype.show = function() {
 
 DialogueWindow.prototype.hide = function () {
   this.cleanWindow();
-  //this.visible = false;
   this.dialogPanel.visible = false;
   this.hideAvatar(); //hide avatar
 };

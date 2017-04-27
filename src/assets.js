@@ -58,6 +58,14 @@ exports.game = [{
   type: 'image',
   url: 'ui/memory-bank-button.png'
 }, {
+  key: 'memory-bank-icon',
+  type: 'image',
+  url: 'ui/memory-bank-icon.png'
+}, {
+  key: 'memory-bank',
+  type: 'image',
+  url: 'ui/memory-bank.png'
+}, {
   key: 'prologue01',
   type: 'json',
   url: 'conversations/prologue01.json'
