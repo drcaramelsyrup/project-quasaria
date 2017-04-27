@@ -1,8 +1,10 @@
 import argparse
 import re
 import json
+import os
 
 parser = argparse.ArgumentParser(description='Bleh')
+parser.add_argument('-d', '--delete', help='Delete source file after parsing', action='store_true')
 parser.add_argument('source', help='Source file for conversation (in Entweedle format)')
 parser.add_argument('dest', help='Destination file for conversation (in JSON)')
 args = parser.parse_args()
@@ -66,6 +68,8 @@ def createConvNode(node, id):
 				node_responses.append({'text': response[0], 'target': response[1], 'conditions': conditions})
 		elif line[0] != '{' and line[0] != '}':
 			node_text = node_text + line + '\n'
+	if len(node_responses) == 0:
+		node_responses.append({'text': 'END', 'target': -1})
 	node_text = node_text.strip()
 	titlesToIds[node_name] = id
 	return {
@@ -89,9 +93,13 @@ conv_dict_idx = {}
 for node_name in conv_dict:
 	node = conv_dict[node_name]
 	for response in node['responses']:
-		response['target'] = titlesToIds[response['target']]
+		if response['target'] != -1:
+			response['target'] = titlesToIds[response['target']]
 	del node['name']
 	conv_dict_idx[node['id']] = node
 
 with open(args.dest, 'w') as dest_file:
 	json.dump(conv_dict_idx, dest_file, sort_keys=True, indent=4, separators=(',', ': '))
+
+if args.delete:
+	os.remove(args.source)
