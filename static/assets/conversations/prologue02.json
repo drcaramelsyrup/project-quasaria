@@ -510,7 +510,10 @@
         "responses": [
             {
                 "target": 29,
-                "text": "Wait. I have a note that might help explain."
+                "text": "Wait. I have a note that might help explain.",
+                "conditions": {
+                    "invIndecipherable Note": "true"
+                }
             },
             {
                 "target": 32,
@@ -531,7 +534,10 @@
         "responses": [
             {
                 "target": 29,
-                "text": "Wait. I have a note that might help explain."
+                "text": "Wait. I have a note that might help explain.",
+                "conditions": {
+                    "invIndecipherable Note": "true"
+                }
             },
             {
                 "target": 32,

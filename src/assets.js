@@ -47,11 +47,18 @@ exports.game = [{
   type: 'json',
   url: 'conversations/prologue01.json'
 }, {
+  key: 'prologue02',
+  type: 'json',
+  url: 'conversations/prologue02.json'
+}, {
   key: 'mysterious-voice',
   type: 'image'
 }, {
   key: 'kismet',
   type: 'image'
+}, {
+  key: 'gleaming-shoal',
+  type: 'image',
 }, {
   key: 'invisible',
   type: 'image'

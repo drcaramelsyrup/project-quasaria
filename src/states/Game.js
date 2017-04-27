@@ -28,7 +28,7 @@ exports.create = function (game) {
   var convoManager = new ConversationManager(game);
   // dialogue window object
   game.dialogueWindow = new DialogueWindow(game, convoManager);
-  game.dialogueWindow.begin('prologue01');
+  game.dialogueWindow.begin('prologue02');
 };
 
 function transitionRoom(game, room) {

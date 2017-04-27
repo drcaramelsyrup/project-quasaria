@@ -32,7 +32,7 @@ function DialogueWindow(game, convoManager/*, ...args*/) {
 
   // speaker avatar display
   game.slickUI.add(this.avatar = new SlickUI.Element.DisplayObject(
-    400, 100, game.make.sprite(0, 0, "invisible"),
+    400, 100, game.make.sprite(0, 0, 'invisible'),
     400, 500));
 
   // dialogue window dimensions
@@ -88,7 +88,7 @@ function DialogueWindow(game, convoManager/*, ...args*/) {
   this._buttonsY = [];
 
   //for keeping track of whether the avatar needs to be updated (performance intensive)
-  this.avatarName = "invisible";
+  this.avatarName = 'invisible';
 
 }
 
@@ -131,12 +131,20 @@ DialogueWindow.prototype.cleanWindow = function () {
 
 DialogueWindow.prototype.takeActions = function() {
   this.convoManager.takeActions(this._game);
-}
+};
 
+// if avatar needs to change, fade out the current one and fade in the new one
 DialogueWindow.prototype.displayAvatar = function() {
   var speaker = this.convoManager.getAvatar();
+  var fadeOut = 200;
+  var fadeIn = 200;
   if (speaker !== this.avatarName) {
-    this.avatar.displayObject.loadTexture(speaker);
+    var fadeInTween = this._game.add.tween(this.avatar);
+    fadeInTween.to({alpha: 0}, fadeOut, Phaser.Easing.Linear.None, true);
+    fadeInTween.onComplete.add(function() {
+      this.avatar.displayObject.loadTexture(speaker);
+      this._game.add.tween(this.avatar).to({alpha: 1}, fadeIn, Phaser.Easing.Linear.None, true);
+    }, this);
     this.avatarName = speaker;
   }
 };
@@ -240,11 +248,20 @@ DialogueWindow.prototype.addOverflowScroll = function () {
   }
 };
 
+DialogueWindow.prototype.removeAvatar = function() {
+  var fadeOutTween = this._game.add.tween(this.avatar);
+  var fadeOut = 200;
+  fadeOutTween.to({alpha: 0}, fadeOut, Phaser.Easing.Linear.None, true);
+  fadeOutTween.onComplete.add(function() {
+    this.avatar.container.displayGroup.removeAll(true);
+  }, this);
+};
+
 DialogueWindow.prototype.hide = function () {
   this.cleanWindow();
   //this.visible = false;
   this.dialogPanel.visible = false;
-  this.avatar.container.displayGroup.removeAll(true); //remove avatar
+  this.removeAvatar(); //remove avatar
 };
 
 DialogueWindow.prototype.update = function () {
