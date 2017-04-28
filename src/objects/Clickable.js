@@ -9,6 +9,7 @@
 
 var Toast = require('./Toast');
 var items = require('../../static/assets/items.json');
+var InventoryItem = require('./InventoryItem');
 
 function Clickable(game, x, y, id, height, width) {
   Phaser.Sprite.call(this, game, x, y, id);
@@ -29,7 +30,8 @@ function Clickable(game, x, y, id, height, width) {
 function click() {
   this.destroy();
   this._game.add.existing(new Toast(this._game, 'You\'ve acquired ' + this.name + '!', 5));
-  this._game.player.inventory.push(this.id);
+  this._game.player.inventory.push(new InventoryItem(this._game, 
+    this.id, this.name, items[this.id]['desc']));
   this._game.dialogueWindow.display(); //refresh dialogue display
 }
 

@@ -65,11 +65,16 @@ exports.ui = [{
   type: 'image',
   url: 'ui/memory-bank-icon.png'
 }, {
+  key: 'memory-bank-icon-mask',
+  type: 'image',
+  url: 'ui/memory-bank-icon-mask.png'
+}, {
   key: 'memory-bank',
   type: 'image',
   url: 'ui/memory-bank.png'
 }];
 
+// -- Conversation jsons and avatars.
 exports.conversations = [{
   key: 'prologue01',
   type: 'json',
