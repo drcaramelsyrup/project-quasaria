@@ -26,35 +26,35 @@ module.exports = Room.prototype.constructor = Room;
 
 Room.prototype.addItems = function() {
   for (var i = 0; i < this.area['items'].length; i++) {
-  	var item = this.area['items'][i];
+    var item = this.area['items'][i];
     this._game.add.existing(item = new Clickable(this._game, item['x'], item['y'], item['id'], item['height'], item['width']));
     this.items.push(item);
   }
-  for (var i = 0; i < this.area['placeables'].length; i++) {
-  	var placeable = this.area['placeables'][i];
-  	this._game.add.existing(placeable = new Placeable(this._game, placeable['x'], placeable['y'], placeable['id'], placeable['height'], placeable['width']));
-  	this.placeables.push(placeable);
+  for (i = 0; i < this.area['placeables'].length; i++) {
+    var placeable = this.area['placeables'][i];
+    this._game.add.existing(placeable = new Placeable(this._game, placeable['x'], placeable['y'], placeable['id'], placeable['height'], placeable['width']));
+    this.placeables.push(placeable);
   }
 };
 
 Room.prototype.clearItems = function() {
   for (var i = 0; i < this.items.length; i++) {
-  	this.items[i].destroy();
+    this.items[i].destroy();
   }
-  for (var i = 0; i < this.placeables.length; i++) {
-  	this.placeables[i].destroy();
+  for (i = 0; i < this.placeables.length; i++) {
+    this.placeables[i].destroy();
   }
   this.items = [];
   this.placeables = [];
-}
+};
 
 Room.prototype.loadArea = function(area) {
   this.area = areas[area];
   this._game.camera.fade('#000000', 2000);
   this._game.camera.onFadeComplete.addOnce(function() {
-  	this.clearItems();
-  	this._game.camera.flash('#000000', 2000);
-  	this.loadTexture(this.area['bg']);
-  	this.addItems();
+    this.clearItems();
+    this._game.camera.flash('#000000', 2000);
+    this.loadTexture(this.area['bg']);
+    this.addItems();
   }, this);
-}
+};

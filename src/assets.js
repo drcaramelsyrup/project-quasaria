@@ -41,7 +41,10 @@ exports.game = [{
   key: 'shuttle-placeable',
   type: 'image',
   url: 'items/shuttle-placeable.png'
-}, {
+}];
+
+// -- UI-specific assets.
+exports.ui = [{
   key: 'choice-button',
   type: 'image',
   url: 'ui/choice-button.png'
@@ -54,6 +57,25 @@ exports.game = [{
   type: 'image',
   url: 'ui/toast.png'
 }, {
+  key: 'memory-bank-button',
+  type: 'image',
+  url: 'ui/memory-bank-button.png'
+}, {
+  key: 'memory-bank-icon',
+  type: 'image',
+  url: 'ui/memory-bank-icon.png'
+}, {
+  key: 'memory-bank-icon-mask',
+  type: 'image',
+  url: 'ui/memory-bank-icon-mask.png'
+}, {
+  key: 'memory-bank',
+  type: 'image',
+  url: 'ui/memory-bank.png'
+}];
+
+// -- Conversation jsons and avatars.
+exports.conversations = [{
   key: 'prologue01',
   type: 'json',
   url: 'conversations/prologue01.json'

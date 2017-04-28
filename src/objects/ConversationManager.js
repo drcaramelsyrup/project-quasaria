@@ -146,7 +146,7 @@ ConversationManager.prototype.takeAction = function(game, action, value) {
   } else if (action === 'custom') {
     this.customActions.customAction(value);
   }
-}
+};
 
 ConversationManager.prototype.endConversation = function() {
   if (this.conversation === null) {

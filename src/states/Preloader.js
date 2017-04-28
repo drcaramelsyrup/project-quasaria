@@ -18,6 +18,8 @@ function showSplashScreen (game) {
 exports.preload = function (game) {
   showSplashScreen(game);
   game.load.pack('game', null, assets);
+  game.load.pack('ui', null, assets);
+  game.load.pack('conversations', null, assets);
 };
 
 exports.create = function (game) {

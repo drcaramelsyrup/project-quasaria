@@ -12,7 +12,7 @@
 var Toast = require('./Toast');
 var items = require('../../static/assets/items.json');
 
-function Placeable(game, x, y, id, height, width, message) {
+function Placeable(game, x, y, id, height, width) {
   Phaser.Sprite.call(this, game, x, y, id);
   this.height = height;
   this.width = width;
