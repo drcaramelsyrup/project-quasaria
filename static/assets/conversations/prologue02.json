@@ -15,7 +15,7 @@
                 "text": "I can't understand you!"
             }
         ],
-        "speaker": "Gleaming Shoal",
+        "speaker": "Unknown Alien",
         "text": "Mragrasohrra rramramra! Sha rrakarra rrasohgraka karra kakagra. Grasoh shamra rra."
     },
     "1": {
@@ -135,7 +135,7 @@
                 "text": "What's he saying?"
             }
         ],
-        "speaker": "Gleaming Shoal",
+        "speaker": "Unknown Alien",
         "text": "Rragra gra sha mrasha karra! Mramra sha rrasohgraka, rra mra' rraka sha rramramra ss rramra."
     },
     "7": {
@@ -203,7 +203,9 @@
         "text": "Private channel, remember? Only you can hear me. And it'll just make things worse if they know I'm here."
     },
     "11": {
-        "actions": {},
+        "actions": {
+            "custom": "fadeInAndOut2000"
+        },
         "comments": [
             "<!-- Fade to black, then back in again with Gleaming Shoal's avatar present in the shuttle scene. -->",
             "<!-- Translation: It's an alien. Right, Kismet? -->"
@@ -249,7 +251,12 @@
             "<!-- Translation: Last warning! -->"
         ],
         "id": 13,
-        "responses": [],
+        "responses": [
+            {
+                "target": -1,
+                "text": "END"
+            }
+        ],
         "speaker": "Gleaming Shoal",
         "text": "Kasha mramramra!"
     },
@@ -313,7 +320,7 @@
                 "text": "Hello? Do you understand me yet?"
             }
         ],
-        "speaker": "Gleaming Shoal",
+        "speaker": "Kismet",
         "text": "Vu' lakeirei sha ka vu vu reika. Kei shadru, kukuka."
     },
     "17": {
@@ -379,10 +386,661 @@
     },
     "20": {
         "actions": {},
-        "comments": [],
+        "comments": [
+            "<!-- Translation: What is your name? What is your species called? -->"
+        ],
         "id": 20,
-        "responses": [],
+        "responses": [
+            {
+                "target": 21,
+                "text": "My name? I... don't actually know."
+            },
+            {
+                "target": 21,
+                "text": "Believe me, I wish I could tell you."
+            }
+        ],
+        "speaker": "Kismet",
+        "text": "Vuvei lu your name? Vukei vu lu species keika?"
+    },
+    "21": {
+        "actions": {},
+        "comments": [
+            "<!-- Translation: It doesn't know its own name? -->"
+        ],
+        "id": 21,
+        "responses": [
+            {
+                "target": 22,
+                "text": "I told you, I don't know."
+            },
+            {
+                "target": 23,
+                "text": "I can't remember anything. I have amnesia."
+            },
+            {
+                "target": 24,
+                "text": "My, uh... my species doesn't have names."
+            }
+        ],
         "speaker": "Gleaming Shoal",
-        "text": "Double-click this passage to edit it."
+        "text": "Gra rramra' rra gra rra name?"
+    },
+    "22": {
+        "actions": {},
+        "comments": [],
+        "id": 22,
+        "responses": [
+            {
+                "target": 23,
+                "text": "Wait, I do understand. I just have amnesia."
+            }
+        ],
+        "speaker": "Kismet",
+        "text": "I don't think it understands the question."
+    },
+    "23": {
+        "actions": {},
+        "comments": [],
+        "id": 23,
+        "responses": [
+            {
+                "target": 25,
+                "text": "It means I'm missing memories."
+            },
+            {
+                "target": 26,
+                "text": "Not really. It's not contagious."
+            }
+        ],
+        "speaker": "Gleaming Shoal",
+        "text": "What is amnesia? Is that a disease?"
+    },
+    "24": {
+        "actions": {},
+        "comments": [
+            "<!-- Translation: Another species without names? That always makes communication complicated. Maybe we should get a Hallowed in here. -->"
+        ],
+        "id": 24,
+        "responses": [
+            {
+                "target": 23,
+                "text": "I'm sorry I can't answer more of your questions. I have amnesia."
+            }
+        ],
+        "speaker": "Kismet",
+        "text": "Another species without names? That always makes shadravukeisa shakuvukeika. Maybe we should get a keidruka in here."
+    },
+    "25": {
+        "actions": {},
+        "comments": [],
+        "id": 25,
+        "responses": [
+            {
+                "target": 27,
+                "text": "My homeworld was destroyed. I'm the only survivor. I'm here as a refugee."
+            },
+            {
+                "target": 27,
+                "text": "Something destroyed my homeworld. I'm the only survivor. I'm here looking for answers."
+            },
+            {
+                "target": 28,
+                "text": "I woke up on a shuttle headed here. I don't remember where I came from and I've got nowhere else to go."
+            }
+        ],
+        "speaker": "Gleaming Shoal",
+        "text": "I see. What is your purpose on Station Zero? We have not had... visitors of your kind before."
+    },
+    "26": {
+        "actions": {},
+        "comments": [],
+        "id": 26,
+        "responses": [
+            {
+                "target": 25,
+                "text": "Some questions. I'm missing memories of who I am and where I'm from."
+            }
+        ],
+        "speaker": "Gleaming Shoal",
+        "text": "It prevents you from answering questions?"
+    },
+    "27": {
+        "actions": {},
+        "comments": [],
+        "id": 27,
+        "responses": [
+            {
+                "target": 29,
+                "text": "Wait. I have a note that might help explain.",
+                "conditions": {
+                    "invnote": "true"
+                }
+            },
+            {
+                "target": 32,
+                "text": "It's the truth."
+            },
+            {
+                "target": 32,
+                "text": "I don't know what else to tell you."
+            }
+        ],
+        "speaker": "Gleaming Shoal",
+        "text": "We've had no reports of any planetary destruction events. If your people were sophisticated enough to build a space shuttle like this, they would certainly have been known to us. Your story doesn't add up."
+    },
+    "28": {
+        "actions": {},
+        "comments": [],
+        "id": 28,
+        "responses": [
+            {
+                "target": 29,
+                "text": "Wait. I have a note that might help explain.",
+                "conditions": {
+                    "invnote": "true"
+                }
+            },
+            {
+                "target": 32,
+                "text": "It's the truth."
+            },
+            {
+                "target": 32,
+                "text": "I don't know what else to tell you."
+            }
+        ],
+        "speaker": "Gleaming Shoal",
+        "text": "That's a very strange story, if true. Not only is it strange, but it's also convenient. Do you expect me to believe that you're incapable of answering the most basic of questions about yourself?"
+    },
+    "29": {
+        "actions": {},
+        "comments": [],
+        "id": 29,
+        "responses": [
+            {
+                "target": 30,
+                "text": "..."
+            }
+        ],
+        "speaker": "Gleaming Shoal",
+        "text": "A note? Hmm... Let me see that."
+    },
+    "30": {
+        "actions": {},
+        "comments": [],
+        "id": 30,
+        "responses": [
+            {
+                "target": 31,
+                "text": "Oh. Neither can I."
+            },
+            {
+                "target": 31,
+                "text": "I was hoping you could read it, since I can't."
+            }
+        ],
+        "speaker": "Gleaming Shoal",
+        "text": "Is this your written language, alien? I don't understand it."
+    },
+    "31": {
+        "actions": {},
+        "comments": [],
+        "id": 31,
+        "responses": [
+            {
+                "target": 33,
+                "text": "What do you mean?"
+            },
+            {
+                "target": 33,
+                "text": "And the options are...?"
+            },
+            {
+                "target": 33,
+                "text": "Look, it's not hard. Just let me on the station."
+            }
+        ],
+        "speaker": "Gleaming Shoal",
+        "text": "Keep it. If your memories are gone, as you say, then perhaps you'll be able to understand it one day. In the meantime, I must decide what to do with you."
+    },
+    "32": {
+        "actions": {},
+        "comments": [],
+        "id": 32,
+        "responses": [
+            {
+                "target": 33,
+                "text": "What do you mean?"
+            },
+            {
+                "target": 33,
+                "text": "And the options are...?"
+            },
+            {
+                "target": 33,
+                "text": "Look, it's not hard. Just let me on the station."
+            }
+        ],
+        "speaker": "Gleaming Shoal",
+        "text": "I don't know what you are, alien. It's a miracle that we're able to understand each other. Without more information, it's going to be difficult to decide what to do with you."
+    },
+    "33": {
+        "actions": {},
+        "comments": [],
+        "id": 33,
+        "responses": [
+            {
+                "target": 34,
+                "text": "You can't just maroon me! That's a death sentence."
+            },
+            {
+                "target": 34,
+                "text": "Then you're responsible for genocide. I'm the last of my kind."
+            },
+            {
+                "target": 35,
+                "text": "Surely you don't treat other aliens this way."
+            },
+            {
+                "target": 36,
+                "text": "I'm not contagious, and I don't remember any cultural customs."
+            }
+        ],
+        "speaker": "Gleaming Shoal",
+        "text": "I can't give you clearance to enter Station Zero. You could be carrying an alien contagion, or your cultural customs could be dangerous to other station residents. The only safe thing to do with you is to launch your shuttle toward the nearest uninhabited planet."
+    },
+    "34": {
+        "actions": {},
+        "comments": [],
+        "id": 34,
+        "responses": [
+            {
+                "target": 37,
+                "text": "..."
+            }
+        ],
+        "speaker": "Kismet",
+        "text": "The alien's right, Gleaming Shoal. Marooning the alien might be the safest option, but it's morally unjustifiable. The Council would never agree to it."
+    },
+    "35": {
+        "actions": {},
+        "comments": [],
+        "id": 35,
+        "responses": [
+            {
+                "target": 37,
+                "text": "..."
+            }
+        ],
+        "speaker": "Kismet",
+        "text": "No. We don't. Gleaming Shoal, you can't just send the alien away. The Council would never agree. We could have much to learn from this... creature."
+    },
+    "36": {
+        "actions": {},
+        "comments": [],
+        "id": 36,
+        "responses": [
+            {
+                "target": 37,
+                "text": "..."
+            }
+        ],
+        "speaker": "Kismet",
+        "text": "Gleaming Shoal, think about what you're doing. We have scientists who can determine whether this alien is capable of harming anyone on the station. The Council will be angry if you simply send it away before we can learn more about it."
+    },
+    "37": {
+        "actions": {},
+        "comments": [],
+        "id": 37,
+        "responses": [
+            {
+                "target": 38,
+                "text": "..."
+            }
+        ],
+        "speaker": "Gleaming Shoal",
+        "text": "Quiet, Kismet. I am the station's docks administrator. I have authority over who stays and who goes. The Council can take issue with my actions, but I am responsible for the safety of Station Zero, and I will do my duty. We know nothing about this alien."
+    },
+    "38": {
+        "actions": {},
+        "comments": [],
+        "id": 38,
+        "responses": [
+            {
+                "target": 39,
+                "text": "..."
+            }
+        ],
+        "speaker": "Kismet",
+        "text": "Yes, precisely. We know nothing. And our scientists, our diplomats, our archivists would be furious if you kept it that way. If what this alien says is true, this could be our last chance to preserve an entire culture. Even if it remembers nothing, we could still learn much from its biology."
+    },
+    "39": {
+        "actions": {},
+        "comments": [],
+        "id": 39,
+        "responses": [
+            {
+                "target": 40,
+                "text": "..."
+            },
+            {
+                "target": 41,
+                "text": "Can I talk yet?"
+            }
+        ],
+        "speaker": "Gleaming Shoal",
+        "text": "Mrakarra ka... You speak out of turn, Kismet. Remember who is in charge here."
+    },
+    "40": {
+        "actions": {},
+        "comments": [],
+        "id": 40,
+        "responses": [
+            {
+                "target": 42,
+                "text": "..."
+            }
+        ],
+        "speaker": "Kismet",
+        "text": "I defer to you, Gleaming Shoal... as always. I simply don't want you to make a costly mistake."
+    },
+    "41": {
+        "actions": {},
+        "comments": [],
+        "id": 41,
+        "responses": [
+            {
+                "target": 40,
+                "text": "..."
+            }
+        ],
+        "speaker": "Kismet",
+        "text": "If you want to live, alien, you should keep your mouth closed."
+    },
+    "42": {
+        "actions": {},
+        "comments": [],
+        "id": 42,
+        "responses": [
+            {
+                "target": 43,
+                "text": "Thank you."
+            },
+            {
+                "target": 43,
+                "text": "What have you decided to do instead?"
+            },
+            {
+                "target": 43,
+                "text": "Oh, good. Surviving on my own would be hard. I don't even know what kind of food I can eat."
+            }
+        ],
+        "speaker": "Gleaming Shoal",
+        "text": "Sometimes I think you exist to insubordinate me. Very well, alien. Kismet's argument has... made an impression. I have decided against launching your shuttle toward an uninhabited world."
+    },
+    "43": {
+        "actions": {},
+        "comments": [],
+        "id": 43,
+        "responses": [
+            {
+                "target": 44,
+                "text": "Yes, I understand."
+            },
+            {
+                "target": 45,
+                "text": "How do I prove that I don't pose a threat?"
+            },
+            {
+                "target": 46,
+                "text": "How long will I be in quarantine?"
+            }
+        ],
+        "speaker": "Gleaming Shoal",
+        "text": "You will be placed in quarantine on the station until it can be proven, beyond a doubt, that you pose no threat to the station's other residents. If you attempt to leave quarantine without permission, deadly force will be used to prevent you from doing so. Do you understand?"
+    },
+    "44": {
+        "actions": {},
+        "comments": [],
+        "id": 44,
+        "responses": [
+            {
+                "target": 47,
+                "text": "I appreciate you giving me this chance."
+            },
+            {
+                "target": 48,
+                "text": "Their tests had better not be too invasive."
+            },
+            {
+                "target": 49,
+                "text": "A xeno-what now? Either your translator glitched or that's a word I don't know."
+            }
+        ],
+        "speaker": "Gleaming Shoal",
+        "text": "Good. Our scientists will want to examine you. There will be a xenobiologist and a xenopsychologist waiting for you in the medical bay. They will need to conclude that you don't pose a threat to anyone else before there is even a chance that you can leave quarantine."
+    },
+    "45": {
+        "actions": {},
+        "comments": [],
+        "id": 45,
+        "responses": [
+            {
+                "target": 47,
+                "text": "I appreciate you giving me this chance."
+            },
+            {
+                "target": 48,
+                "text": "Their tests had better not be too invasive."
+            },
+            {
+                "target": 49,
+                "text": "A xeno-what now? Either your translator glitched or that's a word I don't know."
+            }
+        ],
+        "speaker": "Gleaming Shoal",
+        "text": "Our scientists will examine you. There will be a xenobiologist and a xenopsychologist waiting for you in the medical bay. They will need to conclude that you don't pose a threat to anyone else before there is even a chance that you can leave quarantine."
+    },
+    "46": {
+        "actions": {},
+        "comments": [],
+        "id": 46,
+        "responses": [
+            {
+                "target": 47,
+                "text": "I appreciate you giving me this chance."
+            },
+            {
+                "target": 48,
+                "text": "Their tests had better not be too invasive."
+            },
+            {
+                "target": 49,
+                "text": "A xeno-what now? Either your translator glitched or that's a word I don't know."
+            }
+        ],
+        "speaker": "Gleaming Shoal",
+        "text": "That is up to our scientists. There will be a xenobiologist and a xenopsychologist waiting for you in the medical bay. They will need to conclude that you don't pose a threat to anyone else before there is even a chance that you can leave quarantine."
+    },
+    "47": {
+        "actions": {},
+        "comments": [],
+        "id": 47,
+        "responses": [
+            {
+                "target": 50,
+                "text": "Yes, and I'm thanking you for it."
+            },
+            {
+                "target": 51,
+                "text": "My manners aren't strange. Yours are."
+            },
+            {
+                "target": 50,
+                "text": "Well, thanks for doing your duty, then."
+            }
+        ],
+        "speaker": "Gleaming Shoal",
+        "text": "Your manners are strange, alien. I am doing you no favors. I am doing my duty, which happens to benefit you."
+    },
+    "48": {
+        "actions": {},
+        "comments": [],
+        "id": 48,
+        "responses": [
+            {
+                "target": 52,
+                "text": "Ugh. I bet that means probes."
+            },
+            {
+                "target": 53,
+                "text": "I guess that's fair."
+            },
+            {
+                "target": 54,
+                "text": "I don't like any of this."
+            }
+        ],
+        "speaker": "Gleaming Shoal",
+        "text": "You will submit to whatever examinations they require. That is a condition of your permission to be here."
+    },
+    "49": {
+        "actions": {},
+        "comments": [],
+        "id": 49,
+        "responses": [
+            {
+                "target": 55,
+                "text": "Hey! My people were plenty advanced... probably."
+            },
+            {
+                "target": 56,
+                "text": "You could be right. If they were advanced, maybe more of them would have escaped."
+            },
+            {
+                "target": 57,
+                "text": "Well, at least I have thumbs."
+            }
+        ],
+        "speaker": "Gleaming Shoal",
+        "text": "Scientists who study the minds and bodies of aliens. Perhaps your people were not advanced enough to have a word for such a thing."
+    },
+    "50": {
+        "actions": {},
+        "comments": [],
+        "id": 50,
+        "responses": [
+            {
+                "target": 58,
+                "text": "..."
+            }
+        ],
+        "speaker": "Gleaming Shoal",
+        "text": "As I said, strange."
+    },
+    "51": {
+        "actions": {},
+        "comments": [],
+        "id": 51,
+        "responses": [
+            {
+                "target": 58,
+                "text": "..."
+            }
+        ],
+        "speaker": "Gleaming Shoal",
+        "text": "I am sure I seem as strange to you as you seem to me. However, there are many more of my kind aboard Station Zero, and there is only one of you. That makes you the strange one."
+    },
+    "52": {
+        "actions": {},
+        "comments": [],
+        "id": 52,
+        "responses": [
+            {
+                "target": 58,
+                "text": "..."
+            }
+        ],
+        "speaker": "Gleaming Shoal",
+        "text": "I don't know what you speak of, but our scientists will not harm you."
+    },
+    "53": {
+        "actions": {},
+        "comments": [],
+        "id": 53,
+        "responses": [
+            {
+                "target": 58,
+                "text": "..."
+            }
+        ],
+        "speaker": "Gleaming Shoal",
+        "text": "Fairness has no bearing on this situation, alien. We do what must be done."
+    },
+    "54": {
+        "actions": {},
+        "comments": [],
+        "id": 54,
+        "responses": [
+            {
+                "target": 58,
+                "text": "..."
+            }
+        ],
+        "speaker": "Gleaming Shoal",
+        "text": "Our scientists will not harm you. They would not risk damaging something so difficult to replace."
+    },
+    "55": {
+        "actions": {},
+        "comments": [],
+        "id": 55,
+        "responses": [
+            {
+                "target": 58,
+                "text": "..."
+            }
+        ],
+        "speaker": "Gleaming Shoal",
+        "text": "Perhaps. Perhaps not."
+    },
+    "56": {
+        "actions": {},
+        "comments": [],
+        "id": 56,
+        "responses": [
+            {
+                "target": 58,
+                "text": "..."
+            }
+        ],
+        "speaker": "Gleaming Shoal",
+        "text": "If your story is true, how can you be certain that none of them did? Perhaps more refugees will arrive in the coming solar weeks."
+    },
+    "57": {
+        "actions": {},
+        "comments": [],
+        "id": 57,
+        "responses": [
+            {
+                "target": 58,
+                "text": "..."
+            }
+        ],
+        "speaker": "Gleaming Shoal",
+        "text": "I suspect you are mocking me, alien. It will take more than that to anger me, but you are not making a good impression on behalf of your species."
+    },
+    "58": {
+        "actions": {},
+        "comments": [],
+        "id": 58,
+        "responses": [
+            {
+                "target": -1,
+                "text": "END"
+            }
+        ],
+        "speaker": "Gleaming Shoal",
+        "text": "Go meet the scientists. The medical bay is close to the hangar. If you have questions, speak to my assistant, Garnetta, in Administrations."
     }
 }

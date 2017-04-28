@@ -8,13 +8,14 @@
 'use strict';
 
 var Toast = require('./Toast');
+var items = require('../../static/assets/items.json');
 
 function Clickable(game, x, y, assetName) {
   Phaser.Sprite.call(this, game, x, y, assetName);
 
   this._game = game;
   this.id = assetName;
-  this.name = mappings[assetName];
+  this.name = items[this.id]['name'];
   this.anchor.set(0.5);
   this.alpha = 0.5;
   this.inputEnabled = true;
@@ -27,7 +28,7 @@ function Clickable(game, x, y, assetName) {
 function click() {
   this.destroy();
   this._game.add.existing(new Toast(this._game, 'You\'ve acquired ' + this.name + '!', 5));
-  this._game.player.inventory.push(this.name);
+  this._game.player.inventory.push(this.id);
   this._game.dialogueWindow.display(); //refresh dialogue display
 }
 
@@ -37,9 +38,3 @@ function mouseover() {
 
 Clickable.prototype = Object.create(Phaser.Sprite.prototype);
 module.exports = Clickable.prototype.constructor = Clickable;
-
-//temporary way of mapping asset ids to their player-facing names
-var mappings = {
-  'listener-obj': 'Listener',
-  'note-obj': 'Indecipherable Note'
-};

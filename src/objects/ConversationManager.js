@@ -9,13 +9,14 @@
 
 module.exports = ConversationManager;
 
-function ConversationManager(game/*, ...args*/) {
+function ConversationManager(game, customActions/*, ...args*/) {
   Phaser.Group.call(this, game/*, ...args*/);
 
   // PROPERTIES:
   // - conversation - json conversation
 
   this._game = game;
+  this.customActions = customActions;
 
   this.conversation = null;
   this.idx = 0;
@@ -30,6 +31,7 @@ ConversationManager.prototype.loadJSONConversation = function (jsonKey) {
   var json = this._game.cache.getJSON(jsonKey);
 
   this.conversation = json;
+  this.idx = 0;
 };
 
 ConversationManager.prototype.getCurrentText = function () {
@@ -116,12 +118,12 @@ ConversationManager.prototype.takeActions = function() {
   }
 
   for (var action in this.conversation[this.idx]['actions']) {
-    takeAction(this._game, action, this.conversation[this.idx]['actions'][action]);
+    this.takeAction(this._game, action, this.conversation[this.idx]['actions'][action]);
     return;
   }
 };
 
-function takeAction(game, action, value) {
+ConversationManager.prototype.takeAction = function(game, action, value) {
   if (action.startsWith('var')) {
     var variable = action.substring(3);
     if (value.startsWith('!')) {
@@ -141,8 +143,20 @@ function takeAction(game, action, value) {
     } else {
       game.player.inventory.push(item); //add item to player inventory
     }
+  } else if (action === 'custom') {
+    this.customActions.customAction(value);
   }
 }
+
+ConversationManager.prototype.endConversation = function() {
+  if (this.conversation === null) {
+    return;
+  }
+
+  if ('onEnd' in this.conversation) {
+    this.customActions.customAction(this.conversation['onEnd']);
+  }
+};
 
 ConversationManager.prototype.update = function () {
   // TODO: Stub.
