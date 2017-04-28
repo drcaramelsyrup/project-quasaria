@@ -7,6 +7,8 @@
 
 'use strict';
 
+var items = require('../../static/assets/items.json');
+
 module.exports = MemoryBankWindow;
 
 function memoryBankButtonToggle() {
@@ -20,7 +22,7 @@ function memoryBankButtonToggle() {
   // hide panel
   if (this.panel.visible) {
     this._game.add.tween(this.panel).to(
-        {x: this._baseX + this.panelWidth}, timeToTween, Phaser.Easing.Exponential.Out, true
+        {x: this._baseX + this.panelWidth + this._memoryPadding}, timeToTween, Phaser.Easing.Exponential.Out, true
       ).onComplete.add(
         function () {
           this.panel.visible = false;
@@ -34,7 +36,7 @@ function memoryBankButtonToggle() {
   this.panel.visible = true;
   this.displayItems();
 
-  this.panel.x = this._baseX + this.panelWidth;
+  this.panel.x = this._baseX + this.panelWidth + this._memoryPadding;
   this._game.add.tween(this.panel).to(
       {x: this._baseX}, timeToTween, Phaser.Easing.Exponential.Out, true
     ).onComplete.add(function () { this._isTweening = false; }, this);
@@ -46,7 +48,7 @@ function MemoryBankWindow(game/*, ...args*/) {
   this._game = game;
 
   // private members specifying margin and padding
-  this._memoryTextOriginX = 95;
+  this._memoryTextOriginX = 100;
   this._memoryTextOriginY = 155;
   this._memoryPadding = 32;
   this._itemOriginX = 80;
@@ -108,20 +110,13 @@ MemoryBankWindow.prototype.constructor = MemoryBankWindow;
 
 MemoryBankWindow.prototype.displayItems = function () {
   var inventory = this._game.player.inventory;
-  // var mask = this._game.make.image('memory-bank-icon-mask');
 
-  // Assumes InventoryItem objects in memoryBank.
+  // Assumes InventoryItem objects in inventory.
   for (var i = 0; i < inventory.length; i++) {
-    var inventoryItem = inventory[i];
-
-    // var maskedBmd = this._game.make.bitmapData(mask.width, mask.height);
-    // maskedBmd.alphaMask(inventoryItem.id, mask);
-    // var itemSprite = this._game.make.sprite(0,0, maskedBmd);
-    // itemSprite.width = itemSprite.height = this.panelWidth / 8;
-    // itemSprite.scale.setTo((this.panelWidth / 8) / itemSprite.width);
+    var itemId = inventory[i];
 
     // scale = 1/8 panel width;
-    var itemSprite = this._game.make.sprite(0,0, inventoryItem.id);
+    var itemSprite = this._game.make.sprite(0,0, itemId);
     itemSprite.scale.setTo((this.panelWidth / 8) / itemSprite.width);
     
     this.panel.add(new SlickUI.Element.DisplayObject(
@@ -131,8 +126,8 @@ MemoryBankWindow.prototype.displayItems = function () {
     itemSprite.inputEnabled = true;
     itemSprite.input.useHandCursor = true;
     itemSprite.events.onInputOver.add(function () {
-      this.panelText.displayObject.text = this.inventoryItem.name + ': ' + this.inventoryItem.description;
-    }, {panelText: this.panelText, inventoryItem: inventoryItem});
+      this.panelText.displayObject.text = items[this.itemId]['name'] + ': ' + items[this.itemId]['desc'];
+    }, {panelText: this.panelText, itemId: itemId});
   }
 };
 

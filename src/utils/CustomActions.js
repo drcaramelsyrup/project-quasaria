@@ -44,8 +44,8 @@ CustomActions.prototype.fadeInAndOut = function(duration) {
   this._game.dialogueWindow.avatar.visible = false;
   this._game.dialogueWindow.dialogPanel.visible = false;
   this._game.camera.onFadeComplete.addOnce(function() {
-  	this._game.camera.flash('#000000', duration/2);
-  	this._game.dialogueWindow.avatar.visible = true;
-  	this._game.dialogueWindow.dialogPanel.visible = true;
+    this._game.camera.flash('#000000', duration/2);
+    this._game.dialogueWindow.avatar.visible = true;
+    this._game.dialogueWindow.dialogPanel.visible = true;
   }, this);
 };
