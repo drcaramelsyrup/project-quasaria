@@ -10,11 +10,13 @@
 var Toast = require('./Toast');
 var items = require('../../static/assets/items.json');
 
-function Clickable(game, x, y, assetName) {
-  Phaser.Sprite.call(this, game, x, y, assetName);
+function Clickable(game, x, y, id, height, width) {
+  Phaser.Sprite.call(this, game, x, y, id);
+  this.height = height;
+  this.width = width;
 
   this._game = game;
-  this.id = assetName;
+  this.id = id;
   this.name = items[this.id]['name'];
   this.anchor.set(0.5);
   this.alpha = 0.5;
@@ -22,7 +24,6 @@ function Clickable(game, x, y, assetName) {
   this.input.useHandCursor = true;
   this.events.onInputDown.add(click, this);
   this.events.onInputOver.add(mouseover, this);
-
 }
 
 function click() {

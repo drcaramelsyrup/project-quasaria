@@ -8,7 +8,6 @@
 'use strict';
 
 var Room = require('../objects/Room');
-var Clickable = require('../objects/Clickable');
 var Player = require('../objects/Player');
 var DialogueWindow = require('../objects/DialogueWindow');
 var ConversationManager = require('../objects/ConversationManager');
@@ -23,7 +22,8 @@ exports.create = function (game) {
   this.camera.flash('#000000', 2000);
   game.player = game.add.existing(new Player(game));
 
-  transitionRoom(game, 'shuttle');
+  game.room = game.add.existing(new Room(game, 'shuttle'));
+  game.room.addItems();
 
   // custom actions for conversations
   var customActions = new CustomActions(game);
@@ -33,18 +33,3 @@ exports.create = function (game) {
   game.dialogueWindow = new DialogueWindow(game, convoManager);
   game.dialogueWindow.begin('prologue01');
 };
-
-function transitionRoom(game, room) {
-  // shuttle room background
-  var roomX = game.world.centerX;
-  var roomY = game.world.centerY;
-  game.add.existing(new Room(game, roomX, roomY, room));
-
-  // clickable orb in room
-  var orbX = 150;
-  var orbY = 150;
-  game.add.existing(new Clickable(game, orbX, orbY, 'listener'));
-
-  // clickable note
-  game.add.existing(new Clickable(game, 720, 200, 'note'));
-}
