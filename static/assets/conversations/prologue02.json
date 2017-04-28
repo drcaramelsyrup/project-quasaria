@@ -1042,5 +1042,6 @@
         ],
         "speaker": "Gleaming Shoal",
         "text": "Go meet the scientists. The medical bay is close to the hangar. If you have questions, speak to my assistant, Garnetta, in Administrations."
-    }
+    },
+    "onEnd": "moveToArea:hangar"
 }

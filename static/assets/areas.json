@@ -1,0 +1,38 @@
+{
+	"shuttle": {
+		"id": "shuttle",
+		"name": "Shuttle",
+		"bg": "shuttle",
+		"items": [
+			{
+				"id": "listener",
+				"x": 150,
+				"y": 150,
+				"height": 100,
+				"width": 100
+			}, {
+				"id": "note",
+				"x": 720,
+				"y": 200,
+				"height": 100,
+				"width": 100
+			}
+		],
+		"placeables": []
+	},
+	"hangar": {
+		"id": "hangar",
+		"name": "Hangar Bay",
+		"bg": "hangar",
+		"items": [],
+		"placeables": [
+			{
+				"id": "shuttle-placeable",
+				"x": 475,
+				"y": 350,
+				"height": 187,
+				"width": 250
+			}
+		]
+	}
+}

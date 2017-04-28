@@ -10,5 +10,11 @@
 		"url": "note.png",
 		"name": "Indecipherable Note",
 		"desc": "A note covered in strange alien symbols. Your mysterious rescuer left this for you, saying it would help explain things, but so far you can't understand it."
+	},
+	"shuttle-placeable": {
+		"id": "shuttle-placeable",
+		"url": "shuttle-placeable.png",
+		"name": "My Shuttle",
+		"message": "That's my shuttle, but I can't go in there right now."
 	}
 }

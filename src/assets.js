@@ -26,6 +26,10 @@ exports.game = [{
   type: 'image',
   url: 'backgrounds/shuttle.png'
 }, {
+  key: 'hangar',
+  type: 'image',
+  url: 'backgrounds/hangar.png'
+}, {
   key: 'listener',
   type: 'image',
   url: 'items/listener.png'
@@ -33,6 +37,10 @@ exports.game = [{
   key: 'note',
   type: 'image',
   url: 'items/note.png'
+}, {
+  key: 'shuttle-placeable',
+  type: 'image',
+  url: 'items/shuttle-placeable.png'
 }, {
   key: 'choice-button',
   type: 'image',
