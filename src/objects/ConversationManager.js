@@ -153,6 +153,11 @@ ConversationManager.prototype.endConversation = function() {
     return;
   }
 
+  for (var i = 0; i < this._game.room.npcs.length; i++) {
+    var npc = this._game.room.npcs[i];
+    npc.show();
+  }
+
   if ('onEnd' in this.conversation) {
     this.customActions.customAction(this.conversation['onEnd']);
   }

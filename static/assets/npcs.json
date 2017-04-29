@@ -1,0 +1,9 @@
+{
+	"vesper": {
+		"id": "vesper",
+		"name": "Vesper",
+		"image": "vesper-npc",
+		"avatar": "vesper",
+		"conv": "vesper01"
+	}
+}

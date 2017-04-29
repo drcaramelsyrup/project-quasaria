@@ -1,0 +1,135 @@
+{
+    "0": {
+        "actions": {},
+        "comments": [],
+        "id": 0,
+        "responses": [
+            {
+                "target": 1,
+                "text": "Pleased to meet you."
+            },
+            {
+                "target": 2,
+                "text": "Sorry, can't remember."
+            },
+            {
+                "target": 3,
+                "text": "Leaving now."
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "Well, if it isn't the new alien everyone's so fussed about. I'm Vesper, the only pilot with the dubious honor of docking his ship in the quarantine zone. And you are?"
+    },
+    "1": {
+        "actions": {},
+        "comments": [],
+        "id": 1,
+        "responses": [
+            {
+                "target": 4,
+                "text": "Must have gotten lost in translation."
+            },
+            {
+                "target": 5,
+                "text": "What do you say when you meet somebody?"
+            },
+            {
+                "target": 6,
+                "text": "It's just good manners in my culture."
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "Really? You are? It's not that I don't believe you - many have called my existence a gift - but it's an odd thing to say."
+    },
+    "2": {
+        "actions": {},
+        "comments": [],
+        "id": 2,
+        "responses": [
+            {
+                "target": 7,
+                "text": "What's a Hydrangaean?"
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "That's odd. Well, you're still not the oddest alien I've met. I flew a Hydrangaean diplomat the other day who tried to pay me in petals from some blue flower. Sure, they smelled nice, but flowers don't pay for ship repairs."
+    },
+    "3": {
+        "actions": {},
+        "comments": [],
+        "id": 3,
+        "responses": [
+            {
+                "target": 8,
+                "text": "END"
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "Huh. Well, don't let me keep you."
+    },
+    "4": {
+        "actions": {},
+        "comments": [],
+        "id": 4,
+        "responses": [
+            {
+                "target": -1,
+                "text": "END"
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "Makes sense. Different language, different customs... that's aliens for you."
+    },
+    "5": {
+        "actions": {},
+        "comments": [],
+        "id": 5,
+        "responses": [
+            {
+                "target": -1,
+                "text": "END"
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "Double-click this passage to edit it."
+    },
+    "6": {
+        "actions": {},
+        "comments": [],
+        "id": 6,
+        "responses": [
+            {
+                "target": -1,
+                "text": "END"
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "Double-click this passage to edit it."
+    },
+    "7": {
+        "actions": {},
+        "comments": [],
+        "id": 7,
+        "responses": [
+            {
+                "target": -1,
+                "text": "END"
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "Double-click this passage to edit it."
+    },
+    "8": {
+        "actions": {},
+        "comments": [],
+        "id": 8,
+        "responses": [
+            {
+                "target": -1,
+                "text": "END"
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "Double-click this passage to edit it."
+    }
+}

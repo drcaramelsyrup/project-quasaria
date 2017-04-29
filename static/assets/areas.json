@@ -18,7 +18,8 @@
 				"width": 100
 			}
 		],
-		"placeables": []
+		"placeables": [],
+		"npcs": []
 	},
 	"hangar": {
 		"id": "hangar",
@@ -29,9 +30,18 @@
 			{
 				"id": "shuttle-placeable",
 				"x": 475,
+				"y": 300,
+				"height": 300,
+				"width": 401
+			}
+		],
+		"npcs": [
+			{
+				"id": "vesper",
+				"x": 100,
 				"y": 350,
-				"height": 187,
-				"width": 250
+				"height": 350,
+				"width": 150
 			}
 		]
 	}
