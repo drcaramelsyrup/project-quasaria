@@ -24,7 +24,7 @@ exports.create = function (game) {
   game.player = game.add.existing(new Player(game));
 
   game.music = game.sound.play('minor-arpeggio');
-  game.music.loop = true;
+  game.music.loopFull(1);
 
   game.room = game.add.existing(new Room(game, 'shuttle'));
   game.room.addItems();
