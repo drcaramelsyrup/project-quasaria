@@ -108,3 +108,22 @@ exports.conversations = [{
   type: 'image',
   url: 'avatars/invisible.png'
 }];
+
+// -- Sound effects and background music
+exports.sounds = [{
+  key: 'sunrise-from-orbit',
+  type: 'audio',
+  urls: ['music/Sunrise From Orbit (Demo).mp3']
+}, {
+  key: 'minor-arpeggio',
+  type: 'audio',
+  urls: ['music/Minor Arpeggio Thing (Demo).mp3']
+}, {
+  key: 'far-from-home',
+  type: 'audio',
+  urls: ['music/Far From Home (Demo).mp3']
+}, {
+  key: 'ukulele',
+  type: 'audio',
+  urls: ['music/Ukulele (Demo).mp3']
+}];

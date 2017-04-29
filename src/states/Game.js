@@ -23,6 +23,9 @@ exports.create = function (game) {
   this.camera.flash('#000000', 2000);
   game.player = game.add.existing(new Player(game));
 
+  game.music = game.sound.play('minor-arpeggio');
+  game.music.loop = true;
+
   game.room = game.add.existing(new Room(game, 'shuttle'));
   game.room.addItems();
 
