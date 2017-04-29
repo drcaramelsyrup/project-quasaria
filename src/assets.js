@@ -69,6 +69,10 @@ exports.ui = [{
   type: 'image',
   url: 'ui/memory-bank-icon-mask.png'
 }, {
+  key: 'memory-bank-next',
+  type: 'image',
+  url: 'ui/memory-bank-next.png'
+}, {
   key: 'memory-bank',
   type: 'image',
   url: 'ui/memory-bank.png'

@@ -19,7 +19,7 @@ CustomActions.prototype.constructor = CustomActions;
 
 CustomActions.prototype.customAction = function(action) {
   if (action.startsWith('fadeInAndOut')) {
-  	this.fadeInAndOut(parseInt(action.substring('fadeInAndOut'.length)));
+    this.fadeInAndOut(parseInt(action.substring('fadeInAndOut'.length)));
   } else if (action === 'startConv:prologue02') {
     this._game.camera.fade('#000000', 2000);
     this._game.camera.onFadeComplete.addOnce(function() {
