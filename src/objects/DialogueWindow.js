@@ -9,6 +9,8 @@
 
 module.exports = DialogueWindow;
 
+var Scrollbar = require('./Scrollbar');
+
 function DialogueWindow(game, convoManager/*, ...args*/) {
   Phaser.Group.call(this, game, convoManager/*, ...args*/);
 
@@ -125,7 +127,8 @@ DialogueWindow.prototype.cleanWindow = function () {
 
   // remove scroller and restore dialog text position
   if (this.slider !== null) {
-    this.slider.displayGroup.removeAll(true);
+    this.slider.destroy();
+    this.slider = null;
   }
   this.dialogText.y = this._dialogTextOriginY;
 };
@@ -232,11 +235,37 @@ DialogueWindow.prototype.addOverflowScroll = function () {
     - (this._dialogTextOriginY + this._dialogTextHeight);
   // add a slider otherwise
   if (heightDiff > 0) {
+
+    var scrolllineWidth = 1.5;
+    this.slider = new Scrollbar(
+      this._game, 
+      this._dialogTextOriginX + this._dialogTextWidth + this._dialogPadding - scrolllineWidth,
+      this._dialogTextOriginY - scrolllineWidth,
+      this.dialogPanel, // parent
+      {
+        'x': [0, this._dialogPadding, 0],
+        'y': [0, this._dialogTextHeight / 2, this._dialogTextHeight]
+      },
+      heightDiff, scrolllineWidth);
+
+    this.slider.onDrag.add(function (value) {
+      // mapping height differences to scroll values
+      var scrollValue = heightDiff*value;
+      this.dialogText.y = this._dialogTextOriginY - scrollValue;
+      for (var i = 0; i < this.buttons.length; i++) {
+        // slide all buttons up
+        this.buttons[i].y = this.dialogPanel.y + this._buttonsY[i] - scrollValue;
+      }
+    }, this);
+
+
     // this.slider = new SlickUI.Element.Slider(
     //   this._dialogTextOriginX + this._dialogTextWidth + this._dialogPadding, 
     //   this._dialogTextOriginY, 
     //   this._dialogTextHeight, 1 /* scrollbar starts at top, or 1; bottom is 0 */, true /* vertical */);
     // this.dialogPanel.add(this.slider);
+
+    /*
 
     // Draw the path 
     var pathWidth = 3;
@@ -367,6 +396,8 @@ DialogueWindow.prototype.addOverflowScroll = function () {
     //   this.sliderSprite.y = clampedY;
     //   console.log(pos-this.sliderSprite.container.y);
     // }, this);
+
+*/
   }
 };
 
