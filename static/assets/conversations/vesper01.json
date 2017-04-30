@@ -39,7 +39,7 @@
             }
         ],
         "speaker": "Vesper",
-        "text": "Really? You are? It's not that I don't believe you - many have called my existence a gift - but it's an odd thing to say."
+        "text": "Really? You are? It's not that I don't believe you, but it's an odd thing to say."
     },
     "2": {
         "actions": {},
@@ -73,8 +73,16 @@
         "id": 4,
         "responses": [
             {
-                "target": -1,
-                "text": "END"
+                "target": 11,
+                "text": "If you don't mind my asking, what species are you?"
+            },
+            {
+                "target": 11,
+                "text": "So, what are you?"
+            },
+            {
+                "target": 12,
+                "text": "What are some of your customs?"
             }
         ],
         "speaker": "Vesper",
@@ -86,12 +94,20 @@
         "id": 5,
         "responses": [
             {
-                "target": -1,
-                "text": "END"
+                "target": 9,
+                "text": "Planetside?"
+            },
+            {
+                "target": 15,
+                "text": "Unfortunately, I'm not allowed to leave quarantine."
+            },
+            {
+                "target": 10,
+                "text": "Why are clouds a good thing?"
             }
         ],
         "speaker": "Vesper",
-        "text": "Double-click this passage to edit it."
+        "text": "\"Fair winds and clouded skies\" is the traditional way. You'll hear that a lot if you ever go planetside. And remember, if you do, my fares are the cheapest."
     },
     "6": {
         "actions": {},
@@ -99,12 +115,20 @@
         "id": 6,
         "responses": [
             {
-                "target": -1,
-                "text": "END"
+                "target": 11,
+                "text": "If you don't mind my asking, what species are you?"
+            },
+            {
+                "target": 11,
+                "text": "So, what are you?"
+            },
+            {
+                "target": 12,
+                "text": "What are some of your customs?"
             }
         ],
         "speaker": "Vesper",
-        "text": "Double-click this passage to edit it."
+        "text": "Well, then I guess I'll say the same. Pleased to... meet you? That just feels strange to say. Different language, different customs... that's aliens for you."
     },
     "7": {
         "actions": {},
@@ -112,12 +136,20 @@
         "id": 7,
         "responses": [
             {
-                "target": -1,
-                "text": "END"
+                "target": 13,
+                "text": "Why do they like flowers so much?"
+            },
+            {
+                "target": 14,
+                "text": "I don't have a tail, either."
+            },
+            {
+                "target": 15,
+                "text": "Maybe I'll see some when I get out of quarantine."
             }
         ],
         "speaker": "Vesper",
-        "text": "Double-click this passage to edit it."
+        "text": "Well, they're one of the more recent arrivals on the station. Hard to miss them. They walk on two legs like you or me, but they don't have eyes or tails, and they're completely besotted with flowers. You don't see many in the quarantine zone, though."
     },
     "8": {
         "actions": {},
@@ -131,5 +163,556 @@
         ],
         "speaker": "Vesper",
         "text": "Double-click this passage to edit it."
+    },
+    "9": {
+        "actions": {},
+        "comments": [],
+        "id": 9,
+        "responses": [
+            {
+                "target": 19,
+                "text": "Young Ones?"
+            },
+            {
+                "target": 17,
+                "text": "Why is the station orbiting your home planet?"
+            },
+            {
+                "target": 20,
+                "text": "What's the tension about?"
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "Rakshash, my home planet, and the birthplace of the Asura. Station Zero is orbiting the planet right now. I was hired on to fly diplomats and the like back and forth. It's good business for both sides, but with all the Young Ones on the station, there's been a fair bit of tension."
+    },
+    "10": {
+        "actions": {},
+        "comments": [],
+        "id": 10,
+        "responses": [
+            {
+                "target": 19,
+                "text": "Young Ones?"
+            },
+            {
+                "target": 20,
+                "text": "Your planet doesn't have enough water?"
+            },
+            {
+                "target": 20,
+                "text": "What happened to the water trade?"
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "Clouds mean rain, and rain means food. Doesn't mean much these days, since we can import water, but it used to be fairly important. And it might be important again soon, if the Young Ones can't put aside their differences and restart the water trade."
+    },
+    "11": {
+        "actions": {},
+        "comments": [],
+        "id": 11,
+        "responses": [
+            {
+                "target": 16,
+                "text": "What are the Kin?"
+            },
+            {
+                "target": 23,
+                "text": "Dark One? You don't look any darker than the other Asura I met."
+            },
+            {
+                "target": 17,
+                "text": "Why is the station orbiting your home planet?"
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "I'm an Asura. Either a True Asura or a Dark One, depending on who you ask. The station happens to be orbiting my home planet, Rakshash, at the moment, so relations between the two branches of the Kin are tenser than usual."
+    },
+    "12": {
+        "actions": {},
+        "comments": [],
+        "id": 12,
+        "responses": [
+            {
+                "target": 19,
+                "text": "What's a Young One?"
+            },
+            {
+                "target": 18,
+                "text": "Those sound like fine customs to me."
+            },
+            {
+                "target": 18,
+                "text": "I'm guessing you don't agree with them."
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "Well, that depends on who you ask. Ask a Young One and they'll tell you we've lost our way and have no customs to speak of, unless you count drinking, gambling, and general lawlessness."
+    },
+    "13": {
+        "actions": {},
+        "comments": [],
+        "id": 13,
+        "responses": [
+            {
+                "target": 19,
+                "text": "Young Ones?"
+            },
+            {
+                "target": 22,
+                "text": "Sounds like you don't think much of these Young Ones."
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "Don't ask me. They didn't even have flowers until the Council uplifted them. No plants on their home planet. They're one of the odder species on the station, but at least they get along with everyone. The Young Ones could learn something from them."
+    },
+    "14": {
+        "actions": {},
+        "comments": [],
+        "id": 14,
+        "responses": [
+            {
+                "target": 19,
+                "text": "Young Ones?"
+            },
+            {
+                "target": 22,
+                "text": "Why would it bother others?"
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "I noticed. It makes you look like one of the Young Ones, but that doesn't bother me as much as it might others."
+    },
+    "15": {
+        "actions": {},
+        "comments": [],
+        "id": 15,
+        "responses": [
+            {
+                "target": 19,
+                "text": "Young Ones?"
+            },
+            {
+                "target": 20,
+                "text": "What happened to the water trade?"
+            },
+            {
+                "target": 21,
+                "text": "Who's going to start a civil war?"
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "Well, give it time. You've only just arrived. Gleaming Shoal's as by-the-books as they come, but he'll see reason. I wish I could say the same for the Young Ones. If they don't restart the water trade soon, we'll have a civil war on our hands."
+    },
+    "16": {
+        "actions": {},
+        "comments": [],
+        "id": 16,
+        "responses": [
+            {
+                "target": 22,
+                "text": "That sounds like a fight waiting to happen."
+            },
+            {
+                "target": 19,
+                "text": "What's the other branch?"
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "The Kin are what they sound like. Two branches of a family who haven't seen eye to eye for centuries. Except it's more than a family, it's an entire species. And we spent a couple of centuries evolving separately, so we don't have much in common anymore."
+    },
+    "17": {
+        "actions": {},
+        "comments": [],
+        "id": 17,
+        "responses": [
+            {
+                "target": 19,
+                "text": "Young Ones?"
+            },
+            {
+                "target": 20,
+                "text": "Why isn't it going smoothly?"
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "Station Zero orbits a different species' homeworld every standard year. The station needs supplies transported from planetside, and it's only fair to spread the burden around different species. It's not going smoothly this time, thanks to the Young Ones."
+    },
+    "18": {
+        "actions": {},
+        "comments": [],
+        "id": 18,
+        "responses": [
+            {
+                "target": 9,
+                "text": "Rakshash?"
+            },
+            {
+                "target": 19,
+                "text": "Young Ones?"
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "Oh, there's certainly nothing wrong with casting stones and imbibing intoxicants every now and then. And on Rakshash, most of the laws are what you might call common sense. We certainly don't disagree with the Young Ones on what our customs are. They just think that culture can't be built on a healthy level of chaos."
+    },
+    "19": {
+        "actions": {},
+        "comments": [],
+        "id": 19,
+        "responses": [
+            {
+                "target": 9,
+                "text": "Rakshash?"
+            },
+            {
+                "target": 22,
+                "text": "And you don't get along with the Young Ones?"
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "The Young Ones are what we call the other branch of the Kin. The Kin were born on Rakshash as one species, but the Young Ones left long ago and found their own world. Now we're as different as... well, two different species."
+    },
+    "20": {
+        "actions": {},
+        "comments": [],
+        "id": 20,
+        "responses": [
+            {
+                "target": 19,
+                "text": "What are the Young Ones?"
+            },
+            {
+                "target": 9,
+                "text": "Rakshash?"
+            },
+            {
+                "target": 24,
+                "text": "Why are relations breaking down?"
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "Rakshash rarely sees rain. We've managed to survive and expand our civilization by trading for water with other species. For the last hundred years, the Young Ones have been our biggest suppliers. But now diplomatic relations are breaking down, and there's been a temporary embargo."
+    },
+    "21": {
+        "actions": {},
+        "comments": [],
+        "id": 21,
+        "responses": [
+            {
+                "target": 19,
+                "text": "What are the Young Ones?"
+            },
+            {
+                "target": 20,
+                "text": "Why can't you grow enough food?"
+            },
+            {
+                "target": 24,
+                "text": "Why are the Young Ones at fault?"
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "You've never seen a starving world, have you? For all our advances in technology and spaceflight, we still struggle to grow enough food on our planet. Hunger tends to start fights. And if we have a civil war, you can be sure our government will start by blaming the Young Ones."
+    },
+    "22": {
+        "actions": {},
+        "comments": [],
+        "id": 22,
+        "responses": [
+            {
+                "target": 19,
+                "text": "What are the Young Ones?"
+            },
+            {
+                "target": 16,
+                "text": "The Kin?"
+            },
+            {
+                "target": 24,
+                "text": "Well, what are you fighting about right now?"
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "My kind and the Young Ones don't see eye to eye these days. The years when we were all part of the same Kin are long past. We've tried to maintain diplomatic relations, but with so much shared history, it's hard to treat them like any other Council species."
+    },
+    "23": {
+        "actions": {},
+        "comments": [],
+        "id": 23,
+        "responses": [
+            {
+                "target": 16,
+                "text": "The Kin?"
+            },
+            {
+                "target": 19,
+                "text": "What's the other branch?"
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "The Dark Ones are what the other branch of the Kin call us. It doesn't have much to do with how we look. They think our branch is... less than enlightened, and that we're all involved in some kind of crime. Hence, Dark Ones."
+    },
+    "24": {
+        "actions": {},
+        "comments": [],
+        "id": 24,
+        "responses": [
+            {
+                "target": 25,
+                "text": "I'm sorry to hear that."
+            },
+            {
+                "target": 26,
+                "text": "Why do their problems affect you?"
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "Well, I'm a pilot, not a politician, so I don't have a very good grasp of what's going on. It's something to do with some conflict among the Young Ones. We've lived apart from them for centuries, but it seems their problems still affect us."
+    },
+    "25": {
+        "actions": {},
+        "comments": [],
+        "id": 25,
+        "responses": [
+            {
+                "target": 27,
+                "text": "Because it sounds like a bad situation?"
+            },
+            {
+                "target": 26,
+                "text": "Never mind. What's going on with the Young Ones?"
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "Well, it's not your fault. Why would you apologize?"
+    },
+    "26": {
+        "actions": {},
+        "comments": [],
+        "id": 26,
+        "responses": [
+            {
+                "target": 28,
+                "text": "Rakshash was once their home, too. They have a right to live there."
+            },
+            {
+                "target": 29,
+                "text": "It sounds like they need to find another planet to settle."
+            },
+            {
+                "target": 30,
+                "text": "I can see how that would cause problems."
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "Well, the Young Ones having some kind of ideological disagreement among themselves, and thousands of them are trying to return to Rakshash. But we simply don't have the resources to support more settlers. Not to mention, our cultures are too different for us to integrate smoothly."
+    },
+    "27": {
+        "actions": {},
+        "comments": [],
+        "id": 27,
+        "responses": [
+            {
+                "target": 26,
+                "text": "Why? What's happening?"
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "Well, you're not wrong. I'm one of the lucky ones. Working for the Council means I don't have to worry about getting enough food or having a place to sleep. I'm not looking forward to what could happen to Rakshash when the station leaves, though."
+    },
+    "28": {
+        "actions": {},
+        "comments": [],
+        "id": 28,
+        "responses": [
+            {
+                "target": 31,
+                "text": "Reconciling with the Young Ones could be beneficial for both of your races."
+            },
+            {
+                "target": 32,
+                "text": "Forcing you to leave isn't right. You could share the land."
+            },
+            {
+                "target": 33,
+                "text": "I want to hear the Young Ones' side of things."
+            },
+            {
+                "target": 34,
+                "text": "It sounds like things are tough for everybody."
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "The Young Ones abandoned Rakshash centuries ago, when it looked like the entire planet was going to die from drought. Now they're trying to lay claim to territories that belonged to their ancestors, but they gave up those claims when they left. They don't want to rejoin the Asura. They just want their land back, which means forcing us to leave."
+    },
+    "29": {
+        "actions": {},
+        "comments": [],
+        "id": 29,
+        "responses": [
+            {
+                "target": 31,
+                "text": "Reconciling with the Young Ones could be beneficial for both of your races."
+            },
+            {
+                "target": 32,
+                "text": "Forcing you to leave isn't right. You could share the land."
+            },
+            {
+                "target": 33,
+                "text": "I want to hear the Young Ones' side of things."
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "The Young Ones call us lazy freeloaders, but they're hypocrites. Colonizing planets is hard work, and they don't want to do it. They would rather claim land on Rakshash that belonged to their ancestors, even though those ancestors abandoned the planet centuries ago. Even if it means forcing us to leave.\nIt sounds like things are tough for everybody."
+    },
+    "30": {
+        "actions": {},
+        "comments": [],
+        "id": 30,
+        "responses": [
+            {
+                "target": 28,
+                "text": "I'm still not sure why the Young Ones coming back is such a bad thing."
+            },
+            {
+                "target": 33,
+                "text": "Your side sounds sensible enough, but I haven't heard the other side."
+            },
+            {
+                "target": 34,
+                "text": "I just got here. I don't want to step on any toes."
+            },
+            {
+                "target": 35,
+                "text": "Why should I care about this at all?"
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "Ha! You sound like a Council politician, carefully trying not to take sides. But I don't blame you. It's not a bad choice to avoid taking sides when you don't know enough about the situation."
+    },
+    "31": {
+        "actions": {},
+        "comments": [],
+        "id": 31,
+        "responses": [
+            {
+                "target": 36,
+                "text": "..."
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "You're telling me. Not hearing everyone I know planetside complaining about the Young Ones every other heartbeat would be a wonderful start. But reconciliation is going to be a long, slow road. Things might get worse before they get better."
+    },
+    "32": {
+        "actions": {},
+        "comments": [],
+        "id": 32,
+        "responses": [
+            {
+                "target": 36,
+                "text": "..."
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "Splitting a vukain in half doesn't magically make enough for everyone. Rakshash was a jungle planet when the Young Ones lived there. In those days, there was always enough, and we thought they were crazy to leave. Now there's never enough, and they're crazy to want to come back."
+    },
+    "33": {
+        "actions": {},
+        "comments": [],
+        "id": 33,
+        "responses": [
+            {
+                "target": 36,
+                "text": "..."
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "That's a smart way of looking at things. If you want to hear another side of the story, talk to Kismet the security guard. She's not as insufferable as some of the other Young Ones. There's also that Dr. Valken, the xenopsychologist, though I can't say I know him."
+    },
+    "34": {
+        "actions": {},
+        "comments": [],
+        "id": 34,
+        "responses": [
+            {
+                "target": 36,
+                "text": "..."
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "If you want to hear another side of the story, talk to Kismet the security guard. She's not as insufferable as some of the other Young Ones. There's also that Dr. Valken, the xenopsychologist, though I can't say I know him."
+    },
+    "35": {
+        "actions": {},
+        "comments": [],
+        "id": 35,
+        "responses": [
+            {
+                "target": 36,
+                "text": "..."
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "I never said you should! But you should know that on Station Zero, information is practically currency. You never know when knowing something will come in handy."
+    },
+    "36": {
+        "actions": {},
+        "comments": [],
+        "id": 36,
+        "responses": [
+            {
+                "target": 37,
+                "text": "Thanks for the information."
+            },
+            {
+                "target": 38,
+                "text": "It all sounds like none of my business."
+            },
+            {
+                "target": 39,
+                "text": "I hope things get better for you."
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "Anyway, it's good to be informed about these things. And I appreciate that you took the time to listen."
+    },
+    "37": {
+        "actions": {},
+        "comments": [],
+        "id": 37,
+        "responses": [
+            {
+                "target": 8,
+                "text": "END"
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "Anytime. I'll see you around."
+    },
+    "38": {
+        "actions": {},
+        "comments": [],
+        "id": 38,
+        "responses": [
+            {
+                "target": 8,
+                "text": "END"
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "You could be right about that. Anyway, I'll see you around."
+    },
+    "39": {
+        "actions": {},
+        "comments": [],
+        "id": 39,
+        "responses": [
+            {
+                "target": 8,
+                "text": "END"
+            }
+        ],
+        "speaker": "Vesper",
+        "text": "Yeah, me too. Anyway, see you around."
     }
 }
