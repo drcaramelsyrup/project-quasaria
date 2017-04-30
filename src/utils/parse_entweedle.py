@@ -93,7 +93,9 @@ conv_dict_idx = {}
 for node_name in conv_dict:
 	node = conv_dict[node_name]
 	for response in node['responses']:
-		if response['target'] != -1:
+		if response['target'] == 'END':
+			response['target'] = -1;
+		elif response['target'] != -1:
 			response['target'] = titlesToIds[response['target']]
 	del node['name']
 	conv_dict_idx[node['id']] = node

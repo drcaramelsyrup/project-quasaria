@@ -15,6 +15,11 @@ function Toast(game, message, timeout) {
   this.message = message;
   this.timeout = timeout;
 
+  if (game.toast) {
+    game.toast.toast.container.displayGroup.removeAll();
+    game.toast.destroy();
+  }
+
   // private members specifying margin and padding
   this.toastTextY = 16;
 
@@ -29,6 +34,8 @@ function Toast(game, message, timeout) {
     this.toastWidth, this.toastHeight));
   this.toast.displayObject.width = this.toastWidth;
   this.toast.displayObject.height = this.toastHeight;
+
+  game.toast = this;
 
   var style = { font: '14px Open Sans', fill: '#48f2ff', boundsAlignH: 'center'};
   this.toast.add(

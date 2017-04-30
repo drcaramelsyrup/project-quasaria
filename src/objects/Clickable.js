@@ -24,6 +24,7 @@ function Clickable(game, x, y, id, height, width) {
   this.input.useHandCursor = true;
   this.events.onInputDown.add(click, this);
   this.events.onInputOver.add(mouseover, this);
+  this.events.onInputOut.add(mouseout, this);
 }
 
 function click() {
@@ -36,6 +37,14 @@ function click() {
 
 function mouseover() {
   this.alpha = 1;
+  this._game.add.existing(this.toast = new Toast(this._game, this.name, 5));
+}
+
+function mouseout() {
+  if (this.toast) {
+    this.toast.toast.container.displayGroup.removeAll();
+    this.toast.destroy();
+  }
 }
 
 Clickable.prototype = Object.create(Phaser.Sprite.prototype);

@@ -41,6 +41,10 @@ exports.game = [{
   key: 'shuttle-placeable',
   type: 'image',
   url: 'items/shuttle-placeable.png'
+}, {
+  key: 'vesper-npc',
+  type: 'image',
+  url: 'npcs/vesper.png'
 }];
 
 // -- UI-specific assets.
@@ -88,6 +92,10 @@ exports.conversations = [{
   type: 'json',
   url: 'conversations/prologue02.json'
 }, {
+  key: 'vesper01',
+  type: 'json',
+  url: 'conversations/vesper01.json'
+}, {
   key: 'mysterious-voice',
   type: 'image',
   url: 'avatars/mysterious-voice.png'
@@ -103,6 +111,10 @@ exports.conversations = [{
   key: 'unknown-alien',
   type: 'image',
   url: 'avatars/gleaming-shoal-silhouette.png'
+}, {
+  key: 'vesper',
+  type: 'image',
+  url: 'avatars/vesper.png'
 }, {
   key: 'invisible',
   type: 'image',

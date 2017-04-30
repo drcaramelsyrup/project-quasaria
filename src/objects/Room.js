@@ -9,6 +9,7 @@
 
 var Clickable = require('../objects/Clickable');
 var Placeable = require('../objects/Placeable');
+var NPC = require('../objects/NPC');
 var areas = require('../../static/assets/areas.json');
 
 function Room(game, room) {
@@ -17,6 +18,7 @@ function Room(game, room) {
   this.area = areas[room];
   this.items = [];
   this.placeables = [];
+  this.npcs = [];
   Phaser.Sprite.call(this, game, game.world.centerX, game.world.centerY, this.area['bg']);
   this.anchor.set(0.5);
 }
@@ -35,6 +37,11 @@ Room.prototype.addItems = function() {
     this._game.add.existing(placeable = new Placeable(this._game, placeable['x'], placeable['y'], placeable['id'], placeable['height'], placeable['width']));
     this.placeables.push(placeable);
   }
+  for (i = 0; i < this.area['npcs'].length; i++) {
+    var npc = this.area['npcs'][i];
+    this._game.add.existing(npc = new NPC(this._game, npc['x'], npc['y'], npc['id'], npc['height'], npc['width']));
+    this.npcs.push(npc);
+  }
 };
 
 Room.prototype.clearItems = function() {
@@ -44,8 +51,12 @@ Room.prototype.clearItems = function() {
   for (i = 0; i < this.placeables.length; i++) {
     this.placeables[i].destroy();
   }
+  for (i = 0; i < this.npcs.length; i++) {
+    this.npcs[i].destroy();
+  }
   this.items = [];
   this.placeables = [];
+  this.npcs = [];
 };
 
 Room.prototype.loadArea = function(area) {

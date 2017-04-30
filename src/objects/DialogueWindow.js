@@ -250,6 +250,12 @@ DialogueWindow.prototype.addOverflowScroll = function () {
   }
 };
 
+DialogueWindow.prototype.showAvatar = function() {
+  var fadeInTween = this._game.add.tween(this.avatar);
+  var fadeIn = 200;
+  fadeInTween.to({alpha: 1}, fadeIn, Phaser.Easing.Linear.None, true);
+};
+
 DialogueWindow.prototype.hideAvatar = function() {
   var fadeOutTween = this._game.add.tween(this.avatar);
   var fadeOut = 200;
@@ -258,6 +264,7 @@ DialogueWindow.prototype.hideAvatar = function() {
 
 DialogueWindow.prototype.show = function() {
   this.dialogPanel.visible = true;
+  this.showAvatar();
 };
 
 DialogueWindow.prototype.hide = function () {
