@@ -20,6 +20,7 @@ exports.preload = function (game) {
   game.load.pack('game', null, assets);
   game.load.pack('ui', null, assets);
   game.load.pack('conversations', null, assets);
+  game.load.pack('sounds', null, assets);
 };
 
 exports.create = function (game) {
