@@ -9,6 +9,8 @@
 
 module.exports = DialogueWindow;
 
+var Scrollbar = require('./Scrollbar');
+
 function DialogueWindow(game, convoManager/*, ...args*/) {
   Phaser.Group.call(this, game, convoManager/*, ...args*/);
 
@@ -125,9 +127,14 @@ DialogueWindow.prototype.cleanWindow = function () {
 
   // remove scroller and restore dialog text position
   if (this.slider !== null) {
-    this.slider.displayGroup.removeAll(true);
+    this.slider.destroy();
+    this.slider = null;
   }
   this.dialogText.y = this._dialogTextOriginY;
+  this.dialogText.displayObject.inputEnabled = false;
+  this.dialogText.displayObject.events.onInputOver.removeAll();
+  this.dialogText.displayObject.events.onInputOut.removeAll();
+  this._game.input.mouse.mouseWheelCallback = null;
 };
 
 DialogueWindow.prototype.takeActions = function() {
@@ -199,7 +206,7 @@ DialogueWindow.prototype.addChoiceButton = function (x, y, responseTextField, re
   var choiceButton;
   this.dialogPanel.add(choiceButton = new SlickUI.Element.DisplayObject(
     x, y, 
-    this._game.make.button(0,0, 'choice-button'),
+    this._game.make.button(0,0, 'dialogue-choice-button'),
     this.dialogWidth, responseText.height));
   choiceButton.add(buttonText);
   choiceButton.sprite.width = this._dialogTextWidth;
@@ -232,21 +239,43 @@ DialogueWindow.prototype.addOverflowScroll = function () {
     - (this._dialogTextOriginY + this._dialogTextHeight);
   // add a slider otherwise
   if (heightDiff > 0) {
-    this.slider = new SlickUI.Element.Slider(
-      this._dialogTextOriginX + this._dialogTextWidth + this._dialogPadding, 
-      this._dialogTextOriginY, 
-      this._dialogTextHeight, 1 /* scrollbar starts at top, or 1; bottom is 0 */, true /* vertical */);
-    this.dialogPanel.add(this.slider);
 
-    this.slider.onDrag.add(function (value) {
+    var scrolllineWidth = 1.5;
+    this.slider = new Scrollbar(
+      this._game, 
+      this._dialogTextOriginX + this._dialogTextWidth + this._dialogPadding - scrolllineWidth,
+      this._dialogTextOriginY - scrolllineWidth,
+      this.dialogPanel, // parent
+      {
+        'x': [0, this._dialogPadding, 0],
+        'y': [0, this._dialogTextHeight / 2, this._dialogTextHeight]
+      },
+      heightDiff, scrolllineWidth);
+
+    var scrollCallback = function (value) {
       // mapping height differences to scroll values
-      var scrollValue = heightDiff*(1-value);
+      var scrollValue = heightDiff*value;
       this.dialogText.y = this._dialogTextOriginY - scrollValue;
       for (var i = 0; i < this.buttons.length; i++) {
         // slide all buttons up
         this.buttons[i].y = this.dialogPanel.y + this._buttonsY[i] - scrollValue;
       }
-    }, this);
+    };
+
+    this.slider.onDrag.add(scrollCallback, this);
+    this.slider.onSetValue.add(scrollCallback, this);
+
+    // Mouse wheel events
+    this.dialogText.displayObject.inputEnabled = true;
+    this.dialogText.displayObject.events.onInputOver.add(
+      function () { this._dialogOver = true; }, this);
+    this.dialogText.displayObject.events.onInputOut.add(
+      function () { this._dialogOver = false; }, this);
+    this._game.input.mouse.mouseWheelCallback = (function (event) {
+      if (!this._dialogOver)
+        return;
+      this.slider.value += (1/heightDiff) * event.deltaY;
+    }).bind(this);
   }
 };
 

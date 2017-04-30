@@ -49,9 +49,9 @@ exports.game = [{
 
 // -- UI-specific assets.
 exports.ui = [{
-  key: 'choice-button',
+  key: 'dialogue-choice-button',
   type: 'image',
-  url: 'ui/choice-button.png'
+  url: 'ui/dialogue-choice-button.png'
 }, {
   key: 'dialogue-panel',
   type: 'image',

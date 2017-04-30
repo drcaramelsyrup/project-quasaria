@@ -12,7 +12,7 @@ function Player(game) {
 
   this.inventory = [];
   this.memoryBank = [];
-  this.variables = {};  
+  this.variables = {}; 
 }
 
 Player.prototype = Object.create(Phaser.Group.prototype);
