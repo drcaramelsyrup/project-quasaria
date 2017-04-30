@@ -20,6 +20,7 @@ function ConversationManager(game, customActions/*, ...args*/) {
 
   this.conversation = null;
   this.idx = 0;
+  this.shown = [];
 }
 ConversationManager.prototype = Object.create(Phaser.Group.prototype);
 ConversationManager.prototype.constructor = ConversationManager;
@@ -49,6 +50,11 @@ ConversationManager.prototype.getResponses = function () {
   var responses = this.conversation[this.idx]['responses'];
   var ret = [];
   for (var i = 0; i < responses.length; i++) {
+    //check showOnce of target node
+    if (this.shown.indexOf(responses[i]['target']) > -1) {
+      continue;
+    }
+    //check conditions on response
     if ('conditions' in responses[i]) {
       var conditionsNeeded = 0;
       var conditionsMet = 0;
@@ -113,6 +119,10 @@ ConversationManager.prototype.takeActions = function() {
     return;
   }
 
+  if (this.conversation[this.idx]['showOnce'] === true) {
+    this.shown.push(this.idx);
+  }
+
   if (this.conversation[this.idx]['actions'].length === 0) {
     return;
   }
@@ -161,6 +171,8 @@ ConversationManager.prototype.endConversation = function() {
   if ('onEnd' in this.conversation) {
     this.customActions.customAction(this.conversation['onEnd']);
   }
+
+  this.shown = [];
 };
 
 ConversationManager.prototype.update = function () {

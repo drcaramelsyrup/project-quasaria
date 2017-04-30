@@ -60,7 +60,7 @@
         "id": 3,
         "responses": [
             {
-                "target": 8,
+                "target": -1,
                 "text": "END"
             }
         ],
@@ -168,6 +168,7 @@
         "actions": {},
         "comments": [],
         "id": 9,
+        "showOnce": true,
         "responses": [
             {
                 "target": 19,
@@ -210,6 +211,7 @@
         "actions": {},
         "comments": [],
         "id": 11,
+        "showOnce": true,
         "responses": [
             {
                 "target": 16,
@@ -307,6 +309,7 @@
         "actions": {},
         "comments": [],
         "id": 16,
+        "showOnce": true,
         "responses": [
             {
                 "target": 22,
@@ -324,6 +327,7 @@
         "actions": {},
         "comments": [],
         "id": 17,
+        "showOnce": true,
         "responses": [
             {
                 "target": 19,
@@ -341,6 +345,7 @@
         "actions": {},
         "comments": [],
         "id": 18,
+        "showOnce": true,
         "responses": [
             {
                 "target": 9,
@@ -358,6 +363,7 @@
         "actions": {},
         "comments": [],
         "id": 19,
+        "showOnce": true,
         "responses": [
             {
                 "target": 9,
@@ -375,6 +381,7 @@
         "actions": {},
         "comments": [],
         "id": 20,
+        "showOnce": true,
         "responses": [
             {
                 "target": 19,
@@ -396,6 +403,7 @@
         "actions": {},
         "comments": [],
         "id": 21,
+        "showOnce": true,
         "responses": [
             {
                 "target": 19,
@@ -417,6 +425,7 @@
         "actions": {},
         "comments": [],
         "id": 22,
+        "showOnce": true,
         "responses": [
             {
                 "target": 19,
@@ -438,6 +447,7 @@
         "actions": {},
         "comments": [],
         "id": 23,
+        "showOnce": true,
         "responses": [
             {
                 "target": 16,
@@ -455,6 +465,7 @@
         "actions": {},
         "comments": [],
         "id": 24,
+        "showOnce": true,
         "responses": [
             {
                 "target": 25,
@@ -560,10 +571,14 @@
             {
                 "target": 33,
                 "text": "I want to hear the Young Ones' side of things."
+            },
+            {
+                "target": 34,
+                "text": "It sounds like things are tough for everybody."
             }
         ],
         "speaker": "Vesper",
-        "text": "The Young Ones call us lazy freeloaders, but they're hypocrites. Colonizing planets is hard work, and they don't want to do it. They would rather claim land on Rakshash that belonged to their ancestors, even though those ancestors abandoned the planet centuries ago. Even if it means forcing us to leave.\nIt sounds like things are tough for everybody."
+        "text": "The Young Ones call us lazy freeloaders, but they're hypocrites. Colonizing planets is hard work, and they don't want to do it. They would rather claim land on Rakshash that belonged to their ancestors, even though those ancestors abandoned the planet centuries ago. Even if it means forcing us to leave."
     },
     "30": {
         "actions": {},
@@ -682,7 +697,7 @@
         "id": 37,
         "responses": [
             {
-                "target": 8,
+                "target": -1,
                 "text": "END"
             }
         ],
@@ -695,7 +710,7 @@
         "id": 38,
         "responses": [
             {
-                "target": 8,
+                "target": -1,
                 "text": "END"
             }
         ],
@@ -708,7 +723,7 @@
         "id": 39,
         "responses": [
             {
-                "target": 8,
+                "target": -1,
                 "text": "END"
             }
         ],

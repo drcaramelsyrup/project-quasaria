@@ -638,22 +638,17 @@
             "<!-- The player is provided with several investigative options here from the previous node, which should each disappear after the player explores them. No loops. Once the player has taken all of them, show the last option (progress). This will require some code. -->"
         ],
         "id": 34,
+        "showOnce": true,
         "responses": [
             {
                 "target": 37,
                 "text": "Seems suspicious."
             },
             {
-                "conditions": {
-                    "varAskedStationZero": "!true"
-                },
                 "target": 35,
                 "text": "What is Station Zero, anyway?"
             },
             {
-                "conditions": {
-                    "varAskedNewSpecies": "!true"
-                },
                 "target": 36,
                 "text": "You said I'm a \"new species?\""
             },
@@ -678,22 +673,17 @@
             "<!-- The player is provided with several investigative options here from the previous node, which should each disappear after the player explores them. No loops. Once the player has taken all of them, show the last option (progress). This will require some code. -->"
         ],
         "id": 35,
+        "showOnce": true,
         "responses": [
             {
                 "target": 39,
                 "text": "What do you mean by information and connections?"
             },
             {
-                "conditions": {
-                    "varAskedWhyNot": "!true"
-                },
                 "target": 34,
                 "text": "Why aren't you coming with me?"
             },
             {
-                "conditions": {
-                    "varAskedNewSpecies": "!true"
-                },
                 "target": 36,
                 "text": "You said I'm a \"new species?\""
             },
@@ -718,22 +708,17 @@
             "<!-- The player is provided with several investigative options here from the previous node, which should each disappear after the player explores them. No loops. Once the player has taken all of them, show the last option (progress). This will require some code. -->"
         ],
         "id": 36,
+        "showOnce": true,
         "responses": [
             {
                 "target": 40,
                 "text": "What species lives on Station Zero?"
             },
             {
-                "conditions": {
-                    "varAskedWhyNot": "!true"
-                },
                 "target": 34,
                 "text": "Why aren't you coming with me?"
             },
             {
-                "conditions": {
-                    "varAskedStationZero": "!true"
-                },
                 "target": 35,
                 "text": "What is Station Zero, anyway?"
             },
@@ -758,16 +743,10 @@
         "id": 37,
         "responses": [
             {
-                "conditions": {
-                    "varAskedStationZero": "!true"
-                },
                 "target": 35,
                 "text": "What is Station Zero, anyway?"
             },
             {
-                "conditions": {
-                    "varAskedNewSpecies": "!true"
-                },
                 "target": 36,
                 "text": "You said I'm a \"new species?\""
             },
@@ -813,16 +792,10 @@
         "id": 39,
         "responses": [
             {
-                "conditions": {
-                    "varAskedWhyNot": "!true"
-                },
                 "target": 34,
                 "text": "Why aren't you coming with me?"
             },
             {
-                "conditions": {
-                    "varAskedNewSpecies": "!true"
-                },
                 "target": 36,
                 "text": "You said I'm a \"new species?\""
             },
@@ -847,16 +820,10 @@
         "id": 40,
         "responses": [
             {
-                "conditions": {
-                    "varAskedWhyNot": "!true"
-                },
                 "target": 34,
                 "text": "Why aren't you coming with me?"
             },
             {
-                "conditions": {
-                    "varAskedStationZero": "!true"
-                },
                 "target": 35,
                 "text": "What is Station Zero, anyway?"
             },
