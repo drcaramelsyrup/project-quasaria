@@ -131,6 +131,10 @@ DialogueWindow.prototype.cleanWindow = function () {
     this.slider = null;
   }
   this.dialogText.y = this._dialogTextOriginY;
+  this.dialogText.displayObject.inputEnabled = false;
+  this.dialogText.displayObject.events.onInputOver.removeAll();
+  this.dialogText.displayObject.events.onInputOut.removeAll();
+  this._game.input.mouse.mouseWheelCallback = null;
 };
 
 DialogueWindow.prototype.takeActions = function() {
@@ -248,7 +252,7 @@ DialogueWindow.prototype.addOverflowScroll = function () {
       },
       heightDiff, scrolllineWidth);
 
-    this.slider.onDrag.add(function (value) {
+    var scrollCallback = function (value) {
       // mapping height differences to scroll values
       var scrollValue = heightDiff*value;
       this.dialogText.y = this._dialogTextOriginY - scrollValue;
@@ -256,148 +260,22 @@ DialogueWindow.prototype.addOverflowScroll = function () {
         // slide all buttons up
         this.buttons[i].y = this.dialogPanel.y + this._buttonsY[i] - scrollValue;
       }
-    }, this);
-
-
-    // this.slider = new SlickUI.Element.Slider(
-    //   this._dialogTextOriginX + this._dialogTextWidth + this._dialogPadding, 
-    //   this._dialogTextOriginY, 
-    //   this._dialogTextHeight, 1 /* scrollbar starts at top, or 1; bottom is 0 */, true /* vertical */);
-    // this.dialogPanel.add(this.slider);
-
-    /*
-
-    // Draw the path 
-    var pathWidth = 3;
-    var bmLine = this._game.make.bitmapData(this._dialogPadding + pathWidth, this._dialogTextHeight + pathWidth);
-    this.points = {
-      'x': [0, this._dialogPadding, 0],
-      'y': [0, this._dialogTextHeight / 2, this._dialogTextHeight]
     };
-    var interpInc = 1 / this._dialogTextHeight;
-    for (var j = 0; j < 1; j += interpInc) {
-      var px = this._game.math.linearInterpolation(this.points.x, j);
-      var py = this._game.math.linearInterpolation(this.points.y, j);
-      bmLine.rect(px, py, pathWidth, pathWidth, '#48f2ff');
-    }
-    this._sliderOriginX = this._dialogTextOriginX + this._dialogTextWidth + this._dialogPadding - pathWidth;
-    this._sliderOriginY = this._dialogTextOriginY - pathWidth;
-    this.sliderLine = new SlickUI.Element.DisplayObject(
-      this._sliderOriginX, this._sliderOriginY, this._game.make.sprite(0,0, bmLine));
 
-    var sliderWidth = pathWidth*2;
-    this._bmSlider = this._game.make.bitmapData(this._dialogPadding + sliderWidth, this._dialogTextHeight + sliderWidth);
+    this.slider.onDrag.add(scrollCallback, this);
+    this.slider.onSetValue.add(scrollCallback, this);
 
-    var sliderRatio = (this._dialogTextHeight - heightDiff) / this._dialogTextHeight;
-
-    for (j = 0; j < sliderRatio; j += interpInc) {
-      px = this._game.math.linearInterpolation(this.points.x, j);
-      py = this._game.math.linearInterpolation(this.points.y, j);
-      this._bmSlider.rect(px, py, sliderWidth, sliderWidth, '#48f2ff');
-    }
-    var sliderBMD = this._game.make.sprite(0,0, this._bmSlider);
-    // sliderBMD.anchor.setTo(0.5, 0);
-    this.dialogPanel.add(
-      this.sliderBMD = new SlickUI.Element.DisplayObject(this._sliderOriginX-sliderWidth/2, this._sliderOriginY, sliderBMD));
-
-    // var sliderSprite = this._game.make.sprite(0,0, 'dialogue-panel-slider');
-    // sliderSprite.scale.setTo(this._dialogPadding / sliderSprite.width);
-    // sliderSprite.anchor.setTo(0.5, 0.5);
-    // this.sliderSprite = new SlickUI.Element.DisplayObject(
-    //   this._sliderOriginX, this._sliderOriginY, sliderSprite);
-
-    this.dialogPanel.add(this.sliderLine);
-
-    // this.dialogPanel.add(this.sliderSprite);
-
-    // this._sliderWorldOriginY = this.sliderSprite.container.y + this._sliderOriginY;
-
-    // console.log(this._sliderWorldOriginY);
-
-    sliderBMD.inputEnabled = true;
-    sliderBMD.input.useHandCursor = true;
-    this._sliderValue = 0;
-    sliderBMD.events.onInputDown.add(function (sprite, pointer) {
-      this._dragging = true;
-      this._dragPoint = pointer.y;
-      // console.log(sprite.y);
-      // this._offset = this.sliderBMD.y + this.dialogPanel.y - this._sliderOriginY;
-      this._dragValue = this._sliderValue;
-      // console.log(this._offset);
-
-    }, this);
-    sliderBMD.events.onInputUp.add(function () {
-      this._dragging = false;
-    }, this);
-
-    this._game.input.addMoveCallback(function (pointer, pointerX, pointerY) {
-      if (!this._dragging)
+    // Mouse wheel events
+    this.dialogText.displayObject.inputEnabled = true;
+    this.dialogText.displayObject.events.onInputOver.add(
+      function () { this._dialogOver = true; }, this);
+    this.dialogText.displayObject.events.onInputOut.add(
+      function () { this._dialogOver = false; }, this);
+    this._game.input.mouse.mouseWheelCallback = (function (event) {
+      if (!this._dialogOver)
         return;
-
-      var start = this._dragPoint - this._dragValue*heightDiff;
-      var clampedDelta = Math.min(Math.max(0, pointerY - start), heightDiff);
-
-      var startBitmap = clampedDelta / this._dialogTextHeight;
-      this._bmSlider.clear();
-
-      for (var j = startBitmap; j < startBitmap + sliderRatio; j += interpInc) {
-        px = this._game.math.linearInterpolation(this.points.x, j);
-        py = this._game.math.linearInterpolation(this.points.y, j);
-        this._bmSlider.rect(px, py, 6, 6, '#48f2ff');
-      }
-
-      this._sliderValue = (1/heightDiff)*clampedDelta;
-
-      // mapping height differences to scroll values
-      var scrollValue = heightDiff*(this._sliderValue);
-      this.dialogText.y = this._dialogTextOriginY - scrollValue;
-      for (var i = 0; i < this.buttons.length; i++) {
-        // slide all buttons up
-        this.buttons[i].y = this.dialogPanel.y + this._buttonsY[i] - scrollValue;
-      }
-
-      // console.log(this._sliderValue);
-
-    }, this);
-    
-
-    // this.slider.onDrag.add(function (value) {
-    //   // mapping height differences to scroll values
-    //   var scrollValue = heightDiff*(1-value);
-    //   var scrollY = this._sliderOriginY + this._dialogTextHeight * (1-value);
-    //   var scrollX = this._sliderOriginX + this._game.math.linearInterpolation(this.points.x, 1-value);
-    //   this.dialogText.y = this._dialogTextOriginY - scrollValue;
-    //   for (var i = 0; i < this.buttons.length; i++) {
-    //     // slide all buttons up
-    //     this.buttons[i].y = this.dialogPanel.y + this._buttonsY[i] - scrollValue;
-    //     this.sliderSprite.y = scrollY;
-    //     this.sliderSprite.x = scrollX;
-    //   }
-    // }, this);
-
-    // sliderSprite.inputEnabled = true;
-    // sliderSprite.input.useHandCursor = true;
-    // sliderSprite.events.onInputDown.add(function (sprite, pointer) {
-    //   this._dragging = true;
-    // }, this);
-    // sliderSprite.events.onInputUp.add(function (sprite, pointer) {
-    //   this._dragging = false;
-    // }, this);
-
-    // this._game.input.addMoveCallback(function (pointer, pointerX, pointerY) {
-    //   if (!this._dragging)
-    //     return;
-
-    //   var pos = pointerY;
-    //   var clampedY = this._sliderOriginY + 
-    //     Math.min(
-    //       Math.max(0, pos - this.sliderSprite.container.y), 
-    //       this._dialogTextHeight);
-    //   this.sliderSprite.y = clampedY;
-    //   console.log(pos-this.sliderSprite.container.y);
-    // }, this);
-
-*/
+      this.slider.value += (1/heightDiff) * event.deltaY;
+    }).bind(this);
   }
 };
 

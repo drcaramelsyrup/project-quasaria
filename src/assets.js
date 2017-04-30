@@ -49,10 +49,6 @@ exports.ui = [{
   type: 'image',
   url: 'ui/dialogue-choice-button.png'
 }, {
-  key: 'dialogue-panel-slider',
-  type: 'image',
-  url: 'ui/dialogue-panel-slider.png'
-}, {
   key: 'dialogue-panel',
   type: 'image',
   url: 'ui/dialogue-panel.png'

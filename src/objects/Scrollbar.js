@@ -17,6 +17,7 @@ function Scrollbar(game, x, y, uiParent, points, maxScroll, lineWidth = 2, scrol
   this.onDragStart = new Phaser.Signal();
   this.onDrag = new Phaser.Signal();
   this.onDragStop = new Phaser.Signal();
+  this.onSetValue = new Phaser.Signal();
 
   // Initial value
   this._value = 0;
@@ -138,7 +139,8 @@ Object.defineProperty(Scrollbar.prototype, 'value', {
     return this._value;
   },
   set: function (value) {
-    this._value = value;
+    this._value = Math.min(Math.max(0, value), 1);
     this.redraw();
+    this.onSetValue.dispatch(this._value);
   }
 });
