@@ -13,6 +13,7 @@
                 "text": "What... where am I?"
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "Hey. Waking up? Good. You've been out for a while."
     },
@@ -34,6 +35,7 @@
                 "text": "Ouch. Feels like I fell off the back of a truck."
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "I'll explain everything in a minute. How are you feeling? Does your head hurt?"
     },
@@ -47,6 +49,7 @@
                 "text": "Wait... where are you? I can hear you, but I can't see you."
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "I told you, I'll explain everything. Right now, I want to make sure you're okay. That was a nasty hit to the head you took back there."
     },
@@ -60,24 +63,24 @@
                 "text": "Wait... where are you? I can hear you, but I can't see you."
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "You took a nasty hit to the head. I had to do some... field repairs. Looks like the stitches are holding up, at least. And it's good that you can talk."
     },
     "4": {
         "actions": {},
-        "comments": [
-            "<!-- At this point, the player needs to \"point and click\" on a small, glowing orb positioned somewhere in the shuttle scene. When they do, either a new conversation starts, or a \"Found it!\" option appears in this dialogue. Haven't really figured out how that's going to work yet. -->"
-        ],
+        "comments": [],
         "id": 4,
         "responses": [
             {
-                "target": 5,
-                "text": "Found it!",
                 "conditions": {
                     "invlistener": "true"
-                }
+                },
+                "target": 5,
+                "text": "Found it!"
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "I'm not actually on the shuttle with you. Look around. There should be a small orb somewhere nearby. Find it, and I'll tell you more about what's happening."
     },
@@ -99,6 +102,7 @@
                 "text": "Sounds useful. I guess I'll keep it for now."
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "Good. I designed that orb myself. I call it a Listener. It lets me communicate with you across great distances, even through space. And it operates on a special frequency that only you can hear, so others can't listen in on our conversations. Don't lose it, okay? Put it in your pocket or something."
     },
@@ -120,6 +124,7 @@
                 "text": "Why don't you just explain who you are already?"
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "Of course, don't you... Wait a minute. I knew something was off. You don't remember, do you?"
     },
@@ -141,6 +146,7 @@
                 "text": "Why don't you just explain who you are already?"
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "Don't be silly. It's a very common piece of technology... Wait a minute. I knew something was off. You don't remember, do you?"
     },
@@ -158,6 +164,7 @@
                 "text": "Wow, you sound like a humble guy."
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "Well, of course it will be useful. I don't design things that aren't useful. At the risk of sounding overly boastful, that would be a waste of my talents."
     },
@@ -179,6 +186,7 @@
                 "text": "Why don't you just explain who you are already?"
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "Now, what could you possibly mean by that? It almost sounds like... I knew something was off. You don't remember, do you?"
     },
@@ -200,6 +208,7 @@
                 "text": "Crap. I... can't remember. This is bad, isn't it?"
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "Calm down! We're going to figure this out. Just answer one question for me. What's your name?"
     },
@@ -221,6 +230,7 @@
                 "text": "Something is very, very wrong. I can't remember my own name!"
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "Take all the time you need. Seriously."
     },
@@ -242,6 +252,7 @@
                 "text": "I guess I didn't study for this one. Can I have a hint?"
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "Well, at least you haven't lost your sense of humor. As... questionable as it may have been."
     },
@@ -263,6 +274,7 @@
                 "text": "Well, in the meantime, you'd better start filling me in."
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "Hey, it's going to be okay. I'm actually not surprised that this happened. Your memories will come back with time... probably."
     },
@@ -284,6 +296,7 @@
                 "text": "Well, in the meantime, you'd better start filling me in."
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "Well, no. Not really. But I wouldn't panic over this if I were you. Your memories will come back with time... probably."
     },
@@ -305,6 +318,7 @@
                 "text": "Well, in the meantime, you'd better start filling me in."
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "That's okay. I'm actually not surprised that this happened. Your memories will come back with time... probably."
     },
@@ -326,6 +340,7 @@
                 "text": "Well, in the meantime, you'd better start filling me in."
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "You must have been a model student. Anyway, I wouldn't be too worried if I were you. I'm actually not surprised that this happened. Your memories will come back with time... probably."
     },
@@ -347,6 +362,7 @@
                 "text": "It would be a lot more comforting to have you here if I knew who you were."
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "Yeah, I can imagine. But I cannot stress enough that everything is going to be all right. I'll be with you every step of the way, as long as you keep that orb in your pocket. And for now, I can give you a brief rundown of the situation. Long enough for you to understand the specifics, and short enough so you can... uh... remember."
     },
@@ -368,6 +384,7 @@
                 "text": "Great. So I'm not hurt or sick, I'm just a nutcase."
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "I'm not a neuroscientist, so I can't say for certain. But your personality is still intact, and you remember how to breathe, talk, panic, and ask annoying questions, so I have a hunch that your amnesia isn't permanent. It might even be psychological rather than physiological."
     },
@@ -389,6 +406,7 @@
                 "text": "Wait. If I'm some kind of mass murderer, I'm not sure I want to know."
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "Yeah, I'm sure you're ready to hear some details on what went down. To be honest, I'm still trying to figure out how to tell you some things. This won't be easy."
     },
@@ -407,9 +425,10 @@
             },
             {
                 "target": 28,
-                "text": "..."
+                "text": "(Wait)"
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "Okay. Well, I'll start with the worst news. It's actually helpful that you don't remember much; what I'm about to tell you won't sink in right away. But later, when you recover your memories... I hope you can forgive me for telling you like this."
     },
@@ -431,6 +450,7 @@
                 "text": "Well, if you're not a neuroscientist, who are you?"
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "Despite my limited knowledge of neuroscience, I'm fairly certain that's not going to happen."
     },
@@ -444,6 +464,7 @@
                 "text": "Fine. Go ahead."
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "Just be patient. First I'd like to explain how you got here, if you'll allow me."
     },
@@ -461,6 +482,7 @@
                 "text": "I disagree. I think it's very important for me to know who you are."
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "I'll forgive your lack of faith in my intelligence, since you don't actually have any idea who I am. Just trust me when I say that my identity is nowhere near the most important thing we need to discuss. It's time I explained what happened and how you got on this shuttle in the first place."
     },
@@ -474,6 +496,7 @@
                 "text": "Okay, go ahead."
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "You don't need to apologize. I'm inclined to be sympathetic, given everything you've been through. Now, I think it's time that I explained how you got here."
     },
@@ -491,6 +514,7 @@
                 "text": "I think I'd be a lot more understanding if I knew who you were."
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "I think you'll be a lot more understanding of your situation once I explain what happened."
     },
@@ -508,6 +532,7 @@
                 "text": "Doesn't matter if I'm ready. I need to know what happened."
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "Well... you're not wrong. Are you sure you're ready to hear it?"
     },
@@ -525,6 +550,7 @@
                 "text": "Yes. I'm ready."
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "No, nothing like that. In fact, I don't know very much about who you are. All I know is what you managed to tell me before... well, the thing that happened. Are you ready to hear about it?"
     },
@@ -546,6 +572,7 @@
                 "text": "Oh no..."
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "It's quite likely that everyone you knew is dead. Your family, friends... your entire homeworld, in fact. You're alive because I managed to save you, but... you might be the last of your kind."
     },
@@ -567,6 +594,7 @@
                 "text": "Well, considering I don't remember my family or friends, it's not actually that bad."
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "This must be quite a shock. I'm sure it'll take some time to process. But I really have to move on."
     },
@@ -580,6 +608,7 @@
                 "text": "..."
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "Look, I'm sorry. There's nothing either of us can do about the past. We need to focus on the future. Your future, specifically."
     },
@@ -593,6 +622,7 @@
                 "text": "..."
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "It's not a prank, I assure you. I've been called many things, but sadist isn't one of them."
     },
@@ -606,6 +636,7 @@
                 "text": "..."
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "That's convenient, for now. It means we can save the anger and denial for when your memories come back. That leaves us time for more important things now."
     },
@@ -627,18 +658,14 @@
                 "text": "I'm a new species?"
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "Your home is gone, so I'm sending you to Station Zero. You should be able to find some answers there, along with people willing to help... provided they let you onto the station. They're usually friendly to new species, but your lack of memories might make you seem suspicious. Just tell them the truth, except about me. Don't mention me at all."
     },
     "34": {
-        "actions": {
-            "varAskedWhyNot": "true"
-        },
-        "comments": [
-            "<!-- The player is provided with several investigative options here from the previous node, which should each disappear after the player explores them. No loops. Once the player has taken all of them, show the last option (progress). This will require some code. -->"
-        ],
+        "actions": {},
+        "comments": [],
         "id": 34,
-        "showOnce": true,
         "responses": [
             {
                 "target": 37,
@@ -654,26 +681,20 @@
             },
             {
                 "conditions": {
-                    "varAskedNewSpecies": "true",
-                    "varAskedStationZero": "true",
-                    "varAskedWhyNot": "true"
+                    "seen": "34 35 36"
                 },
                 "target": 38,
                 "text": "I still have more questions, but I don't even know where to start."
             }
         ],
+        "showOnce": 1,
         "speaker": "Mysterious Voice",
         "text": "I'm not exactly welcome on the station. It's a long story and I'd rather not get into it now. You don't want to mention anything that will make it harder for you to get onto the station, so just leave me out of it. You can tell them that somebody rescued you, but you don't know who. I left a note in the shuttle cockpit that you can use to back up your story."
     },
     "35": {
-        "actions": {
-            "varAskedStationZero": "true"
-        },
-        "comments": [
-            "<!-- The player is provided with several investigative options here from the previous node, which should each disappear after the player explores them. No loops. Once the player has taken all of them, show the last option (progress). This will require some code. -->"
-        ],
+        "actions": {},
+        "comments": [],
         "id": 35,
-        "showOnce": true,
         "responses": [
             {
                 "target": 39,
@@ -689,26 +710,20 @@
             },
             {
                 "conditions": {
-                    "varAskedNewSpecies": "true",
-                    "varAskedStationZero": "true",
-                    "varAskedWhyNot": "true"
+                    "seen": "34 35 36"
                 },
                 "target": 38,
                 "text": "I still have more questions, but I don't even know where to start."
             }
         ],
+        "showOnce": 1,
         "speaker": "Mysterious Voice",
         "text": "It's a huge space station. All of the sentient species who've made contact with the rest of the galaxy have a delegation there. Some people call it the center of galactic civilization, but you can form your own opinion. There are two things it's good for: information and connections. You'll need both."
     },
     "36": {
-        "actions": {
-            "varAskedNewSpecies": "true"
-        },
-        "comments": [
-            "<!-- The player is provided with several investigative options here from the previous node, which should each disappear after the player explores them. No loops. Once the player has taken all of them, show the last option (progress). This will require some code. -->"
-        ],
+        "actions": {},
+        "comments": [],
         "id": 36,
-        "showOnce": true,
         "responses": [
             {
                 "target": 40,
@@ -724,22 +739,19 @@
             },
             {
                 "conditions": {
-                    "varAskedNewSpecies": "true",
-                    "varAskedStationZero": "true",
-                    "varAskedWhyNot": "true"
+                    "seen": "34 35 36"
                 },
                 "target": 38,
                 "text": "I still have more questions, but I don't even know where to start."
             }
         ],
+        "showOnce": 1,
         "speaker": "Mysterious Voice",
         "text": "Like I said, you're the last of your kind. The people on Station Zero won't have encountered your species before. As far as I could tell, your planet wasn't really a part of the galactic scene. Still mostly pre-spaceflight and everything. It's possible that they might have your planet on record as \"inhabited,\" but that's about it. Expect a large dose of scientific curiosity... and a lot of staring."
     },
     "37": {
         "actions": {},
-        "comments": [
-            "<!-- The player is provided with several investigative options here from the previous node, which should each disappear after the player explores them. No loops. Once the player has taken all of them, show the last option (progress). This will require some code. -->"
-        ],
+        "comments": [],
         "id": 37,
         "responses": [
             {
@@ -752,14 +764,13 @@
             },
             {
                 "conditions": {
-                    "varAskedNewSpecies": "true",
-                    "varAskedStationZero": "true",
-                    "varAskedWhyNot": "true"
+                    "seen": "34 35 36"
                 },
                 "target": 38,
                 "text": "I still have more questions, but I don't even know where to start."
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "Look, I'm just getting to know you. Forgive me if I don't want to spill my entire life story right away. I saved you, so I'm invested in your success; I'll stick with you while we figure things out. But we're not friends yet."
     },
@@ -781,14 +792,13 @@
                 "text": "What am I supposed to do if they don't let me on the station?"
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "There will be plenty of time later. You're getting close to the station now, so we need to make sure you're prepared. Remember, don't talk to me around other people. And don't mention me. The shuttle is on autopilot, so you don't need to worry about docking procedures. And I know you don't know what kind of food you're supposed to eat, but they'll have tests for that. Don't lose the Listener. Tell them it's a cultural artifact if you have to. And don't..."
     },
     "39": {
         "actions": {},
-        "comments": [
-            "<!-- The player is provided with several investigative options here from the previous node, which should each disappear after the player explores them. No loops. Once the player has taken all of them, show the last option (progress). This will require some code. -->"
-        ],
+        "comments": [],
         "id": 39,
         "responses": [
             {
@@ -801,22 +811,19 @@
             },
             {
                 "conditions": {
-                    "varAskedNewSpecies": "true",
-                    "varAskedStationZero": "true",
-                    "varAskedWhyNot": "true"
+                    "seen": "34 35 36"
                 },
                 "target": 38,
                 "text": "I still have more questions, but I don't even know where to start."
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "Station Zero's original purpose was to be a central hub for all of the galaxy's sentient races to share information and research. It's... changed since those early days, but it's still the best place to find answers to big questions. As for connections... let's just say that everybody on the station is used to seeing new faces. You'll have a lot more success making friends there than you would on someone's planet."
     },
     "40": {
         "actions": {},
-        "comments": [
-            "<!-- The player is provided with several investigative options here from the previous node, which should each disappear after the player explores them. No loops. Once the player has taken all of them, show the last option (progress). This will require some code. -->"
-        ],
+        "comments": [],
         "id": 40,
         "responses": [
             {
@@ -829,14 +836,13 @@
             },
             {
                 "conditions": {
-                    "varAskedNewSpecies": "true",
-                    "varAskedStationZero": "true",
-                    "varAskedWhyNot": "true"
+                    "seen": "34 35 36"
                 },
                 "target": 38,
                 "text": "I still have more questions, but I don't even know where to start."
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "There's more than one. Over a dozen, in fact. You'll see. Regardless of everything else, it's a marvel of engineering. Any species can live there, regardless of their physiology. I'm not going to tell you much about the different races, though. It'll be more exciting... and believable... if first contact for you is actually first contact."
     },
@@ -850,6 +856,7 @@
                 "text": "That's comforting."
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "Just be yourself and tell the truth, except the things I told you to lie about. They'll love you. After running the necessary tests, of course."
     },
@@ -863,6 +870,7 @@
                 "text": "Thanks."
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "Well, I'll still be in your head as long as you keep the Listener nearby. If you seem to be forgetting anything egregiously important, I'll let you know."
     },
@@ -876,6 +884,7 @@
                 "text": "No pressure..."
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "If it comes to that, I have other plans. But this is really the best one, so try to make a good first impression."
     },
@@ -893,6 +902,7 @@
                 "text": "Good to know."
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "I've auto-hailed the station and they accepted the docking request. The shuttle is about to start docking procedures. I'm going to scrub my authorization from the shuttle systems now, in case they poke around. But I'm leaving a backdoor for later, so try to keep ownership over the shuttle if you can. Anything goes sideways on the station, you'll still have a quick getaway."
     },
@@ -906,8 +916,23 @@
                 "text": "END"
             }
         ],
+        "showOnce": 0,
         "speaker": "Mysterious Voice",
         "text": "Good luck with the welcome party. Remember, be on your best behavior. I'll talk to you again soon."
+    },
+    "46": {
+        "actions": {},
+        "comments": [],
+        "id": 46,
+        "responses": [
+            {
+                "target": -1,
+                "text": "END"
+            }
+        ],
+        "showOnce": 0,
+        "speaker": "Found it!",
+        "text": "Double-click this passage to edit it."
     },
     "onEnd": "startConv:prologue02"
 }
