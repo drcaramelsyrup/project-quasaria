@@ -11,3 +11,4 @@
 exports.Boot = require('./Boot');
 exports.Preloader = require('./Preloader');
 exports.Game = require('./Game');
+exports.Battleground = require('./Battleground');
