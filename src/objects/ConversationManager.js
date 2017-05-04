@@ -51,7 +51,7 @@ ConversationManager.prototype.getResponses = function () {
   var ret = [];
   for (var i = 0; i < responses.length; i++) {
     //check showOnce of target node
-    if (this.shown.indexOf(responses[i]['target']) > -1) {
+    if (this.shown.indexOf(responses[i]['target']) > -1) {    // this node is marked "show once" and has already been shown
       continue;
     }
     //check conditions on response
@@ -59,7 +59,7 @@ ConversationManager.prototype.getResponses = function () {
       var conditionsNeeded = 0;
       var conditionsMet = 0;
       for (var condition in responses[i]['conditions']) {
-        if (checkCondition(this._game, condition, responses[i]['conditions'][condition])) {
+        if (this.checkCondition(this._game, condition, responses[i]['conditions'][condition])) {
           conditionsMet++;
         }
         conditionsNeeded++;
@@ -75,7 +75,7 @@ ConversationManager.prototype.getResponses = function () {
   return ret;
 };
 
-function checkCondition(game, condition, value) {
+ConversationManager.prototype.checkCondition = function(game, condition, value) {
   if (condition.startsWith('var')) {
     var variable = condition.substring(3);
     if (value.startsWith('!')) {
@@ -94,6 +94,15 @@ function checkCondition(game, condition, value) {
     } else if (game.player.inventory.indexOf(item) > -1) {
       return true;      //player has this inventory item
     }
+  } else if (condition.startsWith('seen')) {
+    var visited = value.split(' ');
+    var visitedAll = true;
+    for (var i = 0; i < visited.length; i++) {
+      if (this.shown.indexOf(parseInt(visited[i])) === -1) {
+        visitedAll = false;
+      }
+    }
+    return visitedAll;
   }
   return false;
 }
@@ -119,7 +128,7 @@ ConversationManager.prototype.takeActions = function() {
     return;
   }
 
-  if (this.conversation[this.idx]['showOnce'] === true) {
+  if (this.conversation[this.idx]['showOnce'] === 1) {
     this.shown.push(this.idx);
   }
 
