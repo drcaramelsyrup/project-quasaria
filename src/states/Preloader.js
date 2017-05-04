@@ -21,6 +21,7 @@ exports.preload = function (game) {
   game.load.pack('ui', null, assets);
   game.load.pack('conversations', null, assets);
   game.load.pack('sounds', null, assets);
+  game.load.pack('logic_battle', null, assets);
 };
 
 exports.create = function (game) {
@@ -33,6 +34,6 @@ exports.create = function (game) {
   // between preload and create functions FOR EACH STATE
   game.slickUI = game.plugins.add(Phaser.Plugin.SlickUI);
 
-  game.state.start('Game');
+  game.state.start('Battleground');
 
 };

@@ -139,3 +139,35 @@ exports.sounds = [{
   type: 'audio',
   urls: ['music/Ukulele (Demo).mp3']
 }];
+
+// --logic battle placeholder images
+
+exports.logic_battle = [{
+  key: 'alien-stare',
+  type: 'image'
+}, {
+  key: 'greek-sphinx',
+  type: 'image'
+}, {
+  key: 'cyborg-face',
+  type: 'image'
+}, {
+  key: 'curly-mask',
+  type: 'image'
+}, {
+  key: 'lunar-module',
+  type: 'image'
+}, {
+  key: 'fencer',
+  type: 'image'
+}, {
+  key: 'new-born',
+  type: 'image'
+}, {
+  key: 'saint-basil-cathedral',
+  type: 'image'
+}, {
+  key: 'goblin-head',
+  type: 'image'
+}];
+
