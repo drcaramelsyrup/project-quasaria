@@ -35,6 +35,9 @@ function click() {
   console.log(saveString);
   localStorage.setItem('playerState', saveString);
   let playerState = localStorage.getItem('playerState');
+  //right now this is just called to demonstrate functionality
+  //it is not needed, we would only need in the case that the
+  //user wants to resume game play
   Player.unserialize(playerState, this._game);
 }
 
