@@ -83,6 +83,10 @@ exports.ui = [{
   key: 'memory-bank',
   type: 'image',
   url: 'ui/memory-bank.png'
+}, {
+  key: 'battle-background',
+  type: 'image',
+  url: 'ui/battle-background.png'
 }];
 
 // -- Conversation jsons and avatars.
@@ -147,29 +151,38 @@ exports.sounds = [{
 
 exports.logic_battle = [{
   key: 'alien-stare',
-  type: 'image'
+  type: 'image',
+  url: 'battle/alien-stare.png'
 }, {
   key: 'greek-sphinx',
-  type: 'image'
+  type: 'image',
+  url: 'battle/greek-sphinx.png'
 }, {
   key: 'cyborg-face',
-  type: 'image'
+  type: 'image',
+  url: 'battle/cyborg-face.png'
 }, {
   key: 'curly-mask',
-  type: 'image'
+  type: 'image',
+  url: 'battle/curly-mask.png'
 }, {
   key: 'lunar-module',
-  type: 'image'
+  type: 'image',
+  url: 'battle/lunar-module.png'
 }, {
   key: 'fencer',
-  type: 'image'
+  type: 'image',
+  url: 'battle/fencer.png'
 }, {
   key: 'new-born',
-  type: 'image'
+  type: 'image',
+  url: 'battle/new-born.png'
 }, {
   key: 'saint-basil-cathedral',
-  type: 'image'
+  type: 'image',
+  url: 'battle/saint-basil-cathedral.png'
 }, {
   key: 'goblin-head',
-  type: 'image'
+  type: 'image',
+  url: 'battle/goblin-head.png'
 }];

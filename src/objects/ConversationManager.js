@@ -105,7 +105,7 @@ ConversationManager.prototype.checkCondition = function(game, condition, value) 
     return visitedAll;
   }
   return false;
-}
+};
 
 ConversationManager.prototype.getSpeaker = function () {
   if (this.conversation === null) {

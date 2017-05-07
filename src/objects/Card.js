@@ -9,6 +9,5 @@ function Card(game, x, y, assetName) {
     this.description = "test";
 }
 
-
 Card.prototype = Object.create(Phaser.Sprite.prototype);
 module.exports = Card.prototype.constructor = Card;
