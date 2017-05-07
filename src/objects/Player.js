@@ -10,7 +10,7 @@
 function Player(game) {
   Phaser.Group.call(this, game);
 //  this.room = null;
-  this._game = game;
+  //this._game = game;
   this.inventory = [];
   this.memoryBank = [];
   this.variables = {};
@@ -45,13 +45,18 @@ Player.unserialize = function(playerState, game){
 
   if (typeof playerState === 'string'){
     console.log(playerState);
-    playerState = JSON.parse(playerState);
+    playerState = JSON.parse(playerState, (key, value) => {
+    console.log(key); // log the current property name, the last is "".
+    return value;     // return the unchanged property value.
+  });
   }
+
   game.player = game.add.existing(new Player(game));
 //  playerState['room'] = null;
   //we can figure out if we rehydrate the room here
   for (let field in playerState){
-    game.player[field] = playerState['field'];
+    game.player[field] = playerState[field];
+    console.log(playerState[field]);
   }
   console.log(game.player);
 
