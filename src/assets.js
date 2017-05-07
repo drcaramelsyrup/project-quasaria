@@ -22,6 +22,9 @@ exports.game = [{
   key: 'quasaria-logo',
   type: 'image'
 }, {
+  key: 'saveButton',
+  type: 'image'
+}, {
   key: 'shuttle',
   type: 'image',
   url: 'backgrounds/shuttle.png'
@@ -170,4 +173,3 @@ exports.logic_battle = [{
   key: 'goblin-head',
   type: 'image'
 }];
-
