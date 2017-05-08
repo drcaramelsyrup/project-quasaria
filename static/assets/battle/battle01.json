@@ -1,0 +1,23 @@
+{
+    "0": {
+        "id": "lunar-module",
+        "name": "Xenobiological Hazard",
+        "speaker": "Gleaming Shoal",
+        "text": "Honestly, we’re lucky that you haven’t killed us already. New species unwittingly carry deadly pathogens all the time. Some have waited months before we can develop the appropriate containment measures for ISS standards. Unless you can show me you aren’t a walking public safety hazard, I can’t let you pass.",
+        "counters": ["report-xenobio"]
+    },
+    "1": {
+        "id": "fencer",
+        "name": "Xenopsychological Clearance",
+        "speaker": "Gleaming Shoal",
+        "text": "Honestly, we’re lucky that you haven’t killed us already. New species unwittingly carry deadly pathogens all the time. Some have waited months before we can develop the appropriate containment measures for ISS standards. Unless you can show me you aren’t a walking public safety hazard, I can’t let you pass.",
+        "counters": ["report-xenopsych"]
+    },
+    "2": {
+        "id": "saint-basil-cathedral",
+        "name": "Writ of Detainer",
+        "speaker": "Gleaming Shoal",
+        "text": "I have the right and authority to detain any potentially harmful substance, artifact, or alien. You are a new, unknown, undocumented, and thus, unprotected species. If I say to wait, you must comply.",
+        "counters": ["indecipherable-note-research"]
+    }
+}

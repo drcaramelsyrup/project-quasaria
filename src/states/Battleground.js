@@ -3,12 +3,11 @@
 var Card = require('../objects/Card');
 var Argument = require('../objects/Argument');
 var HealthBar = require('../objects/HealthBar.js');
-<<<<<<< HEAD
 var items = require('../../static/assets/items.json');
 
-=======
 var BattleUi = require('../objects/BattleUi.js');
->>>>>>> Relocate assets, fix linting errors. Basic Battle background.
+var ArgumentManager = require('../objects/ArgumentManager');
+var DialogueWindow = require('../objects/DialogueWindow');
 
 var playerTurn = true;
 var currentArgument = 0;
@@ -24,24 +23,28 @@ exports.preload = function(game) {
 
 exports.create = function (game) {
   game.battleUi = new BattleUi(game);
+  game.argumentManager = new ArgumentManager(game);
+  game.dialogueWindow = new DialogueWindow(game, game.argumentManager);
+  game.dialogueWindow.begin('battle01');
+
   //adding in player cards and face --to do: fetch these from inventory/player skills;
-  game.add.sprite(100, game.world.height - 125, 'alien-stare');
-  var playerDeck = [];
-  playerDeck.push(game.add.existing(new Card(game, 400, 470, 'greek-sphinx')));
-  playerDeck.push(game.add.existing(new Card(game, 480, 470, 'cyborg-face')));
-  playerDeck.push(game.add.existing(new Card(game, 560, 470, 'curly-mask')));
-  playerDeck.forEach(function (card) {
-    card.events.onInputDown.add(cardAction, card);
-    card.events.onInputOver.add(tooltip, card);
-    card.events.onInputOut.add(deleteTooltip, card);
-  });
-  //adding in credibility/health bar
-  var barConfig = {x:160, y:game.world.height - 150, height:20, width:150};
-  credBar = new HealthBar(game, barConfig);
-  //adding opponent face and opponent cards --to do: fetch these from main game state
-  game.add.sprite(100, game.world.height - 490, 'goblin-head');
-  opponentDeck.push(game.add.existing(new Argument(game, 130, game.world.centerY - 50, 'lunar-module', 'greek-sphinx')));
-  opponentDeck.push(game.add.existing(new Argument(game, 245, game.world.centerY - 135, 'fencer', 'cyborg-face')));
+  // game.add.sprite(100, game.world.height - 125, 'alien-stare');
+  // var playerDeck = [];
+  // playerDeck.push(game.add.existing(new Card(game, 400, 470, 'greek-sphinx')));
+  // playerDeck.push(game.add.existing(new Card(game, 480, 470, 'cyborg-face')));
+  // playerDeck.push(game.add.existing(new Card(game, 560, 470, 'curly-mask')));
+  // playerDeck.forEach(function (card) {
+  //   card.events.onInputDown.add(cardAction, card);
+  //   card.events.onInputOver.add(tooltip, card);
+  //   card.events.onInputOut.add(deleteTooltip, card);
+  // });
+  // //adding in credibility/health bar
+  // var barConfig = {x:160, y:game.world.height - 150, height:20, width:150};
+  // credBar = new HealthBar(game, barConfig);
+  // //adding opponent face and opponent cards --to do: fetch these from main game state
+  // game.add.sprite(100, game.world.height - 490, 'goblin-head');
+  // opponentDeck.push(game.add.existing(new Argument(game, 130, game.world.centerY - 50, 'lunar-module', 'greek-sphinx')));
+  // opponentDeck.push(game.add.existing(new Argument(game, 245, game.world.centerY - 135, 'fencer', 'cyborg-face')));
 };
 
 

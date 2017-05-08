@@ -12,7 +12,7 @@ module.exports = DialogueWindow;
 var Scrollbar = require('./Scrollbar');
 
 function DialogueWindow(game, convoManager/*, ...args*/) {
-  Phaser.Group.call(this, game, convoManager/*, ...args*/);
+  Phaser.Group.call(this, game/*, ...args*/);
 
   // PROPERTIES
   // - dialogPanel

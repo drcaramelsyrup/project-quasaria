@@ -185,4 +185,8 @@ exports.logic_battle = [{
   key: 'goblin-head',
   type: 'image',
   url: 'battle/goblin-head.png'
+}, {
+  key: 'battle01',
+  type: 'json',
+  url: 'battle/battle01.json'
 }];
