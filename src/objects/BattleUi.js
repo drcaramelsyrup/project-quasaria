@@ -22,6 +22,7 @@ function BattleUi(game/*, ...args*/) {
 
   this._game = game;
   this._portraitSize = 100;
+  this._cardSize = 80;
   this._enemyOriginY = game.height / 4;
   this._centerX = game.width / 2;
 
@@ -31,7 +32,7 @@ function BattleUi(game/*, ...args*/) {
   background.height = game.height;
 
   /** Enemy display */
-  var enemySprite = game.add.sprite(this._centerX, this._enemyOriginY, 'goblin-head');
+  var enemySprite = game.add.sprite(this._centerX, this._enemyOriginY, 'gleaming-shoal-portrait');
   enemySprite.anchor.setTo(0.5, 0.5);
   enemySprite.width = enemySprite.height = this._portraitSize;
 

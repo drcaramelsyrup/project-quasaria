@@ -115,6 +115,10 @@ exports.conversations = [{
   type: 'image',
   url: 'avatars/gleaming-shoal.png'
 }, {
+  key: 'gleaming-shoal-portrait',
+  type: 'image',
+  url: 'avatars/gleaming-shoal-portrait.png'
+}, {
   key: 'unknown-alien',
   type: 'image',
   url: 'avatars/gleaming-shoal-silhouette.png'

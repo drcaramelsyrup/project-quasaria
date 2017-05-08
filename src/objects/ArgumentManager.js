@@ -42,7 +42,7 @@ ArgumentManager.prototype.takeActions = function () {
 
 ArgumentManager.prototype.getCurrentCounters = function () {
   return this.conversation[this.idx]['counters'];
-}
+};
 
 ArgumentManager.prototype.setArgumentByIndex = function (idx) {
   this.idx = idx;

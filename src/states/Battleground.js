@@ -29,7 +29,7 @@ exports.create = function (game) {
 
   //adding in player cards and face --to do: fetch these from inventory/player skills;
   // game.add.sprite(100, game.world.height - 125, 'alien-stare');
-  // var playerDeck = [];
+  var playerDeck = [];
   // playerDeck.push(game.add.existing(new Card(game, 400, 470, 'greek-sphinx')));
   // playerDeck.push(game.add.existing(new Card(game, 480, 470, 'cyborg-face')));
   // playerDeck.push(game.add.existing(new Card(game, 560, 470, 'curly-mask')));
