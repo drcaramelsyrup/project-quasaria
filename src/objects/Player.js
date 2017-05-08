@@ -9,8 +9,6 @@
 
 function Player(game) {
   Phaser.Group.call(this, game);
-//  this.room = null;
-  //this._game = game;
   this.inventory = [];
   this.memoryBank = [];
   this.variables = {};
@@ -21,11 +19,9 @@ module.exports = Player.prototype.constructor = Player;
 
 Player.prototype.serialize = function(){
   var fields = [
-    //'room',
     'inventory',
     'memoryBank',
     'variables'
-    //  'roomChanges',
   ];
   console.log(fields);
 
@@ -35,7 +31,6 @@ Player.prototype.serialize = function(){
     let field = fields[i];
     obj[field] = this[field];
   }
-//  obj['room'] = this._game.room.area;
   console.log(obj);
   return JSON.stringify(obj);
 };
@@ -52,8 +47,7 @@ Player.unserialize = function(playerState, game){
   }
 
   game.player = game.add.existing(new Player(game));
-//  playerState['room'] = null;
-  //we can figure out if we rehydrate the room here
+
   for (let field in playerState){
     game.player[field] = playerState[field];
     console.log(playerState[field]);
