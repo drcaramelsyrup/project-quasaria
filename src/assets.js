@@ -21,9 +21,9 @@ exports.main_menu = [{
   key: 'continueButton',
   type: 'image'
 }, {
-  key: 'pause_screen',
+  key: 'menu_screen',
   type: 'image',
-  url: 'backgrounds/pause_screen.png'
+  url: 'backgrounds/menu_screen.png'
 }];
 
 

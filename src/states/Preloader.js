@@ -10,6 +10,7 @@
 
 var assets = require('../assets');
 
+
 function showSplashScreen (game) {
   game.add.image(0, 0, 'splash-screen');
   game.load.setPreloadSprite(game.add.image(82, 282, 'progress-bar'));
@@ -23,6 +24,7 @@ exports.preload = function (game) {
   game.load.pack('conversations', null, assets);
   game.load.pack('sounds', null, assets);
   game.load.pack('logic_battle', null, assets);
+  //game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
 };
 
 exports.create = function (game) {
