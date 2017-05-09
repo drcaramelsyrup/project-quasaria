@@ -18,6 +18,7 @@ function showSplashScreen (game) {
 exports.preload = function (game) {
   showSplashScreen(game);
   game.load.pack('game', null, assets);
+  game.load.pack('main_menu', null, assets);
   game.load.pack('ui', null, assets);
   game.load.pack('conversations', null, assets);
   game.load.pack('sounds', null, assets);
@@ -34,6 +35,8 @@ exports.create = function (game) {
   // between preload and create functions FOR EACH STATE
   game.slickUI = game.plugins.add(Phaser.Plugin.SlickUI);
 
-  game.state.start('Game');
+  //TODO delete this shit
+  //game.state.start('Game');
+  game.state.start('MainMenu');
 
 };

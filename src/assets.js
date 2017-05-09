@@ -17,6 +17,16 @@ exports.boot = [{
   type: 'image'
 }];
 
+exports.main_menu = [{
+  key: 'continueButton',
+  type: 'image'
+}, {
+  key: 'pause_screen',
+  type: 'image',
+  url: 'backgrounds/pause_screen.png'
+}];
+
+
 // -- General assets used throughout the game.
 exports.game = [{
   key: 'quasaria-logo',
