@@ -48,7 +48,7 @@ exports.create = function (game) {
     contText.events.onInputDown.add(function () {
       console.log("you loaded game.");
       let resumeGame = true;
-      game.state.start('Game', true, false, resumeGame);
+      game.state.start('Game', true, false, game, resumeGame);
     }, this);
 
     newGameText.anchor.setTo(0.5, 0.5);
@@ -64,7 +64,7 @@ exports.create = function (game) {
     newGameText.events.onInputDown.add(function () {
       console.log("you loaded game.");
       let resumeGame = false;
-      game.state.start('Game', true, false, resumeGame);
+      game.state.start('Game', true, false, game, resumeGame);
     }, this);
 
 };

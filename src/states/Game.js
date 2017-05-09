@@ -1,9 +1,9 @@
 /*
- * Game state
- * ==========
- *
- * A sample Game state, displaying the Phaser logo.
- */
+* Game state
+* ==========
+*
+* A sample Game state, displaying the Phaser logo.
+*/
 
 'use strict';
 
@@ -19,9 +19,21 @@ exports.preload = function(game) {
   game.slickUI.load('ui/kenney-theme/kenney.json');
 };
 
+exports.init = function(game, resumeGame){
+  console.log(resumeGame);
+  let playerState = localStorage.getItem('playerState');
+  if (resumeGame && playerState !== null){
+    Player.unserialize(playerState, game);
+  } else {
+    localStorage.clear();
+    game.player = game.add.existing(new Player(game));
+  }
+
+}
+
 exports.create = function (game) {
   this.camera.flash('#000000', 2000);
-  game.player = game.add.existing(new Player(game));
+
 
   game.music = game.sound.play('minor-arpeggio');
   game.music.loopFull(1);
