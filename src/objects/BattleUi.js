@@ -197,7 +197,9 @@ BattleUi.prototype.playCardAnimation = function (card, argument) {
     var cardIcon = this.playerDeckIcons[i];
     if (card.key === cardIcon.id) {
       var tween = this._game.add.tween(cardIcon);
-      tween.to({x: targetedArg.x, y: targetedArg.y}, 1000, 'Linear', true, 0);
+      tween.to(
+        {x: targetedArg.x, y: targetedArg.y}, 1000, 
+        Phaser.Easing.Exponential.In, true, 0);
       return;
     }
   }

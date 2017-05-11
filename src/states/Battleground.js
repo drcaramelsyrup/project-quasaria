@@ -101,7 +101,7 @@ function opponentTurn(game) {
   currentArgument += 1;
   if (currentArgument < opponentDeck.length) {
     var tween = game.add.tween(opponentDeck[currentArgument]);
-    tween.to({ x: 130, y: game.world.centerY - 30}, 1000, 'Linear', true, 0);
+    tween.to({ x: 130, y: game.world.centerY - 30}, 1000, 'Exponential', true, 0);
     tween.onComplete.add(function () {
       playerTurn = true;
     }, this);
