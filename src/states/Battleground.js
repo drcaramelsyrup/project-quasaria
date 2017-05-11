@@ -22,60 +22,74 @@ exports.preload = function(game) {
 };
 
 exports.create = function (game) {
-  game.battleUi = new BattleUi(game);
   game.argumentManager = new ArgumentManager(game);
-  game.dialogueWindow = new DialogueWindow(game, game.argumentManager);
-  game.dialogueWindow.begin('battle01');
 
   //adding in player cards and face --to do: fetch these from inventory/player skills;
   // game.add.sprite(100, game.world.height - 125, 'alien-stare');
   var playerDeck = [];
-  // playerDeck.push(game.add.existing(new Card(game, 400, 470, 'greek-sphinx')));
-  // playerDeck.push(game.add.existing(new Card(game, 480, 470, 'cyborg-face')));
-  // playerDeck.push(game.add.existing(new Card(game, 560, 470, 'curly-mask')));
-  // playerDeck.forEach(function (card) {
-  //   card.events.onInputDown.add(cardAction, card);
-  //   card.events.onInputOver.add(tooltip, card);
-  //   card.events.onInputOut.add(deleteTooltip, card);
-  // });
+  playerDeck.push(new Card(game, 0, 0, 'greek-sphinx'));
+  playerDeck.push(new Card(game, 0, 0, 'cyborg-face'));
+  playerDeck.push(new Card(game, 0, 0, 'curly-mask'));
   // //adding in credibility/health bar
   // var barConfig = {x:160, y:game.world.height - 150, height:20, width:150};
   // credBar = new HealthBar(game, barConfig);
   // //adding opponent face and opponent cards --to do: fetch these from main game state
   // game.add.sprite(100, game.world.height - 490, 'goblin-head');
-  // opponentDeck.push(game.add.existing(new Argument(game, 130, game.world.centerY - 50, 'lunar-module', 'greek-sphinx')));
-  // opponentDeck.push(game.add.existing(new Argument(game, 245, game.world.centerY - 135, 'fencer', 'cyborg-face')));
+  // var opponentDeck = [];
+  opponentDeck.push(new Argument(game, 130, game.world.centerY - 50, 'lunar-module', 'greek-sphinx'));
+  opponentDeck.push(new Argument(game, 245, game.world.centerY - 135, 'fencer', 'cyborg-face'));
+
+  game.battleUi = new BattleUi(game, playerDeck, opponentDeck);
+  game.battleUi.cardSignal.add(cardAction, this);
+
+  game.dialogueWindow = new DialogueWindow(game, game.argumentManager);
+  game.dialogueWindow.begin('battle01');
+
 };
 
+exports.update = function (game) {
+  // signal listener for ui
 
-function cardAction() {
+  // player action
+  // check action
+  // update and play animations accordingly
+  // dialogue window responses
+  // next turn
+
+}
+
+
+// function cardAction() {
+//   if (playerTurn) {
+//     playerTurn = false;
+//     this.inputEnabled = false;
+//     var tween = this.game.add.tween(this);
+//     tween.to({ x: 125, y: this.game.world.height - 250}, 1000, 'Linear', true, 0);
+//     tween.onComplete.add(function () {
+//       if (this.key === opponentDeck[currentArgument].key){
+//         opponentDeck[currentArgument].destroy();
+//         delete opponentDeck[currentArgument];
+//       }
+//       var game = this.game;
+//       this.destroy();
+//       opponentTurn(game);
+//     }, this);
+//   }
+// }
+
+function cardAction(game, card) {
   if (playerTurn) {
-    playerTurn = false;
-    this.inputEnabled = false;
-    var tween = this.game.add.tween(this);
-    tween.to({ x: 125, y: this.game.world.height - 250}, 1000, 'Linear', true, 0);
-    tween.onComplete.add(function () {
-      if (this.key == opponentDeck[currentArgument].key){
-        opponentDeck[currentArgument].destroy();
-        delete opponentDeck[currentArgument];
-      }
-      var game = this.game;
-      this.destroy();
-      opponentTurn(game);
-    }, this);
+    // playerTurn = false;
+    card.inputEnabled = false;
+    console.log(card.key);
+    if (card.key === opponentDeck[currentArgument].key) {
+      game.battleUi.playCardAnimation(card, opponentDeck[currentArgument]);
+      opponentDeck[currentArgument].destroy();
+      delete opponentDeck[currentArgument];
+    }
   }
-}
+  card.destroy();
 
-
-function tooltip() {
-  this.game.slickUI.add(panel = new SlickUI.Element.Panel(this.x - 10, this.y - 60, 100, 50));
-  panel.add(new SlickUI.Element.Text(0,0, 'test')).center();
-}
-
-function deleteTooltip () {
-  if (panel) {
-    panel.destroy();
-  }
 }
 
 function opponentTurn(game) {

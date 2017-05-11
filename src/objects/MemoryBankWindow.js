@@ -168,7 +168,7 @@ MemoryBankWindow.prototype.displayItems = function () {
     // scaled width = 1/7 panel width;
     var desiredWidth = (this.panelWidth / 7);
     var itemIcon = new Icon(this._game, 0,0,
-      'memory-bank-icon-mask', itemId, 'memory-bank-icon' /* border */, desiredWidth);
+      itemId, 'memory-bank-icon-mask', 'memory-bank-icon' /* border */, desiredWidth);
 
     var slickItem;
     this.panel.add(slickItem = new SlickUI.Element.DisplayObject(
