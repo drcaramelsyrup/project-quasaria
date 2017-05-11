@@ -12,12 +12,14 @@ function Player(game) {
   this.inventory = [];
   this.memoryBank = [];
   this.variables = {};
+  this.currentRoom = null;
+
 }
 
 Player.prototype = Object.create(Phaser.Group.prototype);
 module.exports = Player.prototype.constructor = Player;
 
-Player.prototype.serialize = function(){
+Player.prototype.serialize = function(game){
   var fields = [
     'inventory',
     'memoryBank',
@@ -31,6 +33,10 @@ Player.prototype.serialize = function(){
     let field = fields[i];
     obj[field] = this[field];
   }
+  //since the room info contains all the objects in room, can I pop off there?
+  obj['currentRoom'] = game.room.area;
+  console.log("saved area");
+  console.log(game.room.area);
   console.log(obj);
   return JSON.stringify(obj);
 };

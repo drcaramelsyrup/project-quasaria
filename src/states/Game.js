@@ -24,9 +24,15 @@ exports.init = function(game, resumeGame){
   let playerState = localStorage.getItem('playerState');
   if (resumeGame && playerState !== null){
     Player.unserialize(playerState, game);
-  } else {
+    var area = JSON.parse(JSON.stringify(game.player.currentRoom));
+    game.room = game.add.existing(new Room(game, area.id));
+    game.room.area = area;
+    game.room.addItems();
+  } else { //check if old model blinks 
     localStorage.clear();
     game.player = game.add.existing(new Player(game));
+    game.room = game.add.existing(new Room(game, 'shuttle'));
+    game.room.addItems();
   }
 
 }
@@ -38,8 +44,8 @@ exports.create = function (game) {
   game.music = game.sound.play('minor-arpeggio');
   game.music.loopFull(1);
 
-  game.room = game.add.existing(new Room(game, 'shuttle'));
-  game.room.addItems();
+
+
 
   // custom actions for conversations
   var customActions = new CustomActions(game);

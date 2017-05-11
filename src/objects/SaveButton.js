@@ -31,7 +31,7 @@ function SaveButton(game) {
 function click() {
   this._game.add.existing(new Toast(this._game, 'Game Saved!', 5));
   this._game.dialogueWindow.display(); // refresh dialogue display
-  var saveString = this._game.player.serialize();
+  var saveString = this._game.player.serialize(this._game);
   console.log(saveString);
   localStorage.setItem('playerState', saveString);
 }

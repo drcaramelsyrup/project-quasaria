@@ -19,7 +19,9 @@ function Room(game, room) {
   this.area = areas[room];
   this.items = [];
   this.placeables = [];
-  this.npcs = [];
+  this.npcs = [];//how does this interact with the conversation manager?
+  //this is causing the glitch where the room blinks on load
+  //though even a new game blinks
   Phaser.Sprite.call(this, game, game.world.centerX, game.world.centerY, this.area['bg']);
   this.anchor.set(0.5);
 }
