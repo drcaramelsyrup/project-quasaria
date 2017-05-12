@@ -9,13 +9,6 @@ var BattleUi = require('../objects/BattleUi.js');
 var ArgumentManager = require('../objects/ArgumentManager');
 var DialogueWindow = require('../objects/DialogueWindow');
 
-var playerTurn = true;
-var currentArgument = 0;
-var opponentDeck = [];
-var panel;
-var credBar;
-var cred = 4;
-
 exports.preload = function(game) {
   // preload all UI menu themes.
   game.slickUI.load('ui/kenney-theme/kenney.json');
@@ -23,23 +16,22 @@ exports.preload = function(game) {
 
 exports.create = function (game) {
   game.argumentManager = new ArgumentManager(game);
+  game.currentArgument = 0;
+  game.playerTurn = true;
+  game.cred = 4;
 
-  //adding in player cards and face --to do: fetch these from inventory/player skills;
-  // game.add.sprite(100, game.world.height - 125, 'alien-stare');
-  var playerDeck = [];
-  playerDeck.push(new Card(game, 0, 0, 'greek-sphinx'));
-  playerDeck.push(new Card(game, 0, 0, 'cyborg-face'));
-  playerDeck.push(new Card(game, 0, 0, 'curly-mask'));
-  // //adding in credibility/health bar
-  // var barConfig = {x:160, y:game.world.height - 150, height:20, width:150};
-  // credBar = new HealthBar(game, barConfig);
-  // //adding opponent face and opponent cards --to do: fetch these from main game state
-  // game.add.sprite(100, game.world.height - 490, 'goblin-head');
-  // var opponentDeck = [];
-  opponentDeck.push(new Argument(game, 130, game.world.centerY - 50, 'lunar-module', 'greek-sphinx'));
-  opponentDeck.push(new Argument(game, 245, game.world.centerY - 135, 'fencer', 'cyborg-face'));
+  // adding in player cards and face --to do: fetch these from inventory/player skills;
+  game.playerDeck = [];
+  game.playerDeck.push(new Card(game, 0, 0, 'greek-sphinx'));
+  game.playerDeck.push(new Card(game, 0, 0, 'cyborg-face'));
+  game.playerDeck.push(new Card(game, 0, 0, 'curly-mask'));
 
-  game.battleUi = new BattleUi(game, playerDeck, opponentDeck);
+  // adding opponent face and opponent cards --to do: fetch these from main game state
+  game.opponentDeck = [];
+  game.opponentDeck.push(new Argument(game, 130, game.world.centerY - 50, 'lunar-module', 'greek-sphinx'));
+  game.opponentDeck.push(new Argument(game, 245, game.world.centerY - 135, 'fencer', 'cyborg-face'));
+
+  game.battleUi = new BattleUi(game, game.playerDeck, game.opponentDeck);
   game.battleUi.cardSignal.add(cardAction, this);
 
   game.dialogueWindow = new DialogueWindow(game, game.argumentManager);
@@ -47,64 +39,49 @@ exports.create = function (game) {
 
 };
 
-exports.update = function (game) {
-  // signal listener for ui
-
-  // player action
-  // check action
-  // update and play animations accordingly
-  // dialogue window responses
-  // next turn
-
-}
-
-
-// function cardAction() {
-//   if (playerTurn) {
-//     playerTurn = false;
-//     this.inputEnabled = false;
-//     var tween = this.game.add.tween(this);
-//     tween.to({ x: 125, y: this.game.world.height - 250}, 1000, 'Linear', true, 0);
-//     tween.onComplete.add(function () {
-//       if (this.key === opponentDeck[currentArgument].key){
-//         opponentDeck[currentArgument].destroy();
-//         delete opponentDeck[currentArgument];
-//       }
-//       var game = this.game;
-//       this.destroy();
-//       opponentTurn(game);
-//     }, this);
-//   }
-// }
-
 function cardAction(game, card) {
-  if (playerTurn) {
-    // playerTurn = false;
-    card.inputEnabled = false;
-    console.log(card.key);
-    if (card.key === opponentDeck[currentArgument].key) {
-      game.battleUi.playCardAnimation(card, opponentDeck[currentArgument]);
-      opponentDeck[currentArgument].destroy();
-      delete opponentDeck[currentArgument];
+  if (game.playerTurn) {
+    game.playerTurn = false;
+    game.battleUi.cardsInputEnabled(false);
+
+    var argument = game.opponentDeck[game.currentArgument];
+
+    if (card.key === argument.key) {
+      game.battleUi.playCardAnimation(card, argument, true);
+      game.opponentDeck[game.currentArgument] = undefined;
+      argument.destroy();
+      card.destroy();
+    }
+    else {
+      game.battleUi.playCardAnimation(card, argument, false);
     }
   }
-  card.destroy();
 
+  game.battleUi.cardAnimCompleteSignal.add(opponentTurn, this);
 }
 
 function opponentTurn(game) {
-  if (opponentDeck[currentArgument]) {
-    cred -= 1;
-    credBar.setPercent(cred * 25);
-    opponentDeck[currentArgument].destroy();
+  if (game.opponentDeck[game.currentArgument]) {
+    game.cred -= 1;
+    game.battleUi.updateCredBar(game.cred);
+    game.opponentDeck[game.currentArgument].destroy();
   }
-  currentArgument += 1;
-  if (currentArgument < opponentDeck.length) {
-    var tween = game.add.tween(opponentDeck[currentArgument]);
-    tween.to({ x: 130, y: game.world.centerY - 30}, 1000, 'Exponential', true, 0);
-    tween.onComplete.add(function () {
-      playerTurn = true;
-    }, this);
+  updateCurrentArgument(game);
+  game.battleUi.updateArguments(game.opponentDeck);
+  game.battleUi.positionArguments(game, true);
+  game.battleUi.cardsInputEnabled(true);
+  game.playerTurn = true;
+}
+
+function updateCurrentArgument(game) {
+  game.currentArgument += 1;
+  for (var i = 0; i < game.opponentDeck.length; i++) {
+    var idx = game.currentArgument + i;
+    if (idx >= game.opponentDeck.length)
+      idx -= game.opponentDeck.length;
+    // if exists
+    if (typeof game.opponentDeck[idx] !== 'undefined' && game.opponentDeck[i] !== null)
+      game.currentArgument = idx;
   }
 }
 
