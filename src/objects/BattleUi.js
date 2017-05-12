@@ -10,8 +10,6 @@
 module.exports = BattleUi;
 
 var HealthBar = require('./HealthBar.js');
-var Card = require('./Card');
-var Argument = require('./Argument');
 var Icon = require('./Icon');
 
 function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
@@ -46,6 +44,7 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
   var enemyIcon = game.add.existing(new Icon(game,
     this._centerX - this._portraitSize/2, this._enemyOriginY - this._portraitSize/2, 
     'gleaming-shoal-portrait', null, null, this._portraitSize));
+  enemyIcon.alpha = 1;
   
   /** Enemy deck display */
   for (var i = 0; i < enemyDeck.length; i++) {
@@ -72,21 +71,19 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
     playerCardIcon.x = deckOriginX + i*(this._cardSize);
     playerCardIcon.y = deckOriginY;
 
-    var cardSignal = this.cardSignal;
-    var currentCard = playerDeck[i];
-
     var tooltip = function () {
       game.slickUI.add(this.tooltip = new SlickUI.Element.Panel(this.x - 10, this.y - 60, 100, 50));
       this.tooltip.add(new SlickUI.Element.Text(0,0, 'test')).center();
-    }
+    };
 
     var deleteTooltip = function () {
       if (this.tooltip) {
         this.tooltip.destroy();
       }
       this.tooltip = undefined;
-    }
+    };
 
+    var cardSignal = this.cardSignal;
     // send signal upon click and delete tooltip
     playerCardIcon.events.onInputDown.add(deleteTooltip, playerCardIcon);
     playerCardIcon.events.onInputDown.add(function () {
