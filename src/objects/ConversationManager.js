@@ -32,7 +32,10 @@ ConversationManager.prototype.loadJSONConversation = function (jsonKey) {
   var json = this._game.cache.getJSON(jsonKey);
 
   this.conversation = json;
-  this.idx = 0;
+  //the player object will initialize the start index of a conversation
+  // at the end of a conversation the index will return to 0
+  // so that the next file will start at the begining. 
+
 };
 
 ConversationManager.prototype.getCurrentText = function () {
@@ -182,6 +185,7 @@ ConversationManager.prototype.endConversation = function() {
   }
 
   this.shown = [];
+  this.idx = 0;
 };
 
 ConversationManager.prototype.update = function () {

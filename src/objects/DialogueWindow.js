@@ -62,9 +62,9 @@ function DialogueWindow(game, convoManager/*, ...args*/) {
   var speakerStyle = { font: '20px Goudy Bookletter 1911', fill: '#48f2ff', wordWrap: false, align: 'left' };
   this.dialogPanel.add(
     this.speakerText = new SlickUI.Element.DisplayObject(
-      Math.round(speakerX), speakerY, 
+      Math.round(speakerX), speakerY,
       game.make.text(0, 0, 'Speaker', speakerStyle)));
-  
+
   // using a mask for scrolling purposes
   this._scrollMask = game.make.graphics(0, 0);
   this._scrollMask.beginFill(0xffffff);
@@ -92,24 +92,30 @@ function DialogueWindow(game, convoManager/*, ...args*/) {
   //for keeping track of whether the avatar needs to be updated (performance intensive)
   this.avatarName = 'invisible';
 
+  // will track the conversation file, so that save checkpoints will
+  // go to the correct area in the conversation
+  this.convoFile = null;
 }
 
 DialogueWindow.prototype = Object.create(Phaser.Group.prototype);
 DialogueWindow.prototype.constructor = DialogueWindow;
 
 DialogueWindow.prototype.begin = function(jsonKey) {
+  this.convoFile = jsonKey;
   this.convoManager.loadJSONConversation(jsonKey);
   this.show();
   this.display();
 };
 
 DialogueWindow.prototype.display = function() {
+  if (this.convoFile) {
   this.cleanWindow();
   this.takeActions();
   this.displayAvatar();
   this.displayText();
   this.displayResponses();
   this.addOverflowScroll();
+}
 };
 
 DialogueWindow.prototype.cleanWindow = function () {
@@ -157,7 +163,7 @@ DialogueWindow.prototype.displayAvatar = function() {
   }
 };
 
-DialogueWindow.prototype.displayText = function () {  
+DialogueWindow.prototype.displayText = function () {
   this.dialogText.displayObject.text = this.convoManager.getCurrentText();
   this.speakerText.displayObject.text = this.convoManager.getSpeaker().toUpperCase();
 };
@@ -179,7 +185,7 @@ DialogueWindow.prototype.displayResponses = function () {
 
   for (var i = 0; i < responses.length; i++) {
     var button = this.addChoiceButton(
-      this._dialogTextOriginX, nextButtonY, 
+      this._dialogTextOriginX, nextButtonY,
       responses[i]['text'], responses[i]['target']);
 
     // keep track of buttons to be deleted
@@ -205,7 +211,7 @@ DialogueWindow.prototype.addChoiceButton = function (x, y, responseTextField, re
   // add to sized button
   var choiceButton;
   this.dialogPanel.add(choiceButton = new SlickUI.Element.DisplayObject(
-    x, y, 
+    x, y,
     this._game.make.button(0,0, 'dialogue-choice-button'),
     this.dialogWidth, responseText.height));
   choiceButton.add(buttonText);
@@ -242,7 +248,7 @@ DialogueWindow.prototype.addOverflowScroll = function () {
 
     var scrolllineWidth = 1.5;
     this.slider = new Scrollbar(
-      this._game, 
+      this._game,
       this._dialogTextOriginX + this._dialogTextWidth + this._dialogPadding - scrolllineWidth,
       this._dialogTextOriginY - scrolllineWidth,
       this.dialogPanel, // parent
