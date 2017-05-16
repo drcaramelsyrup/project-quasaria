@@ -13,6 +13,7 @@ var DialogueWindow = require('../objects/DialogueWindow');
 var ConversationManager = require('../objects/ConversationManager');
 var CustomActions = require('../utils/CustomActions');
 var MemoryBankWindow = require('../objects/MemoryBankWindow');
+var SaveButton = require('../objects/SaveButton');
 
 exports.preload = function(game) {
   // preload all UI menu themes.
@@ -28,6 +29,8 @@ exports.create = function (game) {
 
   game.room = game.add.existing(new Room(game, 'shuttle'));
   game.room.addItems();
+
+  game.add.existing(new SaveButton(game));
 
   // custom actions for conversations
   var customActions = new CustomActions(game);
