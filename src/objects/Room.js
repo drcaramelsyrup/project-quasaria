@@ -14,6 +14,7 @@ var areas = require('../../static/assets/areas.json');
 
 function Room(game, room) {
   this._game = game;
+  this.name = room;
 
   this.area = areas[room];
   this.items = [];

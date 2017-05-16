@@ -19,7 +19,8 @@
 			}
 		],
 		"placeables": [],
-		"npcs": []
+		"npcs": [],
+		"navigable": false
 	},
 	"hangar": {
 		"id": "hangar",
@@ -43,7 +44,8 @@
 				"height": 350,
 				"width": 150
 			}
-		]
+		],
+		"navigable": true
 	},
 	"medbay": {
 		"id": "medbay",
@@ -59,6 +61,7 @@
 				"height": 183,
 				"width": 100
 			}
-		]
+		],
+		"navigable": true
 	}
 }

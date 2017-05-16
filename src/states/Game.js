@@ -13,6 +13,7 @@ var DialogueWindow = require('../objects/DialogueWindow');
 var ConversationManager = require('../objects/ConversationManager');
 var CustomActions = require('../utils/CustomActions');
 var MemoryBankWindow = require('../objects/MemoryBankWindow');
+var AreaTransitionWindow = require('../objects/AreaTransitionWindow');
 var SaveButton = require('../objects/SaveButton');
 
 exports.preload = function(game) {
@@ -40,6 +41,8 @@ exports.create = function (game) {
   game.dialogueWindow = new DialogueWindow(game, convoManager);
   // memory bank window object
   game.memoryBankWindow = new MemoryBankWindow(game);
+  // area transition window object
+  game.areaTransitionWindow = new AreaTransitionWindow(game);
 
   game.dialogueWindow.begin('prologue01');
 };

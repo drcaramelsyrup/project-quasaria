@@ -22,9 +22,6 @@ exports.game = [{
   key: 'quasaria-logo',
   type: 'image'
 }, {
-  key: 'saveButton',
-  type: 'image'
-}, {
   key: 'shuttle',
   type: 'image',
   url: 'backgrounds/shuttle.png'
@@ -91,6 +88,13 @@ exports.ui = [{
   key: 'memory-bank',
   type: 'image',
   url: 'ui/memory-bank.png'
+}, {
+  key: 'saveButton',
+  type: 'image'
+}, {
+  key: 'button',
+  type: 'image',
+  url: 'ui/button.png'
 }];
 
 // -- Conversation jsons and avatars.
