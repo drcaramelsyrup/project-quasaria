@@ -33,6 +33,10 @@ exports.game = [{
   type: 'image',
   url: 'backgrounds/hangar.png'
 }, {
+  key: 'medbay',
+  type: 'image',
+  url: 'backgrounds/medbay.png'
+}, {
   key: 'listener',
   type: 'image',
   url: 'items/listener.png'
@@ -48,6 +52,10 @@ exports.game = [{
   key: 'vesper-npc',
   type: 'image',
   url: 'npcs/vesper.png'
+}, {
+  key: 'talvine-npc',
+  type: 'image',
+  url: 'npcs/talvine.png'
 }];
 
 // -- UI-specific assets.
@@ -99,6 +107,10 @@ exports.conversations = [{
   type: 'json',
   url: 'conversations/vesper01.json'
 }, {
+  key: 'talvine01',
+  type: 'json',
+  url: 'conversations/talvine01.json'
+}, {
   key: 'mysterious-voice',
   type: 'image',
   url: 'avatars/mysterious-voice.png'
@@ -118,6 +130,10 @@ exports.conversations = [{
   key: 'vesper',
   type: 'image',
   url: 'avatars/vesper.png'
+}, {
+  key: 'talvine',
+  type: 'image',
+  url: 'avatars/talvine.png'
 }, {
   key: 'invisible',
   type: 'image',
