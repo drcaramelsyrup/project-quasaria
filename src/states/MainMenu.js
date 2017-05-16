@@ -14,25 +14,31 @@ exports.create = function (game) {
   //might not be in quotes, its an issue below
   var screen = game.add.sprite(game.world.centerX, game.world.centerY, 'menu_screen');
   screen.anchor.setTo(0.5, 0.5);
-/*
-  var contButton = game.add.button(game.world.centerX, 300, 'continueButton', function(){
-    console.log("you loaded game.")
-    let resumeGame = true;
-    game.state.start('Game', true, false, resumeGame);
+
+  var logo = game.add.sprite(game.world.centerX, game.world.centerY - 30, 'quasaria-logo-MM');
+  logo.anchor.setTo(0.5, 0.5);
+  logo.alpha = .1;
+
+var titleText = game.add.text(game.world.centerX, game.world.centerY- 75, "Quasaria", {
+      font: "75px Cinzel Decorative",
+      fontWeight: "bold",
+      fill: "#42dff4",
+      align: "center"
   });
-*/
 
   var contText = game.add.text(game.world.centerX, game.world.centerY, "Continue", {
-        font: "65px Consolas",
+        font: "50px Cinzel Decorative",
         fill: "#42dff4",
         align: "center"
     });
 
-    var newGameText = game.add.text(game.world.centerX, game.world.centerY + 70, "New Game", {
-          font: "65px Consolas",
+    var newGameText = game.add.text(game.world.centerX, game.world.centerY + 55, "New Game", {
+          font: "50px Cinzel Decorative",
           fill: "#42dff4",
           align: "center"
       });
+
+      titleText.anchor.setTo(0.5, 0.5);
 
 
     contText.anchor.setTo(0.5, 0.5);

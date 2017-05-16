@@ -34,7 +34,7 @@ ConversationManager.prototype.loadJSONConversation = function (jsonKey) {
   this.conversation = json;
   //the player object will initialize the start index of a conversation
   // at the end of a conversation the index will return to 0
-  // so that the next file will start at the begining. 
+  // so that the next file will start at the begining.
 
 };
 
@@ -132,6 +132,7 @@ ConversationManager.prototype.takeActions = function() {
   }
 
   if (this.conversation[this.idx]['showOnce'] === 1) {
+    //if save at this point keeps getting resaved.
     this.shown.push(this.idx);
   }
 

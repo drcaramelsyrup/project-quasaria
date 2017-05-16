@@ -18,6 +18,9 @@ exports.boot = [{
 }];
 
 exports.main_menu = [{
+  key: 'quasaria-logo-MM',
+  type: 'image'
+}, {
   key: 'continueButton',
   type: 'image'
 }, {
