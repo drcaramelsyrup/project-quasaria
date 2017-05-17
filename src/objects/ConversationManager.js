@@ -176,7 +176,7 @@ ConversationManager.prototype.endConversation = function() {
     var npc = this._game.room.npcs[i];
     npc.show();
   }
-
+    
   if ('onEnd' in this.conversation) {
     this.customActions.customAction(this.conversation['onEnd']);
   }

@@ -6,6 +6,7 @@ function Card(game, x, y, assetName) {
     this.inputEnabled = true;
     this.input.useHandCursor = true;
     this.key = assetName;
+    this.description = "test";
 }
 
 
