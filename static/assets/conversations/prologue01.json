@@ -934,5 +934,5 @@
         "speaker": "Found it!",
         "text": "Double-click this passage to edit it."
     },
-    "onEnd": "startBattle"
+    "onEnd": "startConv:prologue02"
 }
