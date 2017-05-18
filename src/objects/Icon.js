@@ -21,12 +21,13 @@ function Icon(game, x, y, asset, mask, border, width = 100.0/*, TODO: height = 1
   this.id = asset;
 
   this._game = game;
-
-  // this.scale.setTo(width / this.width);
+  // expands borders of mask slightly
+  var scaleRelax = 1.05;
 
   if (typeof mask !== 'undefined' && mask !== null) {
     this.maskSprite = game.make.sprite(x,y, mask);
-    this.maskSprite.scale.setTo(width / this.maskSprite.width);
+
+    this.maskSprite.scale.setTo(this.width*scaleRelax / this.maskSprite.width);
 
     var maskedBmd = game.make.bitmapData(this.maskSprite.width, this.maskSprite.height);
     maskedBmd.alphaMask(this, this.maskSprite);
@@ -34,16 +35,14 @@ function Icon(game, x, y, asset, mask, border, width = 100.0/*, TODO: height = 1
     this.loadTexture(maskedBmd);
   }
 
+  this.scale.setTo(width / this.width);
+  var parentScale = this.scale.x;
+
   if (typeof border !== 'undefined' && border !== null) {
     this.borderSprite = game.make.sprite(x,y, border);
-    this.borderSprite.scale.setTo(width / this.borderSprite.width);
-
     this.addChild(this.borderSprite);
+    this.borderSprite.scale.setTo((width / this.borderSprite.width) / parentScale);
   }
-
-  this.scale.setTo(width / this.width);
-
-  
 
 }
 

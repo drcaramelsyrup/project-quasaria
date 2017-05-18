@@ -2,8 +2,8 @@
 
 var Card = require('../objects/Card');
 var Argument = require('../objects/Argument');
-var HealthBar = require('../objects/HealthBar.js');
 var items = require('../../static/assets/items.json');
+var Player = require('../objects/Player');
 
 var BattleUi = require('../objects/BattleUi.js');
 var ArgumentManager = require('../objects/ArgumentManager');
@@ -15,6 +15,13 @@ exports.preload = function(game) {
 };
 
 exports.create = function (game) {
+  if (game.player == null || typeof game.player == 'undefined')
+      game.player = game.add.existing(new Player(game));
+  // DUMMY DATA
+  game.player.inventory.push('listener');
+  game.player.inventory.push('note');
+  // END DUMMY DATA
+
   game.argumentManager = new ArgumentManager(game);
   game.currentArgument = 0;
   game.playerTurn = true;
@@ -22,14 +29,15 @@ exports.create = function (game) {
 
   // adding in player cards and face --to do: fetch these from inventory/player skills;
   game.playerDeck = [];
-  game.playerDeck.push(new Card(game, 0, 0, 'greek-sphinx'));
-  game.playerDeck.push(new Card(game, 0, 0, 'cyborg-face'));
-  game.playerDeck.push(new Card(game, 0, 0, 'curly-mask'));
+  for (var i = 0; i < game.player.inventory.length; i++) {
+    game.playerDeck.push(new Card(game, 0,0, items[game.player.inventory[i]]['id']));
+  }
+  console.log(game.playerDeck);
 
   // adding opponent face and opponent cards --to do: fetch these from main game state
   game.opponentDeck = [];
-  game.opponentDeck.push(new Argument(game, 130, game.world.centerY - 50, 'lunar-module', 'greek-sphinx'));
-  game.opponentDeck.push(new Argument(game, 245, game.world.centerY - 135, 'fencer', 'cyborg-face'));
+  game.opponentDeck.push(new Argument(game, 130, game.world.centerY - 50, 'lunar-module', 'listener'));
+  game.opponentDeck.push(new Argument(game, 245, game.world.centerY - 135, 'fencer', 'note'));
 
   game.battleUi = new BattleUi(game, game.playerDeck, game.opponentDeck);
   game.battleUi.cardSignal.add(cardAction, this);
