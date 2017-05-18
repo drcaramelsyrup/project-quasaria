@@ -186,17 +186,25 @@ BattleUi.prototype.playCardAnimation = function (card, argument, isCorrect) {
   }
 };
 
-BattleUi.prototype.updateArguments = function (args) {
+BattleUi.prototype.updateArguments = function (args, currentArgIdx) {
   var newEnemyDeckIcons = [];
+
   for (var i = 0; i < args.length; i++) {
+    var idx = currentArgIdx + i;
+    if (idx >= args.length)
+      idx -= args.length;
+
     // null argument
-    if (typeof args[i] === 'undefined' || args[i] === null)
+    if (typeof args[idx] === 'undefined' || args[idx] === null)
       continue;
-    var argIcon = this.getArgIcon(args[i]);
+
+    var argIcon = this.getArgIcon(args[idx]);
     // not found
     if (argIcon['index'] === -1)
       continue;
     newEnemyDeckIcons.push(argIcon['icon']);
+    console.log(idx);
+    console.log(currentArgIdx);
   }
 
   this.enemyDeckIcons = newEnemyDeckIcons;

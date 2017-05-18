@@ -16,7 +16,7 @@ exports.preload = function(game) {
 
 exports.create = function (game) {
   if (game.player == null || typeof game.player == 'undefined')
-      game.player = game.add.existing(new Player(game));
+    game.player = game.add.existing(new Player(game));
   // DUMMY DATA
   game.player.inventory.push('listener');
   game.player.inventory.push('note');
@@ -32,7 +32,6 @@ exports.create = function (game) {
   for (var i = 0; i < game.player.inventory.length; i++) {
     game.playerDeck.push(new Card(game, 0,0, items[game.player.inventory[i]]['id']));
   }
-  console.log(game.playerDeck);
 
   // adding opponent face and opponent cards --to do: fetch these from main game state
   game.opponentDeck = [];
@@ -75,7 +74,7 @@ function opponentTurn(game) {
     game.opponentDeck[game.currentArgument].destroy();
   }
   updateCurrentArgument(game);
-  game.battleUi.updateArguments(game.opponentDeck);
+  game.battleUi.updateArguments(game.opponentDeck, game.currentArgument);
   game.battleUi.positionArguments(game, true);
   game.battleUi.cardsInputEnabled(true);
   game.playerTurn = true;
@@ -83,13 +82,17 @@ function opponentTurn(game) {
 
 function updateCurrentArgument(game) {
   game.currentArgument += 1;
+  
   for (var i = 0; i < game.opponentDeck.length; i++) {
     var idx = game.currentArgument + i;
     if (idx >= game.opponentDeck.length)
       idx -= game.opponentDeck.length;
     // if exists
-    if (typeof game.opponentDeck[idx] !== 'undefined' && game.opponentDeck[i] !== null)
+    if (typeof game.opponentDeck[idx] !== 'undefined' && game.opponentDeck[idx] !== null) {
       game.currentArgument = idx;
+      return;
+    }
   }
+  // exiting means we have no more arguments
 }
 
