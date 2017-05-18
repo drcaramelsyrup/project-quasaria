@@ -23,11 +23,12 @@ exports.create = function (game) {
   // END DUMMY DATA
 
   game.argumentManager = new ArgumentManager(game);
+  game.argumentManager.loadJSONConversation('battle01');
   game.currentArgument = 0;
   game.playerTurn = true;
   game.cred = 4;
 
-  // adding in player cards and face --to do: fetch these from inventory/player skills;
+  // adding in player cards and face
   game.playerDeck = [];
   for (var i = 0; i < game.player.inventory.length; i++) {
     game.playerDeck.push(new Card(game, 0,0, items[game.player.inventory[i]]['id']));
@@ -35,8 +36,11 @@ exports.create = function (game) {
 
   // adding opponent face and opponent cards --to do: fetch these from main game state
   game.opponentDeck = [];
-  game.opponentDeck.push(new Argument(game, 130, game.world.centerY - 50, 'lunar-module', 'listener'));
-  game.opponentDeck.push(new Argument(game, 245, game.world.centerY - 135, 'fencer', 'note'));
+  var args = game.argumentManager.getAllArguments();
+  for (i = 0; i < args.length; i++) {
+    // TODO: support for multiple counters
+    game.opponentDeck.push(new Argument(game, 0,0, args[i]['id'], args[i]['counters'][0]));
+  }
 
   game.battleUi = new BattleUi(game, game.playerDeck, game.opponentDeck);
   game.battleUi.cardSignal.add(cardAction, this);

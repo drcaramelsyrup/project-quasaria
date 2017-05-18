@@ -44,6 +44,15 @@ ArgumentManager.prototype.getCurrentCounters = function () {
   return this.conversation[this.idx]['counters'];
 };
 
+ArgumentManager.prototype.getAllArguments = function () {
+  // returns as an array
+  var args = [];
+  for (var i = 0; i < Object.keys(this.conversation).length; i++) {
+    args.push(this.conversation[i]);
+  }
+  return args;
+};
+
 ArgumentManager.prototype.setArgumentByIndex = function (idx) {
   this.idx = idx;
 };

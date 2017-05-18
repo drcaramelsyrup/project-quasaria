@@ -1,17 +1,17 @@
 {
     "0": {
-        "id": "lunar-module",
+        "id": "xenobio",
         "name": "Xenobiological Hazard",
         "speaker": "Gleaming Shoal",
         "text": "Honestly, we’re lucky that you haven’t killed us already. New species unwittingly carry deadly pathogens all the time. Some have waited months before we can develop the appropriate containment measures for ISS standards. Unless you can show me you aren’t a walking public safety hazard, I can’t let you pass.",
-        "counters": ["report-xenobio"]
+        "counters": ["listener"]
     },
     "1": {
-        "id": "fencer",
+        "id": "xenopsych",
         "name": "Xenopsychological Clearance",
         "speaker": "Gleaming Shoal",
-        "text": "Honestly, we’re lucky that you haven’t killed us already. New species unwittingly carry deadly pathogens all the time. Some have waited months before we can develop the appropriate containment measures for ISS standards. Unless you can show me you aren’t a walking public safety hazard, I can’t let you pass.",
-        "counters": ["report-xenopsych"]
+        "text": "Conveniently, you’ve lost your memory. You’ve been lost in space. You’re begging for station access. The last time this happened three years ago, we had to eject the alien for sociopathic tendencies and murderous intent. Why would I permit you to board knowing so little about your state of mind?",
+        "counters": ["note"]
     },
     "2": {
         "id": "saint-basil-cathedral",

@@ -11,6 +11,7 @@ module.exports = BattleUi;
 
 var HealthBar = require('./HealthBar.js');
 var Icon = require('./Icon');
+var items = require('../../static/assets/items.json');
 
 function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
   Phaser.Group.call(this, game/*, ...args*/);
@@ -71,21 +72,8 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
     playerCardIcon.x = deckOriginX + i*(this._cardSize);
     playerCardIcon.y = deckOriginY;
 
-    var tooltip = function () {
-      game.slickUI.add(this.tooltip = new SlickUI.Element.Panel(this.x - 10, this.y - 60, 100, 50));
-      this.tooltip.add(new SlickUI.Element.Text(0,0, 'test')).center();
-    };
-
-    var deleteTooltip = function () {
-      if (this.tooltip) {
-        this.tooltip.destroy();
-      }
-      this.tooltip = undefined;
-    };
-
     var cardSignal = this.cardSignal;
     // send signal upon click and delete tooltip
-    playerCardIcon.events.onInputDown.add(deleteTooltip, playerCardIcon);
     playerCardIcon.events.onInputDown.add(function () {
       cardSignal.dispatch(this.game, this.currentCard);
     }, {game: game, currentCard: playerDeck[i]});
@@ -93,11 +81,9 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
     playerCardIcon.inputEnabled = true;
     playerCardIcon.input.useHandCursor = true;
 
-    // tooltip functions
-    playerCardIcon.events.onInputOver.add(tooltip, playerCardIcon);
-    playerCardIcon.events.onInputOut.add(deleteTooltip, playerCardIcon);
-
     this.playerDeckIcons.push(playerCardIcon);
+    this.addTooltip(i, 
+      this._centerX + this._argumentRadius, this._enemyOriginY - this._argumentRadius);
   }
 
   /** Persuasion meter */
@@ -203,8 +189,6 @@ BattleUi.prototype.updateArguments = function (args, currentArgIdx) {
     if (argIcon['index'] === -1)
       continue;
     newEnemyDeckIcons.push(argIcon['icon']);
-    console.log(idx);
-    console.log(currentArgIdx);
   }
 
   this.enemyDeckIcons = newEnemyDeckIcons;
@@ -253,3 +237,51 @@ BattleUi.prototype.cardsInputEnabled = function (isEnabled) {
     this.playerDeckIcons[i].inputEnabled = isEnabled;
   }
 };
+
+BattleUi.prototype.addTooltip = function (cardIdx, x, y) {
+  var playerCardIcon = this.playerDeckIcons[cardIdx];
+
+  var tooltip = function () {
+    var tooltipWidth = 250;
+    var tooltipHeight = 250;
+
+    var bmd = this._game.add.bitmapData(tooltipWidth, tooltipHeight);
+    bmd.ctx.beginPath();
+    bmd.ctx.rect(0, 0, tooltipWidth, tooltipHeight);
+    bmd.ctx.fillStyle = '#424d4f';
+    bmd.ctx.fill();
+
+    this._game.slickUI.add(this.tooltip = new SlickUI.Element.DisplayObject(
+      x,y, this._game.make.sprite(0, 0, bmd)));
+    this.tooltip.alpha = 0.8;
+
+    var nameTextStyle = { font: '14px Goudy Bookletter 1911', fill: '#48f2ff', wordWrap: true, wordWrapWidth: tooltipWidth, fontWeight: 'bold', boundsAlignH: 'center' };
+    var nameText = new SlickUI.Element.DisplayObject(0,0, 
+        this._game.make.text(0,0, items[playerCardIcon.id]['name'].toUpperCase(), nameTextStyle));
+    this.tooltip.add(nameText);
+    // for alignment purposes
+    var nameTextHeight = nameText.displayObject.getBounds().height;
+    nameText.displayObject.setTextBounds(0,0, tooltipWidth, tooltipHeight);
+
+    var descTextStyle = { font: '14px Open Sans', fill: '#48f2ff', wordWrap: true, wordWrapWidth: tooltipWidth, align: 'left' };
+    var descText = new SlickUI.Element.DisplayObject(
+        0, Math.round(nameTextHeight), 
+        this._game.make.text(0,0, items[playerCardIcon.id]['desc'], descTextStyle));
+    this.tooltip.add(descText);
+  };
+
+  var deleteTooltip = function () {
+    if (this.tooltip) {
+      this.tooltip.container.displayGroup.removeAll();
+    }
+    this.tooltip = undefined;
+  };
+
+  playerCardIcon.events.onInputDown.add(deleteTooltip, playerCardIcon);
+
+  // tooltip functions
+  playerCardIcon.events.onInputOver.add(tooltip, playerCardIcon);
+  playerCardIcon.events.onInputOut.add(deleteTooltip, playerCardIcon);
+
+};
+

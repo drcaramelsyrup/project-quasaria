@@ -190,6 +190,14 @@ exports.logic_battle = [{
   type: 'image',
   url: 'battle/goblin-head.png'
 }, {
+  key: 'xenobio',
+  type: 'image',
+  url: 'battle/xenobio.png'
+}, {
+  key: 'xenopsych',
+  type: 'image',
+  url: 'battle/xenopsych.png'
+}, {
   key: 'battle01',
   type: 'json',
   url: 'battle/battle01.json'
