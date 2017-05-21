@@ -21,7 +21,7 @@ exports.preload = function(game) {
 
 exports.init = function(game, resumeGame){
 
-  console.log(resumeGame);
+
   let playerState = localStorage.getItem('playerState');
   if (resumeGame && playerState !== null){
     Player.unserialize(playerState, game);
@@ -38,7 +38,7 @@ exports.init = function(game, resumeGame){
 
   }
 
-}
+};
 
 exports.create = function (game) {
   this.camera.flash('#000000', 2000);

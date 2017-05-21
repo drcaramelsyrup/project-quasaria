@@ -1,9 +1,9 @@
 /*
- * Clickable
- * ====
- *
- * A sample prefab (extended game object class), displaying a clickable object in a room.
- */
+* Clickable
+* ====
+*
+* A sample prefab (extended game object class), displaying a clickable object in a room.
+*/
 
 'use strict';
 
@@ -34,18 +34,17 @@ function click() {
   var items = this._game.room.area.items;
   var remove_item = -1;
   //because it is checking the id of the item and not the actual item
-    for (let i = 0; i < items.length; i++) {
-      if (items[i].id === this.id){
-        remove_item = i;
-      }
+  for (let i = 0; i < items.length; i++) {
+    if (items[i].id === this.id){
+      remove_item = i;
     }
-    if (remove_item > -1) {
-       items.splice(remove_item, 1);
-    } else {
-      console.log("unexpected error, please check");
-    }
-    console.log("Click log");
-    console.log(this._game.room.area.items);
+  }
+  if (remove_item > -1) {
+    items.splice(remove_item, 1);
+  } else {
+    console.log('unexpected error, please check');
+  }
+  console.log('Click log', this._game.room.area.items);
   this._game.dialogueWindow.display(); // refresh dialogue display
   this._game.memoryBankWindow.display();  // refresh memory bank display
 }
