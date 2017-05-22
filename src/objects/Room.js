@@ -19,7 +19,9 @@ function Room(game, room) {
   this.area = areas[room];
   this.items = [];
   this.placeables = [];
-  this.npcs = [];
+  this.npcs = [];//how does this interact with the conversation manager?
+  //this is causing the glitch where the room blinks on load
+  //though even a new game blinks
   Phaser.Sprite.call(this, game, game.world.centerX, game.world.centerY, this.area['bg']);
   this.anchor.set(0.5);
 }
@@ -41,6 +43,11 @@ Room.prototype.addItems = function() {
   for (i = 0; i < this.area['npcs'].length; i++) {
     var npc = this.area['npcs'][i];
     this._game.add.existing(npc = new NPC(this._game, npc['x'], npc['y'], npc['id'], npc['height'], npc['width']));
+    if (npc.conv === this._game.player.convoFile){
+      npc.alpha = 0;
+    }
+    // if we want to re-enter a room and talk to a character again
+    // then we don't want to pop them off of the stack
     this.npcs.push(npc);
   }
     this._game.add.existing(new SaveButton(this._game));

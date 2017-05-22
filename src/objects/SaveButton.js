@@ -31,14 +31,8 @@ function SaveButton(game) {
 function click() {
   this._game.add.existing(new Toast(this._game, 'Game Saved!', 5));
   this._game.dialogueWindow.display(); // refresh dialogue display
-  var saveString = this._game.player.serialize();
-  console.log(saveString);
+  var saveString = this._game.player.serialize(this._game);
   localStorage.setItem('playerState', saveString);
-  let playerState = localStorage.getItem('playerState');
-  //right now this is just called to demonstrate functionality
-  //it is not needed, we would only need in the case that the
-  //user wants to resume game play
-  Player.unserialize(playerState, this._game);
 }
 
 function mouseover() {

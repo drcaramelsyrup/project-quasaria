@@ -42,21 +42,21 @@ exports.create = function (game) {
 
 
 function cardAction() {
-    if (playerTurn) {
-        playerTurn = false;
-        this.inputEnabled = false;
-        var tween = this.game.add.tween(this);
-        tween.to({ x: 125, y: this.game.world.height - 250}, 1000, 'Linear', true, 0);
-        tween.onComplete.add(function () {
-            if (this.key == opponentDeck[currentArgument].key){
-                opponentDeck[currentArgument].destroy();
-                delete opponentDeck[currentArgument];
-            }
-            var game = this.game
-            this.destroy();
-            opponentTurn(game);
-        }, this);
-    }
+  if (playerTurn) {
+    playerTurn = false;
+    this.inputEnabled = false;
+    var tween = this.game.add.tween(this);
+    tween.to({ x: 125, y: this.game.world.height - 250}, 1000, 'Linear', true, 0);
+    tween.onComplete.add(function () {
+      if (this.key == opponentDeck[currentArgument].key){
+        opponentDeck[currentArgument].destroy();
+        delete opponentDeck[currentArgument];
+      }
+      var game = this.game;
+      this.destroy();
+      opponentTurn(game);
+    }, this);
+  }
 }
 
 
@@ -66,24 +66,23 @@ function tooltip() {
 }
 
 function deleteTooltip () {
-    if(panel) {
-        panel.destroy();
-    }
+  if(panel) {
+    panel.destroy();
+  }
 }
 
 function opponentTurn(game) {
-    if (opponentDeck[currentArgument]) {
-        cred -=1;
-        credBar.setPercent(cred * 25);
-        opponentDeck[currentArgument].destroy();
-    }
-    currentArgument += 1;
-    if (currentArgument < opponentDeck.length) {
-        var tween = game.add.tween(opponentDeck[currentArgument]);
-        tween.to({ x: 130, y: game.world.centerY - 30}, 1000, 'Linear', true, 0);
-        tween.onComplete.add(function () {
-            playerTurn = true;
-        }, this);
-    }
+  if (opponentDeck[currentArgument]) {
+    cred -=1;
+    credBar.setPercent(cred * 25);
+    opponentDeck[currentArgument].destroy();
+  }
+  currentArgument += 1;
+  if (currentArgument < opponentDeck.length) {
+    var tween = game.add.tween(opponentDeck[currentArgument]);
+    tween.to({ x: 130, y: game.world.centerY - 30}, 1000, 'Linear', true, 0);
+    tween.onComplete.add(function () {
+      playerTurn = true;
+    }, this);
+  }
 }
-

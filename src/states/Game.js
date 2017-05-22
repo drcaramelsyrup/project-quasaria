@@ -1,9 +1,9 @@
 /*
- * Game state
- * ==========
- *
- * A sample Game state, displaying the Phaser logo.
- */
+* Game state
+* ==========
+*
+* A sample Game state, displaying the Phaser logo.
+*/
 
 'use strict';
 
@@ -19,24 +19,52 @@ exports.preload = function(game) {
   game.slickUI.load('ui/kenney-theme/kenney.json');
 };
 
+exports.init = function(game, resumeGame){
+
+
+  let playerState = localStorage.getItem('playerState');
+  if (resumeGame && playerState !== null){
+    Player.unserialize(playerState, game);
+    //current room is actually room.area
+    //need to deep copy, otherwise we will loose the area info
+    var area = JSON.parse(JSON.stringify(game.player.currentRoom));
+    game.room = (new Room(game, area.id));
+    game.room.area = area;
+
+  } else { //check if old model blinks
+    localStorage.clear();
+    game.player = (new Player(game));
+    game.room = (new Room(game, 'shuttle'));
+
+  }
+
+};
+
 exports.create = function (game) {
   this.camera.flash('#000000', 2000);
-  game.player = game.add.existing(new Player(game));
+  game.add.existing(game.player);
+
+  game.add.existing(game.room);
+  game.room.addItems();
 
   game.music = game.sound.play('minor-arpeggio');
   game.music.loopFull(1);
 
-  game.room = game.add.existing(new Room(game, 'shuttle'));
-  game.room.addItems();
 
   // custom actions for conversations
   var customActions = new CustomActions(game);
   // conversation manager
   var convoManager = new ConversationManager(game, customActions);
+  convoManager.idx = game.player.convoIdx;
+  convoManager.shown = game.player.shownConvo;
   // dialogue window object
   game.dialogueWindow = new DialogueWindow(game, convoManager);
   // memory bank window object
   game.memoryBankWindow = new MemoryBankWindow(game);
 
-  game.dialogueWindow.begin('prologue01');
+  let jsonId = 'prologue01';
+  if (game.player.convoFile) {
+    jsonId = game.player.convoFile;
+  }
+  game.dialogueWindow.begin(jsonId);
 };

@@ -10,6 +10,7 @@
 
 var assets = require('../assets');
 
+
 function showSplashScreen (game) {
   game.add.image(0, 0, 'splash-screen');
   game.load.setPreloadSprite(game.add.image(82, 282, 'progress-bar'));
@@ -18,10 +19,12 @@ function showSplashScreen (game) {
 exports.preload = function (game) {
   showSplashScreen(game);
   game.load.pack('game', null, assets);
+  game.load.pack('main_menu', null, assets);
   game.load.pack('ui', null, assets);
   game.load.pack('conversations', null, assets);
   game.load.pack('sounds', null, assets);
   game.load.pack('logic_battle', null, assets);
+  //game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
 };
 
 exports.create = function (game) {
@@ -34,6 +37,8 @@ exports.create = function (game) {
   // between preload and create functions FOR EACH STATE
   game.slickUI = game.plugins.add(Phaser.Plugin.SlickUI);
 
-  game.state.start('Game');
+  //TODO delete this shit
+  //game.state.start('Game');
+  game.state.start('MainMenu');
 
 };

@@ -32,7 +32,10 @@ ConversationManager.prototype.loadJSONConversation = function (jsonKey) {
   var json = this._game.cache.getJSON(jsonKey);
 
   this.conversation = json;
-  this.idx = 0;
+  //the player object will initialize the start index of a conversation
+  // at the end of a conversation the index will return to 0
+  // so that the next file will start at the begining.
+
 };
 
 ConversationManager.prototype.getCurrentText = function () {
@@ -105,7 +108,7 @@ ConversationManager.prototype.checkCondition = function(game, condition, value) 
     return visitedAll;
   }
   return false;
-}
+};
 
 ConversationManager.prototype.getSpeaker = function () {
   if (this.conversation === null) {
@@ -128,7 +131,8 @@ ConversationManager.prototype.takeActions = function() {
     return;
   }
 
-  if (this.conversation[this.idx]['showOnce'] === 1) {
+  if (this.conversation[this.idx]['showOnce'] === 1 && !this.shown.includes(this.idx)) {
+    //if save at this point keeps getting resaved.
     this.shown.push(this.idx);
   }
 
@@ -146,7 +150,7 @@ ConversationManager.prototype.takeAction = function(game, action, value) {
   if (action.startsWith('var')) {
     var variable = action.substring(3);
     if (value.startsWith('!')) {
-      delete game.player.variables[variable]; //remove variable from player
+      delete game.player.variables[variable]; //remove variable from
     } else {
       game.player.variables[variable] = value;  //set variable on player
     }
@@ -182,6 +186,8 @@ ConversationManager.prototype.endConversation = function() {
   }
 
   this.shown = [];
+  this.idx = 0;
+  this._game.player.convoFile = null;
 };
 
 ConversationManager.prototype.update = function () {
