@@ -28,8 +28,16 @@ CustomActions.prototype.customAction = function(action) {
     }, this);
   } else if (action.startsWith('moveToArea:')) {
     this.moveToArea(action.substring('moveToArea:'.length));
+  } else if (action === 'startBattle') {
+    this.loadBattle();  
   }
 };
+
+CustomActions.prototype.loadBattle = function() {
+    this._game.dialogueWindow.hide();
+    this._game.state.start("Battleground", true, false);
+}
+
 
 CustomActions.prototype.startConversation = function(conv) {
   this._game.dialogueWindow.begin(conv);

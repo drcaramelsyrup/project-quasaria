@@ -120,10 +120,18 @@ Scrollbar.prototype.redraw = function () {
 };
 
 Scrollbar.prototype.destroy = function () {
-  this.scrollbarLine.container.displayGroup.removeAll(true);
-  this.scrollbarLine.container = undefined;
-  this.scrollbar.container.displayGroup.removeAll(true);
-  this.scrollbar.container = undefined;
+  // if display container exists (i.e. not destroyed)
+  if (typeof this.scrollbarLine.container !== 'undefined' && this.scrollbarLine.container !== null) {
+    this.scrollbarLine.container.displayGroup.removeAll(true);
+    this.scrollbarLine.container.displayGroup.destroy();
+    this.scrollbarLine.container = undefined;
+  }
+  
+  if (typeof this.scrollbar.container !== 'undefined' && this.scrollbar.container !== null) {
+    this.scrollbar.container.displayGroup.removeAll(true);
+    this.scrollbar.container.displayGroup.destroy();
+    this.scrollbar.container = undefined;
+  }
   this.scrollbarLine.sprite = undefined;
   this.scrollbar.sprite = undefined;
 };
