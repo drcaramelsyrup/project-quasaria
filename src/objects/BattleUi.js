@@ -18,6 +18,7 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
 
   // - this.cardSignal
   // - this.cardAnimCompleteSignal
+  // - this.argAnimCompleteSignal
   // - this.playerDeckIcons
   // - this.enemyDeckIcons
   // - this.credBar
@@ -25,6 +26,7 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
   /** Signals */
   this.cardSignal = new Phaser.Signal();
   this.cardAnimCompleteSignal = new Phaser.Signal();
+  this.argAnimCompleteSignal = new Phaser.Signal();
   this.playerDeckIcons = [];
   this.enemyDeckIcons = [];
 
@@ -224,6 +226,12 @@ BattleUi.prototype.positionArguments = function (game, isTweening = true) {
       1000, Phaser.Easing.Quadratic.InOut, false, 0));
   }
   for (j = 0; j < tweens.length; j++) {
+    // Notify completion of argument rotation
+    if (j == 0) {
+      tweens[j].onComplete.add(function () {
+        this.argAnimCompleteSignal.dispatch(this._game);
+      }, this);
+    }
     tweens[j].start();
   }
 };
