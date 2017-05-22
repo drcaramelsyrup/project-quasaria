@@ -44,7 +44,6 @@ function Scrollbar(game, x, y, uiParent, points, maxScroll, lineWidth = 2, scrol
     x, y, this._game.make.sprite(0,0, bmdPath));
 
   // Draw scrollbar
-  // this._scrollbarWidth = lineWidth*2;
   this._scrollbarRatio = (this.maxHeight + this._scrollbarWidth - this._maxScroll) / this.maxHeight;
 
   // Bitmap data for scrollbar

@@ -34,6 +34,6 @@ exports.create = function (game) {
   // between preload and create functions FOR EACH STATE
   game.slickUI = game.plugins.add(Phaser.Plugin.SlickUI);
 
-  game.state.start('Game');
+  game.state.start('Battleground');
 
 };

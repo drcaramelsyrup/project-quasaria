@@ -43,7 +43,7 @@ Room.prototype.addItems = function() {
     this._game.add.existing(npc = new NPC(this._game, npc['x'], npc['y'], npc['id'], npc['height'], npc['width']));
     this.npcs.push(npc);
   }
-    this._game.add.existing(new SaveButton(this._game));
+  this._game.add.existing(new SaveButton(this._game));
 };
 
 Room.prototype.clearItems = function() {

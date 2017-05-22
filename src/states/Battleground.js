@@ -2,17 +2,12 @@
 
 var Card = require('../objects/Card');
 var Argument = require('../objects/Argument');
-var HealthBar = require('../objects/HealthBar.js');
 var items = require('../../static/assets/items.json');
+var Player = require('../objects/Player');
 
-
-var playerTurn = true;
-var currentArgument = 0;
-var opponentDeck = [];
-var panel;
-var credBar;
-var cred = 4;
-
+var BattleUi = require('../objects/BattleUi.js');
+var ArgumentManager = require('../objects/ArgumentManager');
+var DialogueWindow = require('../objects/DialogueWindow');
 
 exports.preload = function(game) {
   // preload all UI menu themes.
@@ -20,70 +15,88 @@ exports.preload = function(game) {
 };
 
 exports.create = function (game) {
-    //adding in player cards and face --to do: fetch these from inventory/player skills;
-    game.add.sprite(100, game.world.height - 125, 'alien-stare');
-    var playerDeck = [];
-    for (var i = 0; i < game.player.inventory.length; i++) {
-        playerDeck.push(game.add.existing(new Card(game, 370 + (100*i), 470, items[game.player.inventory[i]]['id'])));
-    }
-    playerDeck.forEach(function(card){
-       card.events.onInputDown.add(cardAction, card);
-       card.events.onInputOver.add(tooltip, card);
-       card.events.onInputOut.add(deleteTooltip, card);
-    });
-    //adding in credibility/health bar
-    var barConfig = {x:160, y:game.world.height - 150, height:20, width:150};
-    credBar = new HealthBar(game, barConfig);
-    //adding opponent face and opponent cards --to do: fetch these from main game state
-    game.add.sprite(100, game.world.height - 490, 'goblin-head');
-    opponentDeck.push(game.add.existing(new Argument(game, 130, game.world.centerY - 50, 'lunar-module', 'listener')));
-    opponentDeck.push(game.add.existing(new Argument(game, 245, game.world.centerY - 135, 'fencer', 'note')));
+  if (game.player == null || typeof game.player == 'undefined')
+    game.player = game.add.existing(new Player(game));
+  // DUMMY DATA
+  game.player.inventory.push('listener');
+  game.player.inventory.push('note');
+  // END DUMMY DATA
+
+  game.argumentManager = new ArgumentManager(game);
+  game.argumentManager.loadJSONConversation('battle01');
+  game.currentArgument = 0;
+  game.playerTurn = true;
+  game.cred = 4;
+
+  // adding in player cards and face
+  game.playerDeck = [];
+  for (var i = 0; i < game.player.inventory.length; i++) {
+    game.playerDeck.push(new Card(game, 0,0, items[game.player.inventory[i]]['id']));
+  }
+
+  // adding opponent face and opponent cards --to do: fetch these from main game state
+  game.opponentDeck = [];
+  var args = game.argumentManager.getAllArguments();
+  for (i = 0; i < args.length; i++) {
+    // TODO: support for multiple counters
+    game.opponentDeck.push(new Argument(game, 0,0, args[i]['id'], args[i]['counters'][0]));
+  }
+
+  game.battleUi = new BattleUi(game, game.playerDeck, game.opponentDeck);
+  game.battleUi.cardSignal.add(cardAction, this);
+
+  game.dialogueWindow = new DialogueWindow(game, game.argumentManager);
+  game.dialogueWindow.begin('battle01');
+
 };
 
+function cardAction(game, card) {
+  if (game.playerTurn) {
+    game.playerTurn = false;
+    game.battleUi.cardsInputEnabled(false);
 
-function cardAction() {
-    if (playerTurn) {
-        playerTurn = false;
-        this.inputEnabled = false;
-        var tween = this.game.add.tween(this);
-        tween.to({ x: 125, y: this.game.world.height - 250}, 1000, 'Linear', true, 0);
-        tween.onComplete.add(function () {
-            if (this.key == opponentDeck[currentArgument].key){
-                opponentDeck[currentArgument].destroy();
-                delete opponentDeck[currentArgument];
-            }
-            var game = this.game
-            this.destroy();
-            opponentTurn(game);
-        }, this);
+    var argument = game.opponentDeck[game.currentArgument];
+
+    if (card.key === argument.key) {
+      game.battleUi.playCardAnimation(card, argument, true);
+      game.opponentDeck[game.currentArgument] = undefined;
+      argument.destroy();
+      card.destroy();
     }
-}
-
-
-function tooltip() {
-    this.game.slickUI.add(panel = new SlickUI.Element.Panel(this.x - 10, this.y- 60, 100, 50));
-    panel.add(new SlickUI.Element.Text(0, 0, this.description)).center();
-}
-
-function deleteTooltip () {
-    if(panel) {
-        panel.destroy();
+    else {
+      game.battleUi.playCardAnimation(card, argument, false);
     }
+  }
+
+  game.battleUi.cardAnimCompleteSignal.add(opponentTurn, this);
 }
 
 function opponentTurn(game) {
-    if (opponentDeck[currentArgument]) {
-        cred -=1;
-        credBar.setPercent(cred * 25);
-        opponentDeck[currentArgument].destroy();
+  if (game.opponentDeck[game.currentArgument]) {
+    game.cred -= 1;
+    game.battleUi.updateCredBar(game.cred);
+    game.opponentDeck[game.currentArgument].destroy();
+  }
+  updateCurrentArgument(game);
+  game.battleUi.updateArguments(game.opponentDeck, game.currentArgument);
+  game.battleUi.positionArguments(game, true);
+  game.battleUi.cardsInputEnabled(true);
+  game.playerTurn = true;
+}
+
+function updateCurrentArgument(game) {
+  game.currentArgument += 1;
+  
+  for (var i = 0; i < game.opponentDeck.length; i++) {
+    var idx = game.currentArgument + i;
+    if (idx >= game.opponentDeck.length)
+      idx -= game.opponentDeck.length;
+    // if exists
+    if (typeof game.opponentDeck[idx] !== 'undefined' && game.opponentDeck[idx] !== null) {
+      game.currentArgument = idx;
+      return;
     }
-    currentArgument += 1;
-    if (currentArgument < opponentDeck.length) {
-        var tween = game.add.tween(opponentDeck[currentArgument]);
-        tween.to({ x: 130, y: game.world.centerY - 30}, 1000, 'Linear', true, 0);
-        tween.onComplete.add(function () {
-            playerTurn = true;
-        }, this);
-    }
+  }
+  // exiting means we have no more arguments
 }
 

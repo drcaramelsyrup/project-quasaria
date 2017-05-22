@@ -34,10 +34,9 @@ CustomActions.prototype.customAction = function(action) {
 };
 
 CustomActions.prototype.loadBattle = function() {
-    this._game.dialogueWindow.hide();
-    this._game.state.start("Battleground", true, false);
-}
-
+  this._game.dialogueWindow.hide();
+  this._game.state.start('Battleground', true, false);
+};
 
 CustomActions.prototype.startConversation = function(conv) {
   this._game.dialogueWindow.begin(conv);

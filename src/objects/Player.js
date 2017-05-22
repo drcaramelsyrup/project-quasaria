@@ -36,14 +36,14 @@ Player.prototype.serialize = function(){
 };
 
 Player.unserialize = function(playerState, game){
-  console.log("it can unserialize");
+  console.log('it can unserialize');
 
-  if (typeof playerState === 'string'){
+  if (typeof playerState === 'string') {
     console.log(playerState);
     playerState = JSON.parse(playerState, (key, value) => {
-    console.log(key); // log the current property name, the last is "".
-    return value;     // return the unchanged property value.
-  });
+      console.log(key); // log the current property name, the last is "".
+      return value;     // return the unchanged property value.
+    });
   }
 
   game.player = game.add.existing(new Player(game));

@@ -10,8 +10,6 @@
 module.exports = ConversationManager;
 
 function ConversationManager(game, customActions/*, ...args*/) {
-  Phaser.Group.call(this, game/*, ...args*/);
-
   // PROPERTIES:
   // - conversation - json conversation
 
@@ -22,7 +20,6 @@ function ConversationManager(game, customActions/*, ...args*/) {
   this.idx = 0;
   this.shown = [];
 }
-ConversationManager.prototype = Object.create(Phaser.Group.prototype);
 ConversationManager.prototype.constructor = ConversationManager;
 
 /* Assumes JSON has already been loaded into cache!
@@ -105,7 +102,7 @@ ConversationManager.prototype.checkCondition = function(game, condition, value) 
     return visitedAll;
   }
   return false;
-}
+};
 
 ConversationManager.prototype.getSpeaker = function () {
   if (this.conversation === null) {
