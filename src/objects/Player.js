@@ -11,6 +11,7 @@ function Player(game) {
   Phaser.Group.call(this, game);
   this.inventory = [];
   this.memoryBank = [];
+  this.seenAreas = []; //areas seen to track what can go in area transition window
   this.variables = {};
   this.currentRoom = null;
   this.convoIdx = 0;
@@ -26,6 +27,7 @@ Player.prototype.serialize = function(game){
   var fields = [
     'inventory',
     'memoryBank',
+    'seenAreas',
     'variables'
   ];
 

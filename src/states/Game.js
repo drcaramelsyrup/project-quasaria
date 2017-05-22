@@ -67,9 +67,11 @@ exports.create = function (game) {
   // area transition window object
   game.areaTransitionWindow = new AreaTransitionWindow(game);
 
+  console.log('game state player ', game.player);
+
   // dialogue window object
   game.dialogueWindow = new DialogueWindow(game, convoManager);
-  
+
   game.dialogueWindow.begin(game.player.convoFile);
 
 };

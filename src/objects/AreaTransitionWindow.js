@@ -36,6 +36,7 @@ function areaTransitionButtonToggle() {
   // show panel
   this.panel.visible = true;
   this.display();
+  //each time you press the button it should refresh the areas that it displays
 
   this.panel.x = 0 - this.panelWidth - this._memoryPadding;
   this._game.add.tween(this.panel).to(
@@ -74,7 +75,7 @@ function AreaTransitionWindow(game/*, ...args*/) {
   /**
    * Panel
    */
-  
+
   game.slickUI.add(
     this.panel = new SlickUI.Element.DisplayObject(
       this._baseX, this._baseY, game.make.sprite(0,0, 'memory-bank'),
@@ -113,7 +114,7 @@ function AreaTransitionWindow(game/*, ...args*/) {
   this.panel.add(
     this.nameText = new SlickUI.Element.DisplayObject(
       this._memoryTextOriginX,
-      this._memoryTextOriginY, 
+      this._memoryTextOriginY,
       game.make.text(0,0, '', nameTextStyle), this._memoryTextWidth));
   // for alignment purposes
   var nameTextHeight = this.nameText.displayObject.getBounds().height;
@@ -123,7 +124,7 @@ function AreaTransitionWindow(game/*, ...args*/) {
   this.panel.add(
     this.descText = new SlickUI.Element.DisplayObject(
       this._memoryTextOriginX,
-      this._memoryTextOriginY + nameTextHeight, 
+      this._memoryTextOriginY + nameTextHeight,
       game.make.text(0,0, '', descTextStyle), this._memoryTextWidth));
 
   /**
@@ -163,13 +164,16 @@ AreaTransitionWindow.prototype.cleanWindow = function () {
 };
 
 AreaTransitionWindow.prototype.displayAreas = function () {
-  console.log(this._game.room.name)
+  console.log('room.name ', this._game.room.name);
   this.areasToShow = Object.keys(areas).filter(function(area) {
-    return areas[area]['navigable'] == true && this._game.room.name != area;
+    console.log('areas: ', area);
+    let seen = this._game.player.seenAreas.includes(area);
+    console.log('seen ', seen);
+    return areas[area]['navigable'] == true && this._game.room.name != area && seen;
   }, this);
 
-  var itemEnd = this._itemStart + this._rowCapacity < this.areasToShow.length 
-    ? this._itemStart + this._rowCapacity 
+  var itemEnd = this._itemStart + this._rowCapacity < this.areasToShow.length
+    ? this._itemStart + this._rowCapacity
     : this.areasToShow.length;
 
   for (var i = this._itemStart; i < itemEnd; i++) {
@@ -182,7 +186,7 @@ AreaTransitionWindow.prototype.displayAreas = function () {
 
     var maskSprite = this._game.make.sprite(0,0, 'memory-bank-icon-mask');
     maskSprite.scale.setTo(desiredWidth / maskSprite.width);
-    
+
     var maskedBmd = this._game.make.bitmapData(maskSprite.width, maskSprite.height);
     maskedBmd.alphaMask(assetSprite, maskSprite);
 
@@ -243,7 +247,7 @@ AreaTransitionWindow.prototype.showNavButtons = function () {
 
     var slickPrev;
     this.panel.add(slickPrev = new SlickUI.Element.DisplayObject(
-      this._prevOriginX, this._prevOriginY, 
+      this._prevOriginX, this._prevOriginY,
       prevButton));
     this._navButtons.push(slickPrev);
 
