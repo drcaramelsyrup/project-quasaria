@@ -149,6 +149,10 @@ exports.sounds = [{
   key: 'ukulele',
   type: 'audio',
   urls: ['music/Ukulele (Demo).mp3']
+}, {
+  key: 'battle-theme',
+  type: 'audio',
+  urls: ['music/neocrey - Last Cyber Dance.ogg']
 }];
 
 // --logic battle placeholder images
