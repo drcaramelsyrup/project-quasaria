@@ -13,6 +13,8 @@ var DialogueWindow = require('../objects/DialogueWindow');
 var ConversationManager = require('../objects/ConversationManager');
 var CustomActions = require('../utils/CustomActions');
 var MemoryBankWindow = require('../objects/MemoryBankWindow');
+var AreaTransitionWindow = require('../objects/AreaTransitionWindow');
+var SaveButton = require('../objects/SaveButton');
 
 exports.preload = function(game) {
   // preload all UI menu themes.
@@ -51,6 +53,8 @@ exports.create = function (game) {
   game.music.loopFull(1);
 
 
+  game.add.existing(new SaveButton(game));
+
   // custom actions for conversations
   var customActions = new CustomActions(game);
   // conversation manager
@@ -60,6 +64,8 @@ exports.create = function (game) {
 
   // memory bank window object
   game.memoryBankWindow = new MemoryBankWindow(game);
+  // area transition window object
+  game.areaTransitionWindow = new AreaTransitionWindow(game);
 
   // dialogue window object
   game.dialogueWindow = new DialogueWindow(game, convoManager);

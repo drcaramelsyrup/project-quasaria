@@ -26,6 +26,9 @@ function NPC(game, x, y, id, height, width) {
   this.events.onInputDown.add(click, this);
   this.events.onInputOver.add(mouseover, this);
   this.events.onInputOut.add(mouseout, this);
+
+  this.input.pixelPerfectOver = true;   // checks pixels so that collision only happens with non-transparent areas
+                                        // computationally expensive, but maybe necessary for realism purposes?
 }
 
 NPC.prototype = Object.create(Phaser.Sprite.prototype);

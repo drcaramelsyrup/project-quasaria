@@ -9,6 +9,8 @@
 
 module.exports = ConversationManager;
 
+var npcs = require('../../static/assets/npcs.json');
+
 function ConversationManager(game, customActions/*, ...args*/) {
   Phaser.Group.call(this, game/*, ...args*/);
 
@@ -115,7 +117,7 @@ ConversationManager.prototype.getSpeaker = function () {
     return [''];
   }
 
-  return this.conversation[this.idx]['speaker'];
+  return npcs[this.conversation[this.idx]['speaker']]['name']
 };
 
 ConversationManager.prototype.getAvatar = function() {
@@ -123,7 +125,7 @@ ConversationManager.prototype.getAvatar = function() {
     return [''];
   }
 
-  return this.conversation[this.idx]['speaker'].toLowerCase().replace(' ', '-');
+  return npcs[this.conversation[this.idx]['speaker']]['avatar']
 };
 
 ConversationManager.prototype.takeActions = function() {

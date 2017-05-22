@@ -9,12 +9,12 @@
 
 var Clickable = require('../objects/Clickable');
 var Placeable = require('../objects/Placeable');
-var SaveButton = require('../objects/SaveButton');
 var NPC = require('../objects/NPC');
 var areas = require('../../static/assets/areas.json');
 
 function Room(game, room) {
   this._game = game;
+  this.name = room;
 
   this.area = areas[room];
   this.items = [];
@@ -50,7 +50,6 @@ Room.prototype.addItems = function() {
     // then we don't want to pop them off of the stack
     this.npcs.push(npc);
   }
-    this._game.add.existing(new SaveButton(this._game));
 };
 
 Room.prototype.clearItems = function() {
