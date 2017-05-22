@@ -187,7 +187,7 @@ ConversationManager.prototype.endConversation = function() {
 
   this.shown = [];
   this.idx = 0;
-  this._game.player.convoFile = null;
+  this._game.dialogueWindow.convoFile = null;
 };
 
 ConversationManager.prototype.update = function () {

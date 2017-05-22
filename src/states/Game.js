@@ -21,7 +21,6 @@ exports.preload = function(game) {
 
 exports.init = function(game, resumeGame){
 
-
   let playerState = localStorage.getItem('playerState');
   if (resumeGame && playerState !== null){
     Player.unserialize(playerState, game);
@@ -34,6 +33,7 @@ exports.init = function(game, resumeGame){
   } else { //check if old model blinks
     localStorage.clear();
     game.player = (new Player(game));
+    game.player.convoFile = 'prologue01';
     game.room = (new Room(game, 'shuttle'));
 
   }
@@ -57,14 +57,13 @@ exports.create = function (game) {
   var convoManager = new ConversationManager(game, customActions);
   convoManager.idx = game.player.convoIdx;
   convoManager.shown = game.player.shownConvo;
-  // dialogue window object
-  game.dialogueWindow = new DialogueWindow(game, convoManager);
+
   // memory bank window object
   game.memoryBankWindow = new MemoryBankWindow(game);
 
-  let jsonId = 'prologue01';
-  if (game.player.convoFile) {
-    jsonId = game.player.convoFile;
-  }
-  game.dialogueWindow.begin(jsonId);
+  // dialogue window object
+  game.dialogueWindow = new DialogueWindow(game, convoManager);
+  
+  game.dialogueWindow.begin(game.player.convoFile);
+
 };

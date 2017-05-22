@@ -36,7 +36,7 @@ function DialogueWindow(game, convoManager/*, ...args*/) {
   game.slickUI.add(this.avatar = new SlickUI.Element.DisplayObject(
     400, 100, game.make.sprite(0, 0, 'invisible'),
     400, 500));
-    
+
     this.dialogHeight = game.height * 3 / 8 /* 3/8 height */ - this._dialogPadding / 2;
     this.dialogWidth = game.width - this._dialogPadding;
 
@@ -100,15 +100,19 @@ function DialogueWindow(game, convoManager/*, ...args*/) {
             DialogueWindow.prototype.constructor = DialogueWindow;
 
             DialogueWindow.prototype.begin = function(jsonKey) {
+              if (jsonKey){
               this.convoFile = jsonKey;
               this.convoManager.loadJSONConversation(jsonKey);
               this.show();
               this.display();
+            } else {
+              this.hide();
+            }
             };
 
             DialogueWindow.prototype.display = function() {
-              if (this.convoFile) {
                 this.cleanWindow();
+                if (this.convoFile) {
                 this.takeActions();
                 this.displayAvatar();
                 this.displayText();
