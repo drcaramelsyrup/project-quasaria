@@ -80,8 +80,16 @@ function opponentTurn(game) {
   updateCurrentArgument(game);
   game.battleUi.updateArguments(game.opponentDeck, game.currentArgument);
   game.battleUi.positionArguments(game, true);
+  // Display arguments on animation completion
+  game.battleUi.argAnimCompleteSignal.add(updateArgumentWindow, this);
+
   game.battleUi.cardsInputEnabled(true);
   game.playerTurn = true;
+}
+
+function updateArgumentWindow(game) {
+  game.argumentManager.idx = game.currentArgument;
+  game.dialogueWindow.display();
 }
 
 function updateCurrentArgument(game) {
