@@ -101,6 +101,7 @@ function DialogueWindow(game, convoManager/*, ...args*/) {
 
             DialogueWindow.prototype.begin = function(jsonKey) {
               if (jsonKey){
+    
               this.convoFile = jsonKey;
               this.convoManager.loadJSONConversation(jsonKey);
               this.show();

@@ -20,7 +20,8 @@
 		],
 		"placeables": [],
 		"npcs": [],
-		"navigable": false
+		"navigable": false,
+		"areaAccess": []
 	},
 	"hangar": {
 		"id": "hangar",
@@ -45,7 +46,8 @@
 				"width": 150
 			}
 		],
-		"navigable": true
+		"navigable": true,
+		"areaAccess": ["medbay"]
 	},
 	"medbay": {
 		"id": "medbay",
@@ -62,6 +64,7 @@
 				"width": 100
 			}
 		],
-		"navigable": true
+		"navigable": true,
+		"areaAccess": []
 	}
 }

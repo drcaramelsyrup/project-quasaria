@@ -142,6 +142,17 @@ function AreaTransitionWindow(game/*, ...args*/) {
 AreaTransitionWindow.prototype = Object.create(Phaser.Group.prototype);
 AreaTransitionWindow.prototype.constructor = AreaTransitionWindow;
 
+AreaTransitionWindow.prototype.disable = function(){
+  this.alpha = 0;
+  this.inputEnabled = false;
+};
+
+AreaTransitionWindow.prototype.enable = function(){
+  this.alpha = .8;
+  this.inputEnabled = true;
+  //not sure that this will re-add listeners 
+};
+
 AreaTransitionWindow.prototype.display = function () {
   this.cleanWindow();
   this.displayAreas();
@@ -169,8 +180,18 @@ AreaTransitionWindow.prototype.displayAreas = function () {
     console.log('areas: ', area);
     let seen = this._game.player.seenAreas.includes(area);
     console.log('seen ', seen);
+    //this filter will add rooms seen in the past that should be avaliable in the window
     return areas[area]['navigable'] == true && this._game.room.name != area && seen;
   }, this);
+  //this is going to leave things out, or have cycles
+  // we will have to think carefully when adding this information to the json
+  // do we want a given room to only appear if seen or do we want to have a group of
+  // rooms all navigable from one another?
+  // ie hanger must be reached first, but once there you have immediate access to talvine
+  for (let area of this._game.room.area.areaAccess){
+    this.areasToShow.push(area);
+    console.log("areas to show", this.areasToShow);
+  }
 
   var itemEnd = this._itemStart + this._rowCapacity < this.areasToShow.length
     ? this._itemStart + this._rowCapacity

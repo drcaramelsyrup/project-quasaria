@@ -34,6 +34,7 @@ ConversationManager.prototype.loadJSONConversation = function (jsonKey) {
   var json = this._game.cache.getJSON(jsonKey);
 
   this.conversation = json;
+  this._game.areaTransitionWindow.disable();
   //the player object will initialize the start index of a conversation
   // at the end of a conversation the index will return to 0
   // so that the next file will start at the begining.
@@ -117,7 +118,7 @@ ConversationManager.prototype.getSpeaker = function () {
     return [''];
   }
 
-  return npcs[this.conversation[this.idx]['speaker']]['name']
+  return npcs[this.conversation[this.idx]['speaker']]['name'];
 };
 
 ConversationManager.prototype.getAvatar = function() {
@@ -125,7 +126,7 @@ ConversationManager.prototype.getAvatar = function() {
     return [''];
   }
 
-  return npcs[this.conversation[this.idx]['speaker']]['avatar']
+  return npcs[this.conversation[this.idx]['speaker']]['avatar'];
 };
 
 ConversationManager.prototype.takeActions = function() {
@@ -189,7 +190,9 @@ ConversationManager.prototype.endConversation = function() {
 
   this.shown = [];
   this.idx = 0;
+  //think this is a cyclic ref. TODO: fix 
   this._game.dialogueWindow.convoFile = null;
+  this._game.areaTransitionWindow.enable();
 };
 
 ConversationManager.prototype.update = function () {
