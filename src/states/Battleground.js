@@ -15,13 +15,18 @@ exports.preload = function(game) {
 };
 
 exports.create = function (game) {
-  if (game.player == null || typeof game.player == 'undefined')
+  if (game.player == null || typeof game.player == 'undefined') {
     game.player = game.add.existing(new Player(game));
-  // DUMMY DATA
-  game.player.inventory.push('listener');
-  game.player.inventory.push('note');
-  // END DUMMY DATA
+    // DUMMY DATA
+    game.player.inventory.push('listener');
+    game.player.inventory.push('note');
+    // END DUMMY DATA
+  }
 
+  // Music
+  game.music = game.sound.play('battle-theme');
+  game.music.loopFull(1);
+  
   game.argumentManager = new ArgumentManager(game);
   game.argumentManager.loadJSONConversation('battle01');
   game.currentArgument = 0;
