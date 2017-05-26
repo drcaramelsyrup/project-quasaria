@@ -142,14 +142,22 @@ function AreaTransitionWindow(game/*, ...args*/) {
 AreaTransitionWindow.prototype = Object.create(Phaser.Group.prototype);
 AreaTransitionWindow.prototype.constructor = AreaTransitionWindow;
 
-AreaTransitionWindow.prototype.disable = function(){
-  this.alpha = 0;
-  this.inputEnabled = false;
+// Utility functions: instantly hide or show panel/UI
+AreaTransitionWindow.prototype.hidePanel = function () {
+  this.panel.visible = false;
+  this.panel.x = 0 - this.panelWidth - this._memoryPadding;
 };
 
-AreaTransitionWindow.prototype.enable = function(){
-  this.alpha = .8;
-  this.inputEnabled = true;
+AreaTransitionWindow.prototype.disable = function () {
+  this.hidePanel();
+  this.toggleButton.visible = false;
+  this.toggleButton.inputEnabled = false;
+};
+
+AreaTransitionWindow.prototype.enable = function () {
+  this.hidePanel();
+  this.toggleButton.visible = true;
+  this.toggleButton.inputEnabled = true;
   //not sure that this will re-add listeners 
 };
 
