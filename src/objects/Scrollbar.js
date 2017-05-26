@@ -44,7 +44,6 @@ function Scrollbar(game, x, y, uiParent, points, maxScroll, lineWidth = 2, scrol
     x, y, this._game.make.sprite(0,0, bmdPath));
 
   // Draw scrollbar
-  // this._scrollbarWidth = lineWidth*2;
   this._scrollbarRatio = (this.maxHeight + this._scrollbarWidth - this._maxScroll) / this.maxHeight;
 
   // Bitmap data for scrollbar
@@ -120,10 +119,18 @@ Scrollbar.prototype.redraw = function () {
 };
 
 Scrollbar.prototype.destroy = function () {
-  this.scrollbarLine.container.displayGroup.removeAll(true);
-  this.scrollbarLine.container = undefined;
-  this.scrollbar.container.displayGroup.removeAll(true);
-  this.scrollbar.container = undefined;
+  // if display container exists (i.e. not destroyed)
+  if (typeof this.scrollbarLine.container !== 'undefined' && this.scrollbarLine.container !== null) {
+    this.scrollbarLine.container.displayGroup.removeAll(true);
+    this.scrollbarLine.container.displayGroup.destroy();
+    this.scrollbarLine.container = undefined;
+  }
+  
+  if (typeof this.scrollbar.container !== 'undefined' && this.scrollbar.container !== null) {
+    this.scrollbar.container.displayGroup.removeAll(true);
+    this.scrollbar.container.displayGroup.destroy();
+    this.scrollbar.container = undefined;
+  }
   this.scrollbarLine.sprite = undefined;
   this.scrollbar.sprite = undefined;
 };

@@ -24,7 +24,6 @@ exports.preload = function (game) {
   game.load.pack('conversations', null, assets);
   game.load.pack('sounds', null, assets);
   game.load.pack('logic_battle', null, assets);
-  //game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
 };
 
 exports.create = function (game) {
@@ -37,8 +36,6 @@ exports.create = function (game) {
   // between preload and create functions FOR EACH STATE
   game.slickUI = game.plugins.add(Phaser.Plugin.SlickUI);
 
-  //TODO delete this shit
-  //game.state.start('Game');
   game.state.start('MainMenu');
 
 };

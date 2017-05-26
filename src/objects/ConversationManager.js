@@ -12,8 +12,6 @@ module.exports = ConversationManager;
 var npcs = require('../../static/assets/npcs.json');
 
 function ConversationManager(game, customActions/*, ...args*/) {
-  Phaser.Group.call(this, game/*, ...args*/);
-
   // PROPERTIES:
   // - conversation - json conversation
 
@@ -24,7 +22,6 @@ function ConversationManager(game, customActions/*, ...args*/) {
   this.idx = 0;
   this.shown = [];
 }
-ConversationManager.prototype = Object.create(Phaser.Group.prototype);
 ConversationManager.prototype.constructor = ConversationManager;
 
 /* Assumes JSON has already been loaded into cache!
@@ -183,7 +180,7 @@ ConversationManager.prototype.endConversation = function() {
     var npc = this._game.room.npcs[i];
     npc.show();
   }
-
+    
   if ('onEnd' in this.conversation) {
     this.customActions.customAction(this.conversation['onEnd']);
   }

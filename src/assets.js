@@ -108,6 +108,10 @@ exports.ui = [{
   key: 'button',
   type: 'image',
   url: 'ui/button.png'
+}, {
+  key: 'battle-background',
+  type: 'image',
+  url: 'ui/battle-background.png'
 }];
 
 // -- Conversation jsons and avatars.
@@ -139,6 +143,10 @@ exports.conversations = [{
   key: 'gleaming-shoal',
   type: 'image',
   url: 'avatars/gleaming-shoal.png'
+}, {
+  key: 'gleaming-shoal-portrait',
+  type: 'image',
+  url: 'avatars/gleaming-shoal-portrait.png'
 }, {
   key: 'unknown-alien',
   type: 'image',
@@ -174,35 +182,64 @@ exports.sounds = [{
   key: 'ukulele',
   type: 'audio',
   urls: ['music/Ukulele (Demo).mp3']
+}, {
+  key: 'dramatic-battle-theme',
+  type: 'audio',
+  urls: ['music/neocrey - Last Cyber Dance.ogg']
+}, {
+  key: 'battle-theme',
+  type: 'audio',
+  urls: ['music/Humble Match.ogg']
 }];
 
 // --logic battle placeholder images
 
 exports.logic_battle = [{
   key: 'alien-stare',
-  type: 'image'
+  type: 'image',
+  url: 'battle/alien-stare.png'
 }, {
   key: 'greek-sphinx',
-  type: 'image'
+  type: 'image',
+  url: 'battle/greek-sphinx.png'
 }, {
   key: 'cyborg-face',
-  type: 'image'
+  type: 'image',
+  url: 'battle/cyborg-face.png'
 }, {
   key: 'curly-mask',
-  type: 'image'
+  type: 'image',
+  url: 'battle/curly-mask.png'
 }, {
   key: 'lunar-module',
-  type: 'image'
+  type: 'image',
+  url: 'battle/lunar-module.png'
 }, {
   key: 'fencer',
-  type: 'image'
+  type: 'image',
+  url: 'battle/fencer.png'
 }, {
   key: 'new-born',
-  type: 'image'
+  type: 'image',
+  url: 'battle/new-born.png'
 }, {
   key: 'saint-basil-cathedral',
-  type: 'image'
+  type: 'image',
+  url: 'battle/saint-basil-cathedral.png'
 }, {
   key: 'goblin-head',
-  type: 'image'
+  type: 'image',
+  url: 'battle/goblin-head.png'
+}, {
+  key: 'xenobio',
+  type: 'image',
+  url: 'battle/xenobio.png'
+}, {
+  key: 'xenopsych',
+  type: 'image',
+  url: 'battle/xenopsych.png'
+}, {
+  key: 'battle01',
+  type: 'json',
+  url: 'battle/battle01.json'
 }];
