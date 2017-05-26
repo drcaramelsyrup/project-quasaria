@@ -54,10 +54,12 @@ NPC.prototype.show = function() {
   var fadeInTween = this._game.add.tween(this);
   var fadeIn = 200;
   fadeInTween.to({alpha: 1}, fadeIn, Phaser.Easing.Linear.None, true);
+  this.inputEnabled = true;
 };
 
 NPC.prototype.hide = function() {
   var fadeOutTween = this._game.add.tween(this);
   var fadeOut = 200;
   fadeOutTween.to({alpha: 0}, fadeOut, Phaser.Easing.Linear.None, true);
+  this.inputEnabled = false;
 };
