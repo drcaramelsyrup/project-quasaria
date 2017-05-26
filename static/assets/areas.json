@@ -19,7 +19,9 @@
 			}
 		],
 		"placeables": [],
-		"npcs": []
+		"npcs": [],
+		"navigable": false,
+		"areaAccess": []
 	},
 	"hangar": {
 		"id": "hangar",
@@ -37,12 +39,32 @@
 		],
 		"npcs": [
 			{
-				"id": "vesper",
+				"id": "Vesper",
 				"x": 100,
 				"y": 350,
 				"height": 350,
 				"width": 150
 			}
-		]
+		],
+		"navigable": true,
+		"areaAccess": ["medbay"]
+	},
+	"medbay": {
+		"id": "medbay",
+		"name": "Medical Bay",
+		"bg": "medbay",
+		"items": [],
+		"placeables": [],
+		"npcs": [
+			{
+				"id": "Dr. Talvine Mesmer-Quiverly",
+				"x": 320,
+				"y": 340,
+				"height": 183,
+				"width": 100
+			}
+		],
+		"navigable": true,
+		"areaAccess": []
 	}
 }

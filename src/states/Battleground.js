@@ -52,7 +52,6 @@ exports.create = function (game) {
 
   game.dialogueWindow = new DialogueWindow(game, game.argumentManager);
   game.dialogueWindow.begin('battle01');
-
 };
 
 function cardAction(game, card) {
@@ -112,4 +111,3 @@ function updateCurrentArgument(game) {
   }
   // exiting means we have no more arguments
 }
-

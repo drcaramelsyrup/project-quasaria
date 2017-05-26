@@ -9,6 +9,8 @@
 
 module.exports = ConversationManager;
 
+var npcs = require('../../static/assets/npcs.json');
+
 function ConversationManager(game, customActions/*, ...args*/) {
   // PROPERTIES:
   // - conversation - json conversation
@@ -29,7 +31,11 @@ ConversationManager.prototype.loadJSONConversation = function (jsonKey) {
   var json = this._game.cache.getJSON(jsonKey);
 
   this.conversation = json;
-  this.idx = 0;
+  this._game.areaTransitionWindow.disable();
+  //the player object will initialize the start index of a conversation
+  // at the end of a conversation the index will return to 0
+  // so that the next file will start at the begining.
+
 };
 
 ConversationManager.prototype.getCurrentText = function () {
@@ -109,7 +115,7 @@ ConversationManager.prototype.getSpeaker = function () {
     return [''];
   }
 
-  return this.conversation[this.idx]['speaker'];
+  return npcs[this.conversation[this.idx]['speaker']]['name'];
 };
 
 ConversationManager.prototype.getAvatar = function() {
@@ -117,7 +123,7 @@ ConversationManager.prototype.getAvatar = function() {
     return [''];
   }
 
-  return this.conversation[this.idx]['speaker'].toLowerCase().replace(' ', '-');
+  return npcs[this.conversation[this.idx]['speaker']]['avatar'];
 };
 
 ConversationManager.prototype.takeActions = function() {
@@ -125,7 +131,8 @@ ConversationManager.prototype.takeActions = function() {
     return;
   }
 
-  if (this.conversation[this.idx]['showOnce'] === 1) {
+  if (this.conversation[this.idx]['showOnce'] === 1 && !this.shown.includes(this.idx)) {
+    //if save at this point keeps getting resaved.
     this.shown.push(this.idx);
   }
 
@@ -143,7 +150,7 @@ ConversationManager.prototype.takeAction = function(game, action, value) {
   if (action.startsWith('var')) {
     var variable = action.substring(3);
     if (value.startsWith('!')) {
-      delete game.player.variables[variable]; //remove variable from player
+      delete game.player.variables[variable]; //remove variable from
     } else {
       game.player.variables[variable] = value;  //set variable on player
     }
@@ -179,6 +186,10 @@ ConversationManager.prototype.endConversation = function() {
   }
 
   this.shown = [];
+  this.idx = 0;
+  //think this is a cyclic ref. TODO: fix 
+  this._game.dialogueWindow.convoFile = null;
+  this._game.areaTransitionWindow.enable();
 };
 
 ConversationManager.prototype.update = function () {

@@ -7,7 +7,6 @@ function Argument(game, x, y, assetName, match) {
   this.inputEnabled = true;
   this.input.useHandCursor = true;
   this.key = match;
-
 }
 
 Argument.prototype = Object.create(Phaser.Sprite.prototype);

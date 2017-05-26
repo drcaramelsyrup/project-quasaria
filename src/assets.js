@@ -17,12 +17,22 @@ exports.boot = [{
   type: 'image'
 }];
 
+exports.main_menu = [{
+  key: 'quasaria-logo-MM',
+  type: 'image'
+}, {
+  key: 'continueButton',
+  type: 'image'
+}, {
+  key: 'menu_screen',
+  type: 'image',
+  url: 'backgrounds/menu_screen.png'
+}];
+
+
 // -- General assets used throughout the game.
 exports.game = [{
   key: 'quasaria-logo',
-  type: 'image'
-}, {
-  key: 'saveButton',
   type: 'image'
 }, {
   key: 'shuttle',
@@ -32,6 +42,10 @@ exports.game = [{
   key: 'hangar',
   type: 'image',
   url: 'backgrounds/hangar.png'
+}, {
+  key: 'medbay',
+  type: 'image',
+  url: 'backgrounds/medbay.png'
 }, {
   key: 'listener',
   type: 'image',
@@ -48,6 +62,10 @@ exports.game = [{
   key: 'vesper-npc',
   type: 'image',
   url: 'npcs/vesper.png'
+}, {
+  key: 'talvine-npc',
+  type: 'image',
+  url: 'npcs/talvine.png'
 }];
 
 // -- UI-specific assets.
@@ -84,6 +102,13 @@ exports.ui = [{
   type: 'image',
   url: 'ui/memory-bank.png'
 }, {
+  key: 'saveButton',
+  type: 'image'
+}, {
+  key: 'button',
+  type: 'image',
+  url: 'ui/button.png'
+}, {
   key: 'battle-background',
   type: 'image',
   url: 'ui/battle-background.png'
@@ -102,6 +127,10 @@ exports.conversations = [{
   key: 'vesper01',
   type: 'json',
   url: 'conversations/vesper01.json'
+}, {
+  key: 'talvine01',
+  type: 'json',
+  url: 'conversations/talvine01.json'
 }, {
   key: 'mysterious-voice',
   type: 'image',
@@ -126,6 +155,10 @@ exports.conversations = [{
   key: 'vesper',
   type: 'image',
   url: 'avatars/vesper.png'
+}, {
+  key: 'talvine',
+  type: 'image',
+  url: 'avatars/talvine.png'
 }, {
   key: 'invisible',
   type: 'image',
