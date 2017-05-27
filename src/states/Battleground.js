@@ -15,7 +15,7 @@ exports.preload = function(game) {
 };
 
 exports.create = function (game) {
-  if (game.player == null || typeof game.player == 'undefined') {
+  if (game.player === null || typeof game.player === 'undefined') {
     game.player = game.add.existing(new Player(game));
     // DUMMY DATA
     game.player.inventory.push('listener');

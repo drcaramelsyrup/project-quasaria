@@ -16,7 +16,7 @@ function ArgumentManager(game/*, ...args*/) {
   //   1. Edit constructor parameters accordingly.
   //   2. Adjust object properties.
 
-  this._game = game;
+  ConversationManager.call(this, game);
 
 }
 ArgumentManager.prototype = Object.create(ConversationManager.prototype);
