@@ -70,9 +70,9 @@ function cardAction(game, card) {
     else {
       game.battleUi.playCardAnimation(card, argument, false);
     }
-  }
 
-  game.battleUi.cardAnimCompleteSignal.add(opponentTurn, this);
+    game.battleUi.cardAnimCompleteSignal.add(opponentTurn, this);
+  }
 }
 
 function opponentTurn(game) {
@@ -85,10 +85,11 @@ function opponentTurn(game) {
   game.battleUi.updateArguments(game.opponentDeck, game.currentArgument);
   game.battleUi.positionArguments(game, true);
   // Display arguments on animation completion
-  game.battleUi.argAnimCompleteSignal.add(updateArgumentWindow, this);
-
-  game.battleUi.cardsInputEnabled(true);
-  game.playerTurn = true;
+  game.battleUi.argAnimCompleteSignal.add(function () {
+    updateArgumentWindow(game);
+    game.battleUi.cardsInputEnabled(true);
+    game.playerTurn = true;
+  }, this);  
 }
 
 function updateArgumentWindow(game) {

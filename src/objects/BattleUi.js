@@ -37,11 +37,17 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
   this._enemyOriginY = game.height / 4;
   this._centerX = game.width / 2;
   this._argumentRadius = this._portraitSize;
+  this._credibility = 1;
 
-  /** Background */
+  /** Background + overlay */
   var background = game.add.sprite(0,0,'battle-background');
   background.width = game.width;
   background.height = game.height;
+  background.alpha = 0.3;
+
+  var overlay = game.add.sprite(0,0,'battle-overlay');
+  overlay.width = game.width;
+  overlay.height = game.height;
 
   /** Enemy display */
   var enemyIcon = game.add.existing(new Icon(game,
@@ -60,13 +66,11 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
   /** Player display */
   var barConfig = {x: this._centerX, y: this._enemyOriginY + this._portraitSize * 1.5, height:20, width:150};
   this.credBar = new HealthBar(game, barConfig);
-  var playerSprite = game.add.sprite(this._centerX, this.credBar.y + this._portraitSize/2, 'alien-stare');
-  playerSprite.anchor.setTo(0.5, 0.5);
-  playerSprite.width = playerSprite.height = this._portraitSize;
+  // var credIcon = new Icon(game, this._centerX, this.credBar.y + this._portraitSize/2);
 
   /** Player deck display */
   var deckOriginX = game.width * 3 / 5;
-  var deckOriginY = playerSprite.y;
+  var deckOriginY = this.credBar.y + this._portraitSize/2;
 
   for (i = 0; i < playerDeck.length; i++) {
     var playerCardIcon = game.add.existing(new Icon(game, 0,0, 
@@ -91,8 +95,6 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
   /** Persuasion meter */
 
 }
-
-
 
 BattleUi.prototype = Object.create(Phaser.Group.prototype);
 BattleUi.prototype.constructor = BattleUi;
@@ -121,15 +123,64 @@ BattleUi.prototype.getCardIcon = function (card) {
   return {'index': -1, 'icon': null};
 };
 
+BattleUi.prototype.startCorrectCardTween = function (cardIcon, cardIdx, targetedArg) {
+  var tween = this._game.add.tween(cardIcon);
+  tween.to(
+    { x: targetedArg.x, y: targetedArg.y }, 1000, 
+    Phaser.Easing.Exponential.In, true, 0);
+
+  // create fill sprite
+  var shatterSprite = this._game.make.sprite(
+    targetedArg.x + targetedArg.width/2,
+    targetedArg.y + targetedArg.height/2, 'memory-bank-icon-fill');
+  shatterSprite.alpha = 0;
+  // add slight fudge factor
+  shatterSprite.scale.setTo(this._cardSize*1.05 / shatterSprite.width);
+  shatterSprite.anchor.setTo(0.5, 0.5);
+  this._game.add.existing(shatterSprite);
+  var alphaTween = this._game.add.tween(shatterSprite);
+
+  // start alpha tween after
+  tween.onComplete.add(function () {
+    alphaTween.to({ alpha: 1 }, 1000, Phaser.Easing.Exponential.In, true, 0);
+    alphaTween.onComplete.add(function () {
+      cardIcon.destroy();
+      targetedArg.destroy();
+      shatterSprite.destroy();
+      // arguments update by themselves, player cards do not
+      this.playerDeckIcons.splice(cardIdx, 1);
+    }, this);
+  }, this);
+
+  // return the last tween in the chain
+  return alphaTween;
+};
+
+BattleUi.prototype.startIncorrectCardTween = function (cardIcon, targetedArg) {
+  var tween = this._game.add.tween(cardIcon);
+  var originX = cardIcon.x;
+  var originY = cardIcon.y;
+
+  tween.to({ x: targetedArg.x, y: targetedArg.y }, 1000,
+    Phaser.Easing.Exponential.InOut, false, 0);
+  // add an additional tween to return to original position
+  var lastTween = this._game.add.tween(cardIcon);
+  lastTween.to({ x: originX, y: originY }, 1000,
+    Phaser.Easing.Exponential.In, false, 0);
+
+  tween.chain(lastTween).start();
+
+  // return last tween in the chain
+  return lastTween;
+};
+
 BattleUi.prototype.playCardAnimation = function (card, argument, isCorrect) {
   // find matching argument icon
   var targetedArg = undefined;
-  var targetIdx = 0;
   for (var i = 0; i < this.enemyDeckIcons.length; i++) {
     var argIcon = this.enemyDeckIcons[i];
     if (argument.assetName === argIcon.id) {
       targetedArg = argIcon;
-      targetIdx = i;
       break;
     }
   }
@@ -140,31 +191,12 @@ BattleUi.prototype.playCardAnimation = function (card, argument, isCorrect) {
   for (i = 0; i < this.playerDeckIcons.length; i++) {
     var cardIcon = this.playerDeckIcons[i];
     if (card.key === cardIcon.id) {
-      var tween = this._game.add.tween(cardIcon);
-      var originX = cardIcon.x;
-      var originY = cardIcon.y;
-
+      var lastTween;
       // play different animations on correct vs. incorrect card
-      var lastTween = tween;
       if (isCorrect) {
-        tween.to(
-          { x: targetedArg.x, y: targetedArg.y }, 1000, 
-          Phaser.Easing.Exponential.In, true, 0);
-        tween.onComplete.add(function () {
-          cardIcon.destroy();
-          targetedArg.destroy();
-          this.enemyDeckIcons.splice(targetIdx, 1);
-          this.playerDeckIcons.splice(i, 1);
-          this.positionArguments(this._game, true);
-        }, this);
+        lastTween = this.startCorrectCardTween(cardIcon, i, targetedArg);
       } else {
-        tween.to({ x: targetedArg.x, y: targetedArg.y }, 1000,
-          Phaser.Easing.Exponential.InOut, false, 0);
-        // add an additional tween
-        lastTween = this._game.add.tween(cardIcon);
-        lastTween.to({ x: originX, y: originY }, 1000,
-          Phaser.Easing.Exponential.In, false, 0);
-        tween.chain(lastTween).start();
+        lastTween = this.startIncorrectCardTween(cardIcon, targetedArg);
       }
       lastTween.onComplete.add(function () {
         this.cardAnimCompleteSignal.dispatch(this._game);
@@ -237,6 +269,10 @@ BattleUi.prototype.positionArguments = function (game, isTweening = true) {
 };
 
 BattleUi.prototype.updateCredBar = function (value) {
+  // damage indication
+  if (value < this._credibility)
+    this._game.camera.shake(0.01, 150);  // intensity, duration in ms
+  this._credibility = value;
   this.credBar.setPercent(value*25);
 };
 
