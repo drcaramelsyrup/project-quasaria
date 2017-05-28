@@ -37,17 +37,20 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
   this._enemyOriginY = game.height / 4;
   this._centerX = game.width / 2;
   this._argumentRadius = this._portraitSize;
-  this._credibility = 1;
 
-  /** Background + overlay */
-  var background = game.add.sprite(0,0,'battle-background');
-  background.width = game.width;
-  background.height = game.height;
-  background.alpha = 0.3;
+  /** Background + overlay (this._background, this._overlay) */
+  var roomBg = game.make.sprite(0,0, game.player.currentRoom.id);
+  game.add.existing(roomBg);
 
-  var overlay = game.add.sprite(0,0,'battle-overlay');
-  overlay.width = game.width;
-  overlay.height = game.height;
+  this._background = game.add.sprite(0,0,'battle-background');
+  this._background.width = game.width;
+  this._background.height = game.height;
+  this._background.alpha = 0.85;
+  this._background.tint = 0x33343a;
+
+  this._overlay = game.add.sprite(0,0,'battle-overlay');
+  this._overlay.width = game.width;
+  this._overlay.height = game.height;
 
   /** Enemy display */
   var enemyIcon = game.add.existing(new Icon(game,
@@ -268,11 +271,41 @@ BattleUi.prototype.positionArguments = function (game, isTweening = true) {
   }
 };
 
-BattleUi.prototype.updateCredBar = function (value) {
+BattleUi.prototype.flickerOverlay = function () {
+  var tween = this._game.add.tween(this._overlay);
+  var timeLeft = 500; // half a second total
+  var flickerTime = 10;
+  var nFlickers = this._game.rnd.integerInRange(2,4);
+  var defaultTint = this._overlay.tint;
+  var tintColor = 0x333535;
+  var firstTween = tween;
+
+  for (var i = 0; i < nFlickers; i++) {
+    // use up all remaining time if it is the last flicker
+    var randTime = i == nFlickers - 1 
+      ? timeLeft
+      : this._game.rnd.frac() * timeLeft;
+
+    // flicker instantly if it's the first flicker
+    var splitTime = i == 0 ? 0 : this._game.rnd.frac() * randTime;
+    tween.to( { tint: tintColor }, flickerTime, Phaser.Easing.Linear.In, false, splitTime);
+
+    var nextTween = this._game.add.tween(this._overlay);
+    nextTween.to( { tint: defaultTint }, flickerTime, Phaser.Easing.Linear.In, false, randTime - splitTime);
+    tween.chain(nextTween);
+
+    tween = nextTween;
+    timeLeft -= randTime;
+  }
+  firstTween.start();
+};
+
+BattleUi.prototype.updateCredBar = function (value, isDamage) {
   // damage indication
-  if (value < this._credibility)
+  if (isDamage) {
     this._game.camera.shake(0.01, 150);  // intensity, duration in ms
-  this._credibility = value;
+    this.flickerOverlay();
+  }
   this.credBar.setPercent(value*25);
 };
 

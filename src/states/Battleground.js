@@ -20,6 +20,8 @@ exports.create = function (game) {
     // DUMMY DATA
     game.player.inventory.push('listener');
     game.player.inventory.push('note');
+    game.player.currentRoom = {};
+    game.player.currentRoom.id = 'hangar';
     // END DUMMY DATA
   }
 
@@ -78,7 +80,7 @@ function cardAction(game, card) {
 function opponentTurn(game) {
   if (game.opponentDeck[game.currentArgument]) {
     game.cred -= 1;
-    game.battleUi.updateCredBar(game.cred);
+    game.battleUi.updateCredBar(game.cred, true); // update cred bar with damage indication
     game.opponentDeck[game.currentArgument].destroy();
   }
   updateCurrentArgument(game);
