@@ -34,7 +34,7 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
   this._game = game;
   this._portraitSize = 100;
   this._cardSize = 70;
-  this._enemyOriginY = game.height / 4;
+  this._enemyOriginY = game.height * 0.3;
   this._centerX = game.width / 2;
   this._argumentRadius = this._portraitSize;
 
@@ -66,8 +66,16 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
   }
   this.positionArguments(game, false);
 
+  /* Current argument position marker */
+  var currentArgMarker = game.add.sprite(0, 0, 'memory-bank-icon');
+  currentArgMarker.scale.setTo(this._cardSize * 1.2 / currentArgMarker.width);
+  currentArgMarker.anchor.setTo(0.5, 0.5);
+
+  currentArgMarker.x = this._centerX;
+  currentArgMarker.y = this._enemyOriginY + this._argumentRadius;
+
   /** Player display */
-  var barConfig = {x: this._centerX, y: this._enemyOriginY + this._portraitSize * 2, height:20, width:150};
+  var barConfig = {x: this._centerX, y: this._enemyOriginY + this._portraitSize * 1.5, height:20, width:150};
   this.credBar = new HealthBar(game, barConfig);
   // var credIcon = new Icon(game, this._centerX, this.credBar.y + this._portraitSize/2);
 
