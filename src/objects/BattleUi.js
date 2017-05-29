@@ -67,13 +67,13 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
   this.positionArguments(game, false);
 
   /** Player display */
-  var barConfig = {x: this._centerX, y: this._enemyOriginY + this._portraitSize * 1.5, height:20, width:150};
+  var barConfig = {x: this._centerX, y: this._enemyOriginY + this._portraitSize * 2, height:20, width:150};
   this.credBar = new HealthBar(game, barConfig);
   // var credIcon = new Icon(game, this._centerX, this.credBar.y + this._portraitSize/2);
 
   /** Player deck display */
   var deckOriginX = game.width * 3 / 5;
-  var deckOriginY = this.credBar.y + this._portraitSize/2;
+  var deckOriginY = this.credBar.y;
 
   for (i = 0; i < playerDeck.length; i++) {
     var playerCardIcon = game.add.existing(new Icon(game, 0,0, 
