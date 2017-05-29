@@ -44,6 +44,8 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
   background.height = game.height;
 
   /** Enemy display */
+  var enemyBarConfig = {x: this._centerX, y: 50, height:20, width:150, flipped:true};
+  this.persuadeBar = new HealthBar(game, enemyBarConfig);
   var enemyIcon = game.add.existing(new Icon(game,
     this._centerX - this._portraitSize/2, this._enemyOriginY - this._portraitSize/2, 
     'gleaming-shoal-portrait', null, null, this._portraitSize));
@@ -156,6 +158,7 @@ BattleUi.prototype.playCardAnimation = function (card, argument, isCorrect) {
           this.enemyDeckIcons.splice(targetIdx, 1);
           this.playerDeckIcons.splice(i, 1);
           this.positionArguments(this._game, true);
+          this.updatePersuasionBar();
         }, this);
       } else {
         tween.to({ x: targetedArg.x, y: targetedArg.y }, 1000,
@@ -238,6 +241,11 @@ BattleUi.prototype.positionArguments = function (game, isTweening = true) {
 
 BattleUi.prototype.updateCredBar = function (value) {
   this.credBar.setPercent(value*25);
+};
+
+BattleUi.prototype.updatePersuasionBar = function () {
+    this._game.persuasion -= 1;
+    this.persuadeBar.setPercent(this._game.persuasion * 25);
 };
 
 BattleUi.prototype.cardsInputEnabled = function (isEnabled) {

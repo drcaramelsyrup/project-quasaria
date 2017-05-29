@@ -31,7 +31,7 @@ ConversationManager.prototype.loadJSONConversation = function (jsonKey) {
   var json = this._game.cache.getJSON(jsonKey);
 
   this.conversation = json;
-  this._game.areaTransitionWindow.disable();
+  //this._game.areaTransitionWindow.disable();
   //the player object will initialize the start index of a conversation
   // at the end of a conversation the index will return to 0
   // so that the next file will start at the begining.
