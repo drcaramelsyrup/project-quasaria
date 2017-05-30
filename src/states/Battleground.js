@@ -75,12 +75,11 @@ function cardAction(game, card) {
       game.opponentDeck[game.currentArgument] = undefined;
       argument.destroy();
       card.destroy();
-    }
-    else {
+    } else {
       game.battleUi.playCardAnimation(card, argument, false);
     }
 
-    game.battleUi.cardAnimCompleteSignal.add(argumentInterlude, this, 0, game, isCorrect);
+    game.battleUi.cardAnimCompleteSignal.add(argumentInterlude, this, game, isCorrect);
   }
 }
 
@@ -93,9 +92,10 @@ function argumentInterlude(game, isCorrect) {
 }
 
 function opponentTurn(game) {
-  game.battleUi.updatePersuasionBar();
-
-  if (game.opponentDeck[game.currentArgument]) {
+  if (game.opponentDeck[game.currentArgument] === null) {
+    game.persuasion -= 1;
+    game.battleUi.updatePersuasionBar();    
+  } else if (game.opponentDeck[game.currentArgument]) {
     game.cred -= 1;
     game.battleUi.updateCredBar(game.cred, true); // update cred bar with damage indication
     game.opponentDeck[game.currentArgument].destroy();
