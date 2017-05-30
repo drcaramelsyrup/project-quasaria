@@ -167,7 +167,8 @@ DialogueWindow.prototype.displayAvatar = function() {
 };
 
 DialogueWindow.prototype.displayText = function () {
-  this.dialogText.displayObject.text = this.convoManager.getCurrentText();
+  // this.dialogText.displayObject.text = this.convoManager.getCurrentText();
+  this.displayCurrentLine();
   this.speakerText.displayObject.text = this.convoManager.getSpeaker().toUpperCase();
 };
 
@@ -310,6 +311,46 @@ DialogueWindow.prototype.hide = function () {
   this.dialogPanel.visible = false;
   this.hideAvatar(); //hide avatar
 };
+
+DialogueWindow.prototype.displayCurrentLine = function () {
+
+  var line = this.convoManager.getCurrentText();
+  this.dialogText.displayObject.text = '';
+
+  //  Split the current line on characters, so one char per array element
+  var split = line.split('');
+
+  //  Reset the word index to zero (the first word in the line)
+  this._cIndex = 0;
+  var charDelay = 5;
+
+  var nextChar = function () {
+    this.dialogText.displayObject.text =
+      this.dialogText.displayObject.text.concat(split[this._cIndex]);
+    this._cIndex++;
+  };
+
+  //  Call the 'nextChar' function once for each word in the line (line.length)
+  this._game.time.events.repeat(charDelay, split.length, nextChar, this);
+
+};
+
+// DialogueWindow.prototype.nextChar = function (text, splitLine, cIndex) {
+//   console.log(text);
+//   //  Add the next char onto the text string
+//   text.text = text.text.concat(splitLine[cIndex]);
+
+//   //  Advance the word index to the next word in the line
+//   cIndex++;
+
+//   //  Last char?
+//   if (cIndex === splitLine.length)
+//   {
+//     // Add a signal that we should display the buttons
+//   }
+
+// };
+
 
 DialogueWindow.prototype.update = function () {
   // TODO: Stub.
