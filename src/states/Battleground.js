@@ -24,6 +24,7 @@ exports.create = function (game) {
   }
 
   // Music
+  game.music.fadeOut(1000); // fade out previous music
   game.music = game.sound.play('battle-theme');
   game.music.loopFull(1);
   

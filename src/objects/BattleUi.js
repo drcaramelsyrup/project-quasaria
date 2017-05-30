@@ -244,8 +244,8 @@ BattleUi.prototype.updateCredBar = function (value) {
 };
 
 BattleUi.prototype.updatePersuasionBar = function () {
-    this._game.persuasion -= 1;
-    this.persuadeBar.setPercent(this._game.persuasion * 25);
+  this._game.persuasion -= 1;
+  this.persuadeBar.setPercent(this._game.persuasion * 25);
 };
 
 BattleUi.prototype.cardsInputEnabled = function (isEnabled) {
