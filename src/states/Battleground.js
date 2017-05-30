@@ -4,6 +4,7 @@ var Card = require('../objects/Card');
 var Argument = require('../objects/Argument');
 var items = require('../../static/assets/items.json');
 var Player = require('../objects/Player');
+var Room = require('../objects/Room');
 
 var BattleUi = require('../objects/BattleUi.js');
 var ArgumentManager = require('../objects/ArgumentManager');
@@ -15,23 +16,27 @@ exports.preload = function(game) {
 };
 
 exports.create = function (game) {
-  if (game.player == null || typeof game.player == 'undefined') {
+  if (game.player === null || typeof game.player === 'undefined') {
     game.player = game.add.existing(new Player(game));
     // DUMMY DATA
     game.player.inventory.push('listener');
     game.player.inventory.push('note');
+    game.room = (new Room(game, 'hangar'));
     // END DUMMY DATA
   }
 
   // Music
+  if (typeof game.music !== 'undefined' && game.music !== null)
+    game.music.fadeOut(1000); // fade out previous music
   game.music = game.sound.play('battle-theme');
-  game.music.loopFull(1);
+  game.music.loopFull(0.95);
   
   game.argumentManager = new ArgumentManager(game);
   game.argumentManager.loadJSONConversation('battle01');
   game.currentArgument = 0;
   game.playerTurn = true;
   game.cred = 4;
+  game.persuasion = 4;
 
   // adding in player cards and face
   game.playerDeck = [];
@@ -56,12 +61,16 @@ exports.create = function (game) {
 
 function cardAction(game, card) {
   if (game.playerTurn) {
+    game.dialogueWindow.skipText();
+
     game.playerTurn = false;
     game.battleUi.cardsInputEnabled(false);
 
     var argument = game.opponentDeck[game.currentArgument];
 
-    if (card.key === argument.key) {
+    var isCorrect = card.key === argument.key;
+
+    if (isCorrect) {
       game.battleUi.playCardAnimation(card, argument, true);
       game.opponentDeck[game.currentArgument] = undefined;
       argument.destroy();
@@ -70,29 +79,43 @@ function cardAction(game, card) {
     else {
       game.battleUi.playCardAnimation(card, argument, false);
     }
-  }
 
-  game.battleUi.cardAnimCompleteSignal.add(opponentTurn, this);
+    game.battleUi.cardAnimCompleteSignal.add(argumentInterlude, this, 0, game, isCorrect);
+  }
+}
+
+function argumentInterlude(game, isCorrect) {
+  game.argumentManager.startArgInterlude(isCorrect);
+  game.dialogueWindow.display();
+  game.argumentManager.interludeCompleteSignal.add(opponentTurn, this, 0, game);
+
+  game.battleUi.cardAnimCompleteSignal.removeAll();
 }
 
 function opponentTurn(game) {
+  game.battleUi.updatePersuasionBar();
+
   if (game.opponentDeck[game.currentArgument]) {
     game.cred -= 1;
-    game.battleUi.updateCredBar(game.cred);
+    game.battleUi.updateCredBar(game.cred, true); // update cred bar with damage indication
     game.opponentDeck[game.currentArgument].destroy();
   }
   updateCurrentArgument(game);
   game.battleUi.updateArguments(game.opponentDeck, game.currentArgument);
   game.battleUi.positionArguments(game, true);
   // Display arguments on animation completion
-  game.battleUi.argAnimCompleteSignal.add(updateArgumentWindow, this);
+  game.battleUi.argAnimCompleteSignal.add(function () {
+    updateArgumentWindow(game);
+    game.battleUi.cardsInputEnabled(true);
+    game.playerTurn = true;
+    game.battleUi.argAnimCompleteSignal.removeAll();
+  }, this);
 
-  game.battleUi.cardsInputEnabled(true);
-  game.playerTurn = true;
+  game.argumentManager.interludeCompleteSignal.removeAll();
 }
 
 function updateArgumentWindow(game) {
-  game.argumentManager.idx = game.currentArgument;
+  game.argumentManager.advanceToTarget(game.currentArgument);
   game.dialogueWindow.display();
 }
 

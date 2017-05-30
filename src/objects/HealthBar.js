@@ -52,6 +52,12 @@ HealthBar.prototype.mergeWithDefaultConfiguration = function(newConfig) {
     flipped: false,
     isFixedToCamera: false
   };
+    
+  if(newConfig.flipped) {
+      defaultConfig.bg.color = '#651828';
+      defaultConfig.bar.color = '#808080';
+  }
+    
   return mergeObjects(defaultConfig, newConfig);
 };
 

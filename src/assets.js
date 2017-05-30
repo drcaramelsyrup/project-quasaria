@@ -66,6 +66,14 @@ exports.game = [{
   key: 'talvine-npc',
   type: 'image',
   url: 'npcs/talvine.png'
+}, {
+  key: 'valken-npc',
+  type: 'image',
+  url: 'npcs/valken.png'
+}, {
+  key: 'gleaming-shoal-npc',
+  type: 'image',
+  url: 'npcs/gleaming-shoal.png'
 }];
 
 // -- UI-specific assets.
@@ -112,6 +120,14 @@ exports.ui = [{
   key: 'battle-background',
   type: 'image',
   url: 'ui/battle-background.png'
+}, {
+  key: 'battle-overlay',
+  type: 'image',
+  url: 'ui/battle-overlay.png'
+}, {
+  key: 'memory-bank-icon-fill',
+  type: 'image',
+  url: 'ui/memory-bank-icon-fill.png'
 }];
 
 // -- Conversation jsons and avatars.
@@ -131,6 +147,14 @@ exports.conversations = [{
   key: 'talvine01',
   type: 'json',
   url: 'conversations/talvine01.json'
+}, {
+  key: 'valken01',
+  type: 'json',
+  url: 'conversations/valken01.json'
+}, {
+  key: 'gleaming-shoal01',
+  type: 'json',
+  url: 'conversations/gleaming-shoal01.json'
 }, {
   key: 'mysterious-voice',
   type: 'image',
@@ -159,6 +183,10 @@ exports.conversations = [{
   key: 'talvine',
   type: 'image',
   url: 'avatars/talvine.png'
+}, {
+  key: 'valken',
+  type: 'image',
+  url: 'avatars/valken.png'
 }, {
   key: 'invisible',
   type: 'image',
@@ -238,6 +266,9 @@ exports.logic_battle = [{
   key: 'xenopsych',
   type: 'image',
   url: 'battle/xenopsych.png'
+}, {
+  key: 'quasaria-logo-fill',
+  type: 'image'
 }, {
   key: 'battle01',
   type: 'json',

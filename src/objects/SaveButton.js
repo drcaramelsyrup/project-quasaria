@@ -8,8 +8,6 @@
 'use strict';
 
 var Toast = require('./Toast');
-var Player = require('./Player');
-//var items = require('../../static/assets/items.json');
 
 function SaveButton(game) {
   Phaser.Sprite.call(this, game, 20, 20, 'saveButton');
@@ -30,7 +28,7 @@ function SaveButton(game) {
 
 function click() {
   this._game.add.existing(new Toast(this._game, 'Game Saved!', 5));
-  this._game.dialogueWindow.display(); // refresh dialogue display
+  this._game.dialogueWindow.display(true); // refresh dialogue display
   var saveString = this._game.player.serialize(this._game);
   localStorage.setItem('playerState', saveString);
 }

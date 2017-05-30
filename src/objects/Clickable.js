@@ -48,7 +48,7 @@ function click() {
     console.log('unexpected error, please check');
   }
   console.log('Click log', this._game.room.area.items);
-  this._game.dialogueWindow.display(); // refresh dialogue display
+  this._game.dialogueWindow.display(true); // refresh dialogue display, display instantly
   this._game.memoryBankWindow.display();  // refresh memory bank display
 }
 
