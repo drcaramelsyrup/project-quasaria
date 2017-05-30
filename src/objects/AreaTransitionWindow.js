@@ -8,7 +8,6 @@
 'use strict';
 
 var areas = require('../../static/assets/areas.json');
-var items = require('../../static/assets/items.json');
 
 module.exports = AreaTransitionWindow;
 
@@ -104,7 +103,7 @@ function AreaTransitionWindow(game/*, ...args*/) {
 
   var toggleStyle = { font: '14px Goudy Bookletter 1911', fill: '#48f2ff', boundsAlignH: 'center', boundsAlignV: 'middle'};
   this.toggleButton.add(
-    this.toggleText = new SlickUI.Element.DisplayObject(0, 0, game.make.text(0, 0, "AREAS", toggleStyle)));
+    this.toggleText = new SlickUI.Element.DisplayObject(0, 0, game.make.text(0, 0, 'AREAS', toggleStyle)));
   this.toggleText.displayObject.setTextBounds(0, this.toastTextY, this.toggleButton.displayObject.width, this.toggleButton.displayObject.height);
 
   /**
@@ -198,7 +197,7 @@ AreaTransitionWindow.prototype.displayAreas = function () {
   // ie hanger must be reached first, but once there you have immediate access to talvine
   for (let area of this._game.room.area.areaAccess){
     this.areasToShow.push(area);
-    console.log("areas to show", this.areasToShow);
+    console.log('areas to show', this.areasToShow);
   }
 
   var itemEnd = this._itemStart + this._rowCapacity < this.areasToShow.length

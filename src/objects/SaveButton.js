@@ -8,8 +8,6 @@
 'use strict';
 
 var Toast = require('./Toast');
-var Player = require('./Player');
-//var items = require('../../static/assets/items.json');
 
 function SaveButton(game) {
   Phaser.Sprite.call(this, game, 20, 20, 'saveButton');
