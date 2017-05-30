@@ -42,7 +42,7 @@ ConversationManager.prototype.getCurrentText = function () {
   if (this.conversation === null) {
     return '';
   }
-
+  console.log(this.idx);
   return this.conversation[this.idx]['text'];
 };
 

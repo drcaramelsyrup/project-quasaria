@@ -15,7 +15,7 @@ function ArgumentManager(game/*, ...args*/) {
   // TODO:
   //   1. Edit constructor parameters accordingly.
   //   2. Adjust object properties.
-
+  this.idx = 0;
   this._game = game;
 
 }
