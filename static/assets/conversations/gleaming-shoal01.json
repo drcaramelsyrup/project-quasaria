@@ -1,0 +1,50 @@
+{
+    "0": {
+        "actions": {},
+        "comments": [],
+        "id": 0,
+        "responses": [
+            {
+                "target": 1,
+                "text": "Yes, I'm ready."
+            },
+            {
+                "target": 2,
+                "text": "No, I'm not ready yet."
+            }
+        ],
+        "showOnce": 0,
+        "speaker": "Gleaming Shoal",
+        "text": "Alien. Are you here to convince me that I should allow you to leave quarantine?"
+    },
+    "1": {
+        "actions": {
+            "custom": "startBattle"
+        },
+        "comments": [],
+        "id": 1,
+        "responses": [
+            {
+                "target": -1,
+                "text": "END"
+            }
+        ],
+        "showOnce": 0,
+        "speaker": "Gleaming Shoal",
+        "text": "Then let us begin."
+    },
+    "2": {
+        "actions": {},
+        "comments": [],
+        "id": 2,
+        "responses": [
+            {
+                "target": -1,
+                "text": "END"
+            }
+        ],
+        "showOnce": 0,
+        "speaker": "Gleaming Shoal",
+        "text": "Don't keep me waiting, alien."
+    }
+}

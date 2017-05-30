@@ -44,6 +44,16 @@
 				"y": 350,
 				"height": 350,
 				"width": 150
+			}, {
+				"id": "Gleaming Shoal",
+				"x": 400,
+				"y": 300,
+				"height": 400,
+				"width": 400,
+				"showif": {
+					"xenopsychologist": "done",
+					"xenobiologist": "done"
+				}
 			}
 		],
 		"navigable": true,
@@ -62,9 +72,15 @@
 				"y": 340,
 				"height": 183,
 				"width": 100
+			}, {
+				"id": "Dr. Valken",
+				"x": 600,
+				"y": 250,
+				"height": 330,
+				"width": 112.5
 			}
 		],
 		"navigable": true,
-		"areaAccess": []
+		"areaAccess": ["hangar"]
 	}
 }
