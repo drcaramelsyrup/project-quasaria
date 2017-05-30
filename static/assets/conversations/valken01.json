@@ -1203,7 +1203,8 @@
     },
     "59": {
         "actions": {
-            "varxenopsychologist": "done"
+            "varxenopsychologist": "done",
+            "invpsychologistApproval": "add"
         },
         "comments": [],
         "id": 59,

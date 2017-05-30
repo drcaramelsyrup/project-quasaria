@@ -1093,7 +1093,8 @@
     },
     "55": {
         "actions": {
-            "varxenobiologist": "done"
+            "varxenobiologist": "done",
+            "invbiologistApproval": "add"
         },
         "comments": [],
         "id": 55,
@@ -1109,7 +1110,8 @@
     },
     "56": {
         "actions": {
-            "varxenobiologist": "done"
+            "varxenobiologist": "done",
+            "invbiologistApproval": "add"
         },
         "comments": [],
         "id": 56,

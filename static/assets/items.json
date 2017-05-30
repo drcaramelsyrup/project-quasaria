@@ -16,5 +16,17 @@
 		"url": "shuttle-placeable.png",
 		"name": "My Shuttle",
 		"message": "That's my shuttle, but I can't go in there right now."
+	},
+	"biologistApproval": {
+		"id": "biologistApproval",
+		"url": "talvine.png",
+		"name": "Dr. Talvine's Report",
+		"desc": "A clean bill of health from Dr. Talvine Mesmer-Quiverly, Station Zero's xenobiologist."
+	},
+	"psychologistApproval": {
+		"id": "psychologistApproval",
+		"url": "valken.png",
+		"name": "Dr. Valken's Report",
+		"desc": "A briefing on your psychological state from Dr. Valken, Station Zero's xenopsychologist."
 	}
 }

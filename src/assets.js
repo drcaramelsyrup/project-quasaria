@@ -55,6 +55,14 @@ exports.game = [{
   type: 'image',
   url: 'items/note.png'
 }, {
+  key: 'biologistApproval',
+  type: 'image',
+  url: 'avatars/talvine.png'
+}, {
+  key: 'psychologistApproval',
+  type: 'image',
+  url: 'avatars/valken.png'
+}, {
   key: 'shuttle-placeable',
   type: 'image',
   url: 'items/shuttle-placeable.png'

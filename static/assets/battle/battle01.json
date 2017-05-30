@@ -24,7 +24,7 @@
                 "text": "For all I know, that could have thousands of lethal microbes on it. No thanks."
             }
         },
-        "counters": ["listener"]
+        "counters": ["biologistApproval"]
     },
     "1": {
         "id": "xenopsych",
@@ -51,7 +51,7 @@
                 "text": "You're not helping your case."
             }
         },
-        "counters": ["note"]
+        "counters": ["psychologistApproval"]
     },
     "2": {
         "id": "quasaria-logo-fill",
@@ -66,6 +66,16 @@
             "1": {
                 "speaker": "Gleaming Shoal",
                 "text": "I don't believe it. I won't. Who are you to undermine my authority? I... won't stand for this!"
+            }
+        },
+        "incorrect": {
+            "0": {
+                "speaker": "Me",
+                "text": "Well... uh... how about this?"
+            },
+            "1": {
+                "speaker": "Gleaming Shoal",
+                "text": "You think that thing is going to change my mind? Think again."
             }
         },
         "counters": ["indecipherable-note-research"]
