@@ -4,6 +4,7 @@ var Card = require('../objects/Card');
 var Argument = require('../objects/Argument');
 var items = require('../../static/assets/items.json');
 var Player = require('../objects/Player');
+var Room = require('../objects/Room');
 
 var BattleUi = require('../objects/BattleUi.js');
 var ArgumentManager = require('../objects/ArgumentManager');
@@ -20,13 +21,13 @@ exports.create = function (game) {
     // DUMMY DATA
     game.player.inventory.push('listener');
     game.player.inventory.push('note');
-    game.player.currentRoom = {};
-    game.player.currentRoom.id = 'hangar';
+    game.room = (new Room(game, 'hangar'));
     // END DUMMY DATA
   }
 
   // Music
-  game.music.fadeOut(1000); // fade out previous music
+  if (typeof game.music !== 'undefined' && game.music !== null)
+    game.music.fadeOut(1000); // fade out previous music
   game.music = game.sound.play('battle-theme');
   game.music.loopFull(0.95);
   

@@ -40,7 +40,7 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
   this._argumentRadius = this._portraitSize;
 
   /** Background + overlay (this._background, this._overlay) */
-  var roomBg = game.make.sprite(0,0, game.player.currentRoom.id);
+  var roomBg = game.make.sprite(0,0, game.room.area.id);
   game.add.existing(roomBg);
 
   this._background = game.add.sprite(0,0,'battle-background');
