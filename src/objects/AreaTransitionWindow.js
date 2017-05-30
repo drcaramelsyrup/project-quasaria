@@ -157,7 +157,7 @@ AreaTransitionWindow.prototype.enable = function () {
   this.hidePanel();
   this.toggleButton.visible = true;
   this.toggleButton.inputEnabled = true;
-  //not sure that this will re-add listeners 
+  //not sure that this will re-add listeners
 };
 
 AreaTransitionWindow.prototype.display = function () {
@@ -196,7 +196,9 @@ AreaTransitionWindow.prototype.displayAreas = function () {
   // rooms all navigable from one another?
   // ie hanger must be reached first, but once there you have immediate access to talvine
   for (let area of this._game.room.area.areaAccess){
-    this.areasToShow.push(area);
+    if (!this.areasToShow.includes(area)){
+      this.areasToShow.push(area);
+    }
     console.log('areas to show', this.areasToShow);
   }
 
