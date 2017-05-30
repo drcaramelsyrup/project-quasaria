@@ -27,6 +27,10 @@ function DialogueWindow(game, convoManager/*, ...args*/) {
   // messy, but useful if we need a reference to the game
   this._game = game;
 
+  /* SIGNALS */
+  // private
+  this._onDialogTextFinished = new Phaser.Signal(); // when the char-by-char display finishes
+
   // private members specifying margin and padding
   this._dialogTextOriginX = 96;
   this._dialogTextOriginY = 60;
@@ -110,14 +114,21 @@ DialogueWindow.prototype.begin = function(jsonKey) {
   }
 };
 
-DialogueWindow.prototype.display = function() {
+DialogueWindow.prototype.display = function (displaysInstant = false 
+                              /* by default, not set to display text instantly */) {
   this.cleanWindow();
   if (this.convoFile) {
     this.takeActions();
     this.displayAvatar();
-    this.displayText();
-    this.displayResponses();
-    this.addOverflowScroll();
+
+    // On finishing the dialog text display, display our responses
+    // Added before our actual display call in case we display instantly
+    this._onDialogTextFinished.add(function () {
+      this.displayResponses();
+      this.addOverflowScroll();
+      this._onDialogTextFinished.removeAll();
+    }, this);
+    this.displayText(displaysInstant);
   }
 };
 
@@ -166,9 +177,19 @@ DialogueWindow.prototype.displayAvatar = function() {
   }
 };
 
-DialogueWindow.prototype.displayText = function () {
-  this.dialogText.displayObject.text = this.convoManager.getCurrentText();
+DialogueWindow.prototype.displayText = function (displaysInstant) {
   this.speakerText.displayObject.text = this.convoManager.getSpeaker().toUpperCase();
+  this.dialogText.displayObject.mask = this._scrollMask;
+
+  if (displaysInstant) {
+    this.dialogText.displayObject.text = this.convoManager.getCurrentText();
+    this._onDialogTextFinished.dispatch();
+    return;
+  }
+
+  // character-by-character display
+  this.displayCurrentLine();
+  
 };
 
 DialogueWindow.prototype.displayResponses = function () {
@@ -232,8 +253,9 @@ DialogueWindow.prototype.addChoiceButton = function (x, y, responseTextField, re
 
   choiceButton.events.onInputUp.add(
     function () {
-      this.dialogueWindow.convoManager.idx = this.responseTarget;
-      this.dialogueWindow.display();
+      var shouldRefresh = this.dialogueWindow.convoManager.advanceToTarget(responseTarget);
+      if (shouldRefresh)
+        this.dialogueWindow.display();
     }, {dialogueWindow: this, responseTarget: responseTarget});
   // add mask
   choiceButton.sprite.mask = this._scrollMask;
@@ -309,6 +331,44 @@ DialogueWindow.prototype.hide = function () {
   this.cleanWindow();
   this.dialogPanel.visible = false;
   this.hideAvatar(); //hide avatar
+};
+
+DialogueWindow.prototype.displayCurrentLine = function () {
+
+  var line = this.convoManager.getCurrentText();
+  this.dialogText.displayObject.text = '';
+
+  //  Split the current line on characters, so one char per array element
+  var split = line.split('');
+
+  //  Reset the word index to zero (the first word in the line)
+  this._cIndex = 0;
+  // TODO: make this a selectable option
+  var charDelay = 3;
+
+  // Add an option to skip the text on clicking down.
+  this.dialogPanel.displayObject.inputEnabled = true;
+  this.dialogPanel.events.onInputDown.add(this.skipText, this);
+
+  var nextChar = function () {
+    this.dialogText.displayObject.text =
+      this.dialogText.displayObject.text.concat(split[this._cIndex]);
+    this._cIndex++;
+    if (this._cIndex == split.length) {
+      // Tell the window when we're done
+      this._onDialogTextFinished.dispatch();
+    }
+  };
+
+  //  Call the 'nextChar' function once for each word in the line (line.length)
+  this._game.time.events.repeat(charDelay, split.length, nextChar, this);
+
+};
+
+DialogueWindow.prototype.skipText = function () {
+  this._game.time.removeAll();
+  this.displayText(true);
+  this.dialogPanel.events.onInputDown.removeAll();
 };
 
 DialogueWindow.prototype.update = function () {

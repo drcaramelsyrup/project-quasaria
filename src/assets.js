@@ -120,6 +120,14 @@ exports.ui = [{
   key: 'battle-background',
   type: 'image',
   url: 'ui/battle-background.png'
+}, {
+  key: 'battle-overlay',
+  type: 'image',
+  url: 'ui/battle-overlay.png'
+}, {
+  key: 'memory-bank-icon-fill',
+  type: 'image',
+  url: 'ui/memory-bank-icon-fill.png'
 }];
 
 // -- Conversation jsons and avatars.
@@ -258,6 +266,9 @@ exports.logic_battle = [{
   key: 'xenopsych',
   type: 'image',
   url: 'battle/xenopsych.png'
+}, {
+  key: 'quasaria-logo-fill',
+  type: 'image'
 }, {
   key: 'battle01',
   type: 'json',

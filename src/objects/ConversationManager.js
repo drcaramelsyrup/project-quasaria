@@ -32,9 +32,10 @@ ConversationManager.prototype.loadJSONConversation = function (jsonKey) {
 
   this.conversation = json;
 
-  if (typeof this._game.areaTransitionWindow !== 'undefined' 
-    && this._game.areaTransitionWindow !== null)
+  if (this._game.areaTransitionWindow !== null 
+    && typeof this._game.areaTransitionWindow !== 'undefined') {
     this._game.areaTransitionWindow.disable();
+  }
   //the player object will initialize the start index of a conversation
   // at the end of a conversation the index will return to 0
   // so that the next file will start at the begining.
@@ -45,7 +46,7 @@ ConversationManager.prototype.getCurrentText = function () {
   if (this.conversation === null) {
     return '';
   }
-  console.log(this.idx);
+
   return this.conversation[this.idx]['text'];
 };
 
@@ -193,6 +194,11 @@ ConversationManager.prototype.endConversation = function() {
   //think this is a cyclic ref. TODO: fix 
   this._game.dialogueWindow.convoFile = null;
   this._game.areaTransitionWindow.enable();
+};
+
+ConversationManager.prototype.advanceToTarget = function (targetIdx) {
+  this.idx = targetIdx;
+  return true;  // returns whether should refresh display.
 };
 
 ConversationManager.prototype.update = function () {
