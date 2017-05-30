@@ -31,6 +31,7 @@ ConversationManager.prototype.loadJSONConversation = function (jsonKey) {
   var json = this._game.cache.getJSON(jsonKey);
 
   this.conversation = json;
+
   if (this._game.areaTransitionWindow !== null 
     && typeof this._game.areaTransitionWindow !== 'undefined') {
     this._game.areaTransitionWindow.disable();
@@ -45,6 +46,7 @@ ConversationManager.prototype.getCurrentText = function () {
   if (this.conversation === null) {
     return '';
   }
+
   return this.conversation[this.idx]['text'];
 };
 
