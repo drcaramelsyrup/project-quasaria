@@ -42,6 +42,18 @@ Room.prototype.addItems = function() {
   }
   for (i = 0; i < this.area['npcs'].length; i++) {
     var npc = this.area['npcs'][i];
+
+    var showNPC = true;       // check to see if NPC meets conditions to be shown in this area
+    if ('showif' in npc) {
+      for (var condition in npc['showif']) {
+        if (this._game.player.variables[condition] != npc['showif'][condition]) {
+          showNPC = false;
+        }
+      }
+    }
+    if (!showNPC) {
+      continue; // if NPC doesn't meet conditions to be shown, skip them
+    }
     this._game.add.existing(npc = new NPC(this._game, npc['x'], npc['y'], npc['id'], npc['height'], npc['width']));
     if (npc.conv === this._game.player.convoFile){
       npc.alpha = 0;

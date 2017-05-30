@@ -66,6 +66,14 @@ exports.game = [{
   key: 'talvine-npc',
   type: 'image',
   url: 'npcs/talvine.png'
+}, {
+  key: 'valken-npc',
+  type: 'image',
+  url: 'npcs/valken.png'
+}, {
+  key: 'gleaming-shoal-npc',
+  type: 'image',
+  url: 'npcs/gleaming-shoal.png'
 }];
 
 // -- UI-specific assets.
@@ -132,6 +140,14 @@ exports.conversations = [{
   type: 'json',
   url: 'conversations/talvine01.json'
 }, {
+  key: 'valken01',
+  type: 'json',
+  url: 'conversations/valken01.json'
+}, {
+  key: 'gleaming-shoal01',
+  type: 'json',
+  url: 'conversations/gleaming-shoal01.json'
+}, {
   key: 'mysterious-voice',
   type: 'image',
   url: 'avatars/mysterious-voice.png'
@@ -159,6 +175,10 @@ exports.conversations = [{
   key: 'talvine',
   type: 'image',
   url: 'avatars/talvine.png'
+}, {
+  key: 'valken',
+  type: 'image',
+  url: 'avatars/valken.png'
 }, {
   key: 'invisible',
   type: 'image',

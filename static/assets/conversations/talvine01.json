@@ -19,6 +19,10 @@
             {
                 "target": 4,
                 "text": "That depends. Are you the xenobiologist who's supposed to study me?"
+            },
+            {
+                "target": 56,
+                "text": "DEBUG - SKIP TO END"
             }
         ],
         "showOnce": 0,
@@ -779,7 +783,7 @@
     },
     "37": {
         "actions": {
-            "playerGender": "male"
+            "varplayerGender": "male"
         },
         "comments": [],
         "id": 37,
@@ -795,7 +799,7 @@
     },
     "38": {
         "actions": {
-            "playerGender": "female"
+            "varplayerGender": "female"
         },
         "comments": [],
         "id": 38,
@@ -811,7 +815,7 @@
     },
     "39": {
         "actions": {
-            "playerGender": "complicated"
+            "varplayerGender": "complicated"
         },
         "comments": [],
         "id": 39,
@@ -827,7 +831,7 @@
     },
     "40": {
         "actions": {
-            "playerGender": "none"
+            "varplayerGender": "none"
         },
         "comments": [],
         "id": 40,
@@ -843,7 +847,7 @@
     },
     "41": {
         "actions": {
-            "playerGender": "forgot"
+            "varplayerGender": "forgot"
         },
         "comments": [],
         "id": 41,
@@ -1088,7 +1092,9 @@
         "text": "I don't know him well enough to form a strong opinion, but I have colleagues who have run afoul of him in the past. Dr. Valken might have more information for you on that matter."
     },
     "55": {
-        "actions": {},
+        "actions": {
+            "varxenobiologist": "done"
+        },
         "comments": [],
         "id": 55,
         "responses": [
@@ -1102,7 +1108,9 @@
         "text": "You should proceed to Dr. Valken's exam. He's over there, so approach him whenever you're ready to begin the exam. I'll be here a little longer if you still have questions."
     },
     "56": {
-        "actions": {},
+        "actions": {
+            "varxenobiologist": "done"
+        },
         "comments": [],
         "id": 56,
         "responses": [
