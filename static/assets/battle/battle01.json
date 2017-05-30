@@ -21,7 +21,7 @@
             },
             "1": {
                 "speaker": "Gleaming Shoal",
-                "text": "I don't think that answers a thing."
+                "text": "For all I know, that could have thousands of lethal microbes on it. No thanks."
             }
         },
         "counters": ["listener"]
@@ -30,34 +30,44 @@
         "id": "xenopsych",
         "name": "Xenopsychological Clearance",
         "speaker": "Gleaming Shoal",
-        "text": "Conveniently, you’ve lost your memory. You’ve been lost in space. You’re begging for station access. The last time this happened three years ago, we had to eject the alien for sociopathic tendencies and murderous intent. Why would I permit you to board knowing so little about your state of mind?",
+        "text": "And conveniently, you’ve lost your memory. You’ve been lost in space. You’re begging for station access. The last time this happened three years ago, we had to eject the alien for sociopathic tendencies and murderous intent. Why would I permit you to board knowing so little about your state of mind?",
         "correct": {
             "0": {
                 "speaker": "Me",
-                "text": "I'm not insane, This might tell you a little more."
+                "text": "I'm not insane. Dr. Valken could tell you more. Actually, here's his written word, right here."
             },
             "1": {
                 "speaker": "Gleaming Shoal",
-                "text": "You do? I hadn't anticipated that sprite would... well..."
+                "text": "I... you talked with Valken? Hrrngh. Nggraaa."
             }
         },
         "incorrect": {
             "0": {
                 "speaker": "Me",
-                "text": "You might be interested in seeing this..."
+                "text": "I'm not insane. Promise. Take a look at this!"
             },
             "1": {
                 "speaker": "Gleaming Shoal",
-                "text": "I don't think that answers a thing."
+                "text": "You're not helping your case."
             }
         },
         "counters": ["note"]
     },
     "2": {
-        "id": "saint-basil-cathedral",
+        "id": "quasaria-logo-fill",
         "name": "Writ of Detainer",
         "speaker": "Gleaming Shoal",
         "text": "I have the right and authority to detain any potentially harmful substance, artifact, or alien. You are a new, unknown, undocumented, and thus, unprotected species. If I say to wait, you must comply.",
+        "correct": {
+            "0": {
+                "speaker": "Me",
+                "text": "Actually I have something here that might sway your mind."
+            },
+            "1": {
+                "speaker": "Gleaming Shoal",
+                "text": "I don't believe it. I won't. Who are you to undermine my authority? I... won't stand for this!"
+            }
+        },
         "counters": ["indecipherable-note-research"]
     }
 }

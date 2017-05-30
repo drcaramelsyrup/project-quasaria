@@ -196,6 +196,11 @@ ConversationManager.prototype.endConversation = function() {
   this._game.areaTransitionWindow.enable();
 };
 
+ConversationManager.prototype.advanceToTarget = function (targetIdx) {
+  this.idx = targetIdx;
+  return true;  // returns whether should refresh display.
+};
+
 ConversationManager.prototype.update = function () {
   // TODO: Stub.
 };

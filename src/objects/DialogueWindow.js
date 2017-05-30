@@ -253,8 +253,9 @@ DialogueWindow.prototype.addChoiceButton = function (x, y, responseTextField, re
 
   choiceButton.events.onInputUp.add(
     function () {
-      this.dialogueWindow.convoManager.idx = this.responseTarget;
-      this.dialogueWindow.display();
+      var shouldRefresh = this.dialogueWindow.convoManager.advanceToTarget(responseTarget);
+      if (shouldRefresh)
+        this.dialogueWindow.display();
     }, {dialogueWindow: this, responseTarget: responseTarget});
   // add mask
   choiceButton.sprite.mask = this._scrollMask;
@@ -347,13 +348,7 @@ DialogueWindow.prototype.displayCurrentLine = function () {
 
   // Add an option to skip the text on clicking down.
   this.dialogPanel.displayObject.inputEnabled = true;
-  this.dialogPanel.events.onInputDown.add(
-    function () {
-      this.dialogueWindow._game.time.removeAll();
-      this.dialogueWindow.displayText(true);
-      this.dialogueWindow.dialogPanel.events.onInputDown.removeAll();
-    }, {dialogueWindow: this}
-  );
+  this.dialogPanel.events.onInputDown.add(this.skipText, this);
 
   var nextChar = function () {
     this.dialogText.displayObject.text =
@@ -368,6 +363,12 @@ DialogueWindow.prototype.displayCurrentLine = function () {
   //  Call the 'nextChar' function once for each word in the line (line.length)
   this._game.time.events.repeat(charDelay, split.length, nextChar, this);
 
+};
+
+DialogueWindow.prototype.skipText = function () {
+  this._game.time.removeAll();
+  this.displayText(true);
+  this.dialogPanel.events.onInputDown.removeAll();
 };
 
 DialogueWindow.prototype.update = function () {

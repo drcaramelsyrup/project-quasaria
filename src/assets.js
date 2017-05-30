@@ -247,6 +247,9 @@ exports.logic_battle = [{
   type: 'image',
   url: 'battle/xenopsych.png'
 }, {
+  key: 'quasaria-logo-fill',
+  type: 'image'
+}, {
   key: 'battle01',
   type: 'json',
   url: 'battle/battle01.json'

@@ -59,12 +59,16 @@ exports.create = function (game) {
 
 function cardAction(game, card) {
   if (game.playerTurn) {
+    game.dialogueWindow.skipText();
+
     game.playerTurn = false;
     game.battleUi.cardsInputEnabled(false);
 
     var argument = game.opponentDeck[game.currentArgument];
 
-    if (card.key === argument.key) {
+    var isCorrect = card.key === argument.key;
+
+    if (isCorrect) {
       game.battleUi.playCardAnimation(card, argument, true);
       game.opponentDeck[game.currentArgument] = undefined;
       argument.destroy();
@@ -74,11 +78,21 @@ function cardAction(game, card) {
       game.battleUi.playCardAnimation(card, argument, false);
     }
 
-    game.battleUi.cardAnimCompleteSignal.add(opponentTurn, this);
+    game.battleUi.cardAnimCompleteSignal.add(argumentInterlude, this, 0, game, isCorrect);
   }
 }
 
+function argumentInterlude(game, isCorrect) {
+  game.argumentManager.startArgInterlude(isCorrect);
+  game.dialogueWindow.display();
+  game.argumentManager.interludeCompleteSignal.add(opponentTurn, this, 0, game);
+
+  game.battleUi.cardAnimCompleteSignal.removeAll();
+}
+
 function opponentTurn(game) {
+  game.battleUi.updatePersuasionBar();
+
   if (game.opponentDeck[game.currentArgument]) {
     game.cred -= 1;
     game.battleUi.updateCredBar(game.cred, true); // update cred bar with damage indication
@@ -95,11 +109,11 @@ function opponentTurn(game) {
     game.battleUi.argAnimCompleteSignal.removeAll();
   }, this);
 
-  game.battleUi.cardAnimCompleteSignal.removeAll();
+  game.argumentManager.interludeCompleteSignal.removeAll();
 }
 
 function updateArgumentWindow(game) {
-  game.argumentManager.idx = game.currentArgument;
+  game.argumentManager.advanceToTarget(game.currentArgument);
   game.dialogueWindow.display();
 }
 

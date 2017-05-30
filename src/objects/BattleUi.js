@@ -27,6 +27,7 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
   this.cardSignal = new Phaser.Signal();
   this.cardAnimCompleteSignal = new Phaser.Signal();
   this.argAnimCompleteSignal = new Phaser.Signal();
+
   this.playerDeckIcons = [];
   this.enemyDeckIcons = [];
 
@@ -272,7 +273,7 @@ BattleUi.prototype.positionArguments = function (game, isTweening = true) {
   }
   for (j = 0; j < tweens.length; j++) {
     // Notify completion of argument rotation
-    if (j == 0) {
+    if (j === 0) {
       tweens[j].onComplete.add(function () {
         this.argAnimCompleteSignal.dispatch(this._game);
       }, this);
@@ -320,8 +321,8 @@ BattleUi.prototype.updateCredBar = function (value, isDamage) {
 };
 
 BattleUi.prototype.updatePersuasionBar = function () {
-    this._game.persuasion -= 1;
-    this.persuadeBar.setPercent(this._game.persuasion * 25);
+  this._game.persuasion -= 1;
+  this.persuadeBar.setPercent(this._game.persuasion * 25);
 };
 
 BattleUi.prototype.cardsInputEnabled = function (isEnabled) {
