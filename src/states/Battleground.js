@@ -27,7 +27,7 @@ exports.create = function (game) {
 
   // Music
   game.music = game.sound.play('battle-theme');
-  game.music.loopFull(1);
+  game.music.loopFull(0.95);
   
   game.argumentManager = new ArgumentManager(game);
   game.argumentManager.loadJSONConversation('battle01');
@@ -92,7 +92,10 @@ function opponentTurn(game) {
     updateArgumentWindow(game);
     game.battleUi.cardsInputEnabled(true);
     game.playerTurn = true;
-  }, this);  
+    game.battleUi.argAnimCompleteSignal.removeAll();
+  }, this);
+
+  game.battleUi.cardAnimCompleteSignal.removeAll();
 }
 
 function updateArgumentWindow(game) {

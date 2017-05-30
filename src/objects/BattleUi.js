@@ -349,7 +349,7 @@ BattleUi.prototype.addTooltip = function (cardIdx, x, y) {
 
     var nameTextStyle = { font: '14px Goudy Bookletter 1911', fill: '#48f2ff', wordWrap: true, wordWrapWidth: tooltipWidth, fontWeight: 'bold', boundsAlignH: 'center' };
     var nameText = new SlickUI.Element.DisplayObject(0,0, 
-        this._game.make.text(0,0, items[playerCardIcon.id]['name'].toUpperCase(), nameTextStyle));
+      this._game.make.text(0,0, items[playerCardIcon.id]['name'].toUpperCase(), nameTextStyle));
     this.tooltip.add(nameText);
     // for alignment purposes
     var nameTextHeight = nameText.displayObject.getBounds().height;
@@ -357,8 +357,8 @@ BattleUi.prototype.addTooltip = function (cardIdx, x, y) {
 
     var descTextStyle = { font: '14px Open Sans', fill: '#48f2ff', wordWrap: true, wordWrapWidth: tooltipWidth, align: 'left' };
     var descText = new SlickUI.Element.DisplayObject(
-        0, Math.round(nameTextHeight), 
-        this._game.make.text(0,0, items[playerCardIcon.id]['desc'], descTextStyle));
+      0, Math.round(nameTextHeight), 
+      this._game.make.text(0,0, items[playerCardIcon.id]['desc'], descTextStyle));
     this.tooltip.add(descText);
   };
 
