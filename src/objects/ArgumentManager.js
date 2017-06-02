@@ -105,7 +105,7 @@ ArgumentManager.prototype.getCurrentCounters = function () {
 ArgumentManager.prototype.getAllArguments = function () {
   // returns as an array
   var args = [];
-  for (var i = 0; i < Object.keys(this.conversation).length; i++) {
+  for (var i = 0; i < Object.keys(this.conversation).length - 3; i++) {
     args.push(this.conversation[i]);
   }
   return args;
