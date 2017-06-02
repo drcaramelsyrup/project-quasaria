@@ -228,7 +228,7 @@ DialogueWindow.prototype.displayResponses = function () {
 DialogueWindow.prototype.addChoiceButton = function (x, y, responseTextField, responseTarget) {
   // display text
   var buttonSidePadding = 32;
-  var buttonTextStyle = textstyles['button'];
+  var buttonTextStyle = textstyles['choiceButton'];
   buttonTextStyle.wordWrapWidth = this._dialogTextWidth - buttonSidePadding;
   var responseText = this._game.make.text(0, 0, responseTextField, buttonTextStyle);
   var buttonText = new SlickUI.Element.DisplayObject(

@@ -25,7 +25,16 @@
 		"boundsAlignH": "center"
 	},
 	"credibility": {
-		"font": "14px Open Sans", 
-		"fill": "#48f2ff", "boundsAlignH": "center", "boundsAlignV": "middle"
-	}
+		"font": "32px Cinzel Decorative", 
+		"fontWeight": "bold",
+		"fill": "#48f2ff", 
+		"boundsAlignH": "center", 
+		"boundsAlignV": "middle"
+	},
+	"mainMenuTitle": {
+		"font": "75px Cinzel Decorative",
+		"fontWeight": "bold",
+		"fill": "#42dff4",
+		"align": "center"
+	}, 
 }

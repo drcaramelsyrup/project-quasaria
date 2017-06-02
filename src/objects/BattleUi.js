@@ -36,6 +36,7 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
   this._game = game;
   this._portraitSize = 100;
   this._cardSize = 70;
+  this._credSize = 85;
   this._enemyOriginY = game.height * 0.3;
   this._centerX = game.width / 2;
   this._argumentRadius = this._portraitSize;
@@ -79,29 +80,17 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
   currentArgMarker.y = this._enemyOriginY + this._argumentRadius;
 
   /** Player display */
-  // var barConfig = {x: this._centerX, y: this._enemyOriginY + this._portraitSize * 1.5, height:20, width:150};
-  // this.credBar = new HealthBar(game, barConfig);
   this.credIcon = new SlickUI.Element.DisplayObject(
-    this._centerX, this._enemyOriginY + this._portraitSize*1.5,
-    new Icon(game, 0,0, 
-    'memory-bank-icon-mask', null, 'memory-bank-icon', this._cardSize));
-  this.credIcon
+    this._centerX - this._credSize/2, this._enemyOriginY + this._argumentRadius + this._cardSize,
+    new Icon(game, 0,0,
+    'memory-bank-icon-mask', null, 'memory-bank-icon', this._credSize));
   game.slickUI.add(this.credIcon);
-  // credIcon.makeText('' + this._game.cred);
-  // game.add.existing(this.credIcon);
 
-  // game.slickUI.add(this.toast = new SlickUI.Element.DisplayObject(
-  //   this.toastX, this.toastY, game.make.sprite(0, 0, 'toast'),
-  //   this.toastWidth, this.toastHeight));
-  // this.toast.displayObject.width = this.toastWidth;
-  // this.toast.displayObject.height = this.toastHeight;
-
-  // game.toast = this;
-
-  var style = textstyles['credibility'];
   this.credIcon.add(
-    this.credText = new SlickUI.Element.DisplayObject(0, 0, game.make.text(0, 0, ''+this._game.cred, style)));
-  this.credText.displayObject.setTextBounds(0, 0, this._cardSize, this.credIcon.displayObject.height);
+    this.credText = new SlickUI.Element.DisplayObject(0, 0, 
+      game.make.text(0, 0, ''+this._game.cred, textstyles['credibility']))
+  );
+  this.credText.displayObject.setTextBounds(0, 0, this._credSize, this.credIcon.displayObject.height);
 
   /** Player deck display */
   var deckOriginX = game.width * 3 / 5;
@@ -337,7 +326,14 @@ BattleUi.prototype.updateCredBar = function (value, isDamage) {
   if (isDamage) {
     this.flickerOverlay();
   }
-  this.credBar.setPercent(value*25);
+  this.credText.displayObject.text = value;
+  var originalTint = this.credText.displayObject.tint;
+  var firstTween = this._game.add.tween(this.credText.displayObject);
+  firstTween.to({ tint: 0x970B26 }, 100, Phaser.Easing.Linear.In, false, 0);
+  var secondTween = this._game.add.tween(this.credText.displayObject);
+  secondTween.to({ tint: originalTint }, 500, Phaser.Easing.Linear.In, false, 0);
+  firstTween.chain(secondTween);
+  firstTween.start();
 };
 
 BattleUi.prototype.updatePersuasionBar = function () {
