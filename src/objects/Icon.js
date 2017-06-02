@@ -39,7 +39,7 @@ function Icon(game, x, y, asset, mask, border, width = 100.0/*, TODO: height = 1
   var parentScale = this.scale.x;
 
   if (typeof border !== 'undefined' && border !== null) {
-    this.borderSprite = game.make.sprite(x,y, border);
+    this.borderSprite = game.make.sprite(0,0, border);
     this.addChild(this.borderSprite);
     this.borderSprite.scale.setTo((width / this.borderSprite.width) / parentScale);
   }

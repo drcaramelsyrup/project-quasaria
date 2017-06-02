@@ -12,6 +12,7 @@ module.exports = BattleUi;
 var HealthBar = require('./HealthBar.js');
 var Icon = require('./Icon');
 var items = require('../../static/assets/items.json');
+var textstyles = require('../../static/assets/textstyles.json');
 
 function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
   Phaser.Group.call(this, game/*, ...args*/);
@@ -78,13 +79,33 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
   currentArgMarker.y = this._enemyOriginY + this._argumentRadius;
 
   /** Player display */
-  var barConfig = {x: this._centerX, y: this._enemyOriginY + this._portraitSize * 1.5, height:20, width:150};
-  this.credBar = new HealthBar(game, barConfig);
-  // var credIcon = new Icon(game, this._centerX, this.credBar.y + this._portraitSize/2);
+  // var barConfig = {x: this._centerX, y: this._enemyOriginY + this._portraitSize * 1.5, height:20, width:150};
+  // this.credBar = new HealthBar(game, barConfig);
+  this.credIcon = new SlickUI.Element.DisplayObject(
+    this._centerX, this._enemyOriginY + this._portraitSize*1.5,
+    new Icon(game, 0,0, 
+    'memory-bank-icon-mask', null, 'memory-bank-icon', this._cardSize));
+  this.credIcon
+  game.slickUI.add(this.credIcon);
+  // credIcon.makeText('' + this._game.cred);
+  // game.add.existing(this.credIcon);
+
+  // game.slickUI.add(this.toast = new SlickUI.Element.DisplayObject(
+  //   this.toastX, this.toastY, game.make.sprite(0, 0, 'toast'),
+  //   this.toastWidth, this.toastHeight));
+  // this.toast.displayObject.width = this.toastWidth;
+  // this.toast.displayObject.height = this.toastHeight;
+
+  // game.toast = this;
+
+  var style = textstyles['credibility'];
+  this.credIcon.add(
+    this.credText = new SlickUI.Element.DisplayObject(0, 0, game.make.text(0, 0, ''+this._game.cred, style)));
+  this.credText.displayObject.setTextBounds(0, 0, this._cardSize, this.credIcon.displayObject.height);
 
   /** Player deck display */
   var deckOriginX = game.width * 3 / 5;
-  var deckOriginY = this.credBar.y;
+  var deckOriginY = this.credIcon.y;
 
   for (i = 0; i < playerDeck.length; i++) {
     var playerCardIcon = game.add.existing(new Icon(game, 0,0, 
@@ -314,7 +335,6 @@ BattleUi.prototype.flickerOverlay = function () {
 BattleUi.prototype.updateCredBar = function (value, isDamage) {
   // damage indication
   if (isDamage) {
-    this._game.camera.shake(0.01, 150);  // intensity, duration in ms
     this.flickerOverlay();
   }
   this.credBar.setPercent(value*25);

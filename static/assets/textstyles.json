@@ -1,0 +1,31 @@
+{
+	"speaker": {
+		"font": "20px Goudy Bookletter 1911", 
+		"fill": "#48f2ff", 
+		"wordWrap": false, 
+		"align": "left"
+	},
+	"dialogueBody": {
+		"font": "14px Open Sans", 
+		"fill": "#48f2ff", 
+		"wordWrap": true, 
+		//"wordWrapWidth": "this._dialogTextWidth",
+		"align": "left"
+	},
+	"choiceButton": {
+		"font": "14px Open Sans",
+		"fill": "#48f2ff", 
+		"wordWrap": true,
+		//"wordWrapWidth": this._dialogTextWidth - buttonSidePadding, 
+		"align": "left"
+	},
+	"toast": {
+		"font": "14px Open Sans",
+		"fill": "#48f2ff",
+		"boundsAlignH": "center"
+	},
+	"credibility": {
+		"font": "14px Open Sans", 
+		"fill": "#48f2ff", "boundsAlignH": "center", "boundsAlignV": "middle"
+	}
+}

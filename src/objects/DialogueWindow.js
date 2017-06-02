@@ -10,6 +10,7 @@
 module.exports = DialogueWindow;
 
 var Scrollbar = require('./Scrollbar');
+var textstyles = require('../../static/assets/textstyles.json');
 
 function DialogueWindow(game, convoManager/*, ...args*/) {
   Phaser.Group.call(this, game/*, ...args*/);
@@ -62,11 +63,10 @@ function DialogueWindow(game, convoManager/*, ...args*/) {
   // actual window contents
   var speakerX = this._dialogPadding + 64;
   var speakerY = this._dialogPadding / 4;
-  var speakerStyle = { font: '20px Goudy Bookletter 1911', fill: '#48f2ff', wordWrap: false, align: 'left' };
   this.dialogPanel.add(
     this.speakerText = new SlickUI.Element.DisplayObject(
       Math.round(speakerX), speakerY,
-      game.make.text(0, 0, 'Speaker', speakerStyle)));
+      game.make.text(0, 0, 'Speaker', textstyles['speaker'])));
 
   // using a mask for scrolling purposes
   this._scrollMask = game.make.graphics(0, 0);
@@ -74,9 +74,11 @@ function DialogueWindow(game, convoManager/*, ...args*/) {
   this._scrollMask.drawRect( this._dialogTextOriginX, this._dialogTextOriginY, this._dialogTextWidth, this._dialogTextHeight );
   this._scrollMask.endFill();
 
-  var style = { font: '14px Open Sans', fill: '#48f2ff', wordWrap: true, wordWrapWidth: this._dialogTextWidth, align: 'left' };
+  var bodyStyle = textstyles['dialogueBody'];
+  bodyStyle.wordWrapWidth = this._dialogTextWidth;
   this.dialogPanel.add(
-    this.dialogText = new SlickUI.Element.DisplayObject(this._dialogTextOriginX, this._dialogTextOriginY, game.make.text(0, 0, 'placeholder text', style)));
+    this.dialogText = new SlickUI.Element.DisplayObject(this._dialogTextOriginX, this._dialogTextOriginY, 
+      game.make.text(0, 0, 'placeholder text', bodyStyle)));
   this.dialogText.displayObject.lineSpacing = 0;
 
   this.dialogPanel.add(new SlickUI.Element.DisplayObject(0, 0, this._scrollMask));
@@ -226,7 +228,8 @@ DialogueWindow.prototype.displayResponses = function () {
 DialogueWindow.prototype.addChoiceButton = function (x, y, responseTextField, responseTarget) {
   // display text
   var buttonSidePadding = 32;
-  var buttonTextStyle = { font: '14px Open Sans', fill: '#48f2ff', wordWrap: true, wordWrapWidth: this._dialogTextWidth - buttonSidePadding, align: 'left' };
+  var buttonTextStyle = textstyles['button'];
+  buttonTextStyle.wordWrapWidth = this._dialogTextWidth - buttonSidePadding;
   var responseText = this._game.make.text(0, 0, responseTextField, buttonTextStyle);
   var buttonText = new SlickUI.Element.DisplayObject(
     Math.round(this._dialogTextWidth / 2 - responseText.width / 2),0, /* center text */
