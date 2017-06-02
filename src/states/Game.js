@@ -43,6 +43,7 @@ exports.init = function(game, resumeGame){
 };
 
 exports.create = function (game) {
+
   this.camera.flash('#000000', 2000);
   game.add.existing(game.player);
 
