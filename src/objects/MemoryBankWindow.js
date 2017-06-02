@@ -34,6 +34,11 @@ function memoryBankButtonToggle() {
   }
 
   // show panel
+  
+  // if area transition window is open, close it
+  if (this._game.areaTransitionWindow.panel.visible) {
+    this._game.areaTransitionWindow.panel.visible = false;
+  }
   this.panel.visible = true;
   this.display();
 

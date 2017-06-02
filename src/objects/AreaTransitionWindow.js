@@ -33,6 +33,12 @@ function areaTransitionButtonToggle() {
   }
 
   // show panel
+  
+  // if memory bank window is open, close it
+  if (this._game.memoryBankWindow.panel.visible) {
+    this._game.memoryBankWindow.panel.visible = false;
+  }
+
   this.panel.visible = true;
   this.display();
   //each time you press the button it should refresh the areas that it displays
