@@ -26,7 +26,7 @@ exports.main_menu = [{
 }, {
   key: 'menu_screen',
   type: 'image',
-  url: 'backgrounds/menu_screen.png'
+  url: 'backgrounds/menu_screen_scaled.png'
 }];
 
 
