@@ -122,6 +122,17 @@ ArgumentManager.prototype.getAllArguments = function () {
   return args;
 };
 
+ArgumentManager.prototype.getAllAbilities = function () {
+  var abilities = [];
+  if ('abilities' in this.conversation) {
+    var i;
+    for (i in this.conversation['abilities']) {
+      abilities.push(this.conversation['abilities'][i]);
+    }
+  }
+  return abilities;
+};
+
 ArgumentManager.prototype.setArgumentById = function (id) {
   for (var i = 0; i < this.conversation.length; i++) {
     if (this.conversation[i]['id'] === id) {

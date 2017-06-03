@@ -117,6 +117,10 @@ function opponentTurn(game) {
   game.argumentManager.interludeCompleteSignal.removeAll();
 }
 
+function useOpponentAbility(game) {
+  
+}
+
 // For ArgumentManager
 function currentArgumentJsonIdx(game) {
   var currentArgument = game.opponentDeck[game.currentArgument];
