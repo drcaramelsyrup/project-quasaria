@@ -81,7 +81,7 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
 
   /** Player display */
   this.credIcon = new SlickUI.Element.DisplayObject(
-    this._centerX - this._credSize/2, this._enemyOriginY + this._argumentRadius + this._cardSize,
+    this._centerX - this._credSize/2, game.height * 5 / 8 - this._credSize / 2,
     new Icon(game, 0,0,
     'memory-bank-icon-mask', null, 'memory-bank-icon', this._credSize));
   game.slickUI.add(this.credIcon);
@@ -94,7 +94,7 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
 
   /** Player deck display */
   var deckOriginX = game.width * 3 / 5;
-  var deckOriginY = this.credIcon.y;
+  var deckOriginY = this.credIcon.y + (this._credSize - this._cardSize) / 2;
 
   for (i = 0; i < playerDeck.length; i++) {
     var playerCardIcon = game.add.existing(new Icon(game, 0,0, 
