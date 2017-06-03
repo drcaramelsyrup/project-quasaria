@@ -20,6 +20,8 @@ function ArgumentManager(game/*, ...args*/) {
   ConversationManager.call(this, game);
   this.argIdx = 0;
   this.wantsArgumentText = false;
+  this.wantsAbilityText = false;
+  this.wantsIntroText = false;
   this.argTextType = 'incorrect';
 
   this.interludeCompleteSignal = new Phaser.Signal();
@@ -102,11 +104,20 @@ ArgumentManager.prototype.getCurrentCounters = function () {
   return this.conversation[this.idx]['counters'];
 };
 
+ArgumentManager.prototype.isNumberProperty = function (property) {
+  var n = Math.floor(Number(property));
+  return String(n) == property;
+};
+
 ArgumentManager.prototype.getAllArguments = function () {
   // returns as an array
   var args = [];
-  for (var i = 0; i < Object.keys(this.conversation).length; i++) {
-    args.push(this.conversation[i]);
+  var keys = Object.keys(this.conversation);
+  var prop;
+  for (prop in keys) {
+    if (this.isNumberProperty(prop) && prop in this.conversation) {
+      args.push(this.conversation[prop]);
+    }
   }
   return args;
 };

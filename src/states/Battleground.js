@@ -49,7 +49,11 @@ exports.create = function (game) {
   var args = game.argumentManager.getAllArguments();
   for (i = 0; i < args.length; i++) {
     // TODO: support for multiple counters
-    game.opponentDeck.push(new Argument(game, 0,0, args[i]['id'], args[i]['counters'][0]));
+    if ('bluff' in args[i] && args[i]['bluff'] === true) {
+      // do not include bluffs
+      continue;
+    }
+    game.opponentDeck.push(new Argument(game, 0,0, args[i]['id'], args[i]['counters'][0], i));
   }
 
   game.battleUi = new BattleUi(game, game.playerDeck, game.opponentDeck);
@@ -95,7 +99,6 @@ function opponentTurn(game) {
   if (game.opponentDeck[game.currentArgument]) {
     game.cred -= 1;
     game.battleUi.updateCredBar(game.cred, true); // update cred bar with damage indication
-    game.opponentDeck[game.currentArgument].destroy();
   } else {
     game.persuasion -= 1;
     game.battleUi.updatePersuasionBar();    
@@ -114,8 +117,16 @@ function opponentTurn(game) {
   game.argumentManager.interludeCompleteSignal.removeAll();
 }
 
+// For ArgumentManager
+function currentArgumentJsonIdx(game) {
+  var currentArgument = game.opponentDeck[game.currentArgument];
+  if (!currentArgument)
+    return -1;
+  return currentArgument.jsonIdx;
+}
+
 function updateArgumentWindow(game) {
-  game.argumentManager.advanceToTarget(game.currentArgument);
+  game.argumentManager.advanceToTarget(currentArgumentJsonIdx(game));
   game.dialogueWindow.display();
 }
 

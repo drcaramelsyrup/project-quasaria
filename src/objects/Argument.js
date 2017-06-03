@@ -1,12 +1,13 @@
 'use strict';
 
 
-function Argument(game, x, y, assetName, match) {
+function Argument(game, x, y, assetName, match, jsonIdx) {
   Phaser.Sprite.call(this, game, x, y, assetName);
   this.assetName = assetName;
   this.inputEnabled = true;
   this.input.useHandCursor = true;
   this.key = match;
+  this.jsonIdx = jsonIdx;
 }
 
 Argument.prototype = Object.create(Phaser.Sprite.prototype);
