@@ -24,6 +24,7 @@ function Room(game, room) {
   //though even a new game blinks
   Phaser.Sprite.call(this, game, game.world.centerX, game.world.centerY, this.area['bg']);
   this.anchor.set(0.5);
+
 }
 
 Room.prototype = Object.create(Phaser.Sprite.prototype);
@@ -62,6 +63,7 @@ Room.prototype.addItems = function() {
     // then we don't want to pop them off of the stack
     this.npcs.push(npc);
   }
+  this._game.world.bringToTop(this._game.slickUI.container.displayGroup);
 };
 
 Room.prototype.clearItems = function() {

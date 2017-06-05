@@ -8,6 +8,8 @@
 
 'use strict';
 
+var textstyles = require('../../static/assets/textstyles.json');
+
 function Toast(game, message, timeout) {
   Phaser.Group.call(this, game);
 
@@ -37,9 +39,10 @@ function Toast(game, message, timeout) {
 
   game.toast = this;
 
-  var style = { font: '14px Open Sans', fill: '#48f2ff', boundsAlignH: 'center'};
   this.toast.add(
-    this.toastText = new SlickUI.Element.DisplayObject(0, 0, game.make.text(0, this.toastTextY, message, style)));
+    this.toastText = new SlickUI.Element.DisplayObject(0, 0, 
+      game.make.text(0, this.toastTextY, message, textstyles['toast']))
+  );
   this.toastText.displayObject.setTextBounds(0, this.toastTextY, this.toastWidth, this.toastHeight);
 
   this.toast.alpha = 0.8;

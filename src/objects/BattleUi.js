@@ -12,6 +12,7 @@ module.exports = BattleUi;
 var HealthBar = require('./HealthBar.js');
 var Icon = require('./Icon');
 var items = require('../../static/assets/items.json');
+var textstyles = require('../../static/assets/textstyles.json');
 
 function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
   Phaser.Group.call(this, game/*, ...args*/);
@@ -35,6 +36,7 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
   this._game = game;
   this._portraitSize = 100;
   this._cardSize = 70;
+  this._credSize = 85;
   this._enemyOriginY = game.height * 0.3;
   this._centerX = game.width / 2;
   this._argumentRadius = this._portraitSize;
@@ -78,13 +80,21 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
   currentArgMarker.y = this._enemyOriginY + this._argumentRadius;
 
   /** Player display */
-  var barConfig = {x: this._centerX, y: this._enemyOriginY + this._portraitSize * 1.5, height:20, width:150};
-  this.credBar = new HealthBar(game, barConfig);
-  // var credIcon = new Icon(game, this._centerX, this.credBar.y + this._portraitSize/2);
+  this.credIcon = new SlickUI.Element.DisplayObject(
+    this._centerX - this._credSize/2, game.height * 5 / 8 - this._credSize / 2,
+    new Icon(game, 0,0,
+    'memory-bank-icon-mask', null, 'memory-bank-icon', this._credSize));
+  game.slickUI.add(this.credIcon);
+
+  this.credIcon.add(
+    this.credText = new SlickUI.Element.DisplayObject(0, 0, 
+      game.make.text(0, 0, ''+this._game.cred, textstyles['credibility']))
+  );
+  this.credText.displayObject.setTextBounds(0, 0, this._credSize, this.credIcon.displayObject.height);
 
   /** Player deck display */
   var deckOriginX = game.width * 3 / 5;
-  var deckOriginY = this.credBar.y;
+  var deckOriginY = this.credIcon.y + (this._credSize - this._cardSize) / 2;
 
   for (i = 0; i < playerDeck.length; i++) {
     var playerCardIcon = game.add.existing(new Icon(game, 0,0, 
@@ -314,10 +324,16 @@ BattleUi.prototype.flickerOverlay = function () {
 BattleUi.prototype.updateCredBar = function (value, isDamage) {
   // damage indication
   if (isDamage) {
-    this._game.camera.shake(0.01, 150);  // intensity, duration in ms
     this.flickerOverlay();
   }
-  this.credBar.setPercent(value*25);
+  this.credText.displayObject.text = value;
+  var originalTint = this.credText.displayObject.tint;
+  var firstTween = this._game.add.tween(this.credText.displayObject);
+  firstTween.to({ tint: 0x970B26 }, 100, Phaser.Easing.Linear.In, false, 0);
+  var secondTween = this._game.add.tween(this.credText.displayObject);
+  secondTween.to({ tint: originalTint }, 500, Phaser.Easing.Linear.In, false, 0);
+  firstTween.chain(secondTween);
+  firstTween.start();
 };
 
 BattleUi.prototype.updatePersuasionBar = function () {

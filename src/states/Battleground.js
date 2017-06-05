@@ -99,9 +99,13 @@ function opponentTurn(game) {
     game.persuasion -= 1;
     game.battleUi.updatePersuasionBar();    
   } else if (game.opponentDeck[game.currentArgument]) {
+
     game.cred -= 1;
     game.battleUi.updateCredBar(game.cred, true); // update cred bar with damage indication
     game.opponentDeck[game.currentArgument].destroy();
+  } else {
+    game.persuasion -= 1;
+    game.battleUi.updatePersuasionBar();    
   }
   updateCurrentArgument(game);
   game.battleUi.updateArguments(game.opponentDeck, game.currentArgument);

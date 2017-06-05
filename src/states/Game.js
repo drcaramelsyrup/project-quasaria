@@ -45,6 +45,7 @@ exports.init = function(game, resumeGame, fromBattle){
 };
 
 exports.create = function (game) {
+
   this.camera.flash('#000000', 2000);
   game.add.existing(game.player);
 
@@ -53,7 +54,6 @@ exports.create = function (game) {
 
   game.music = game.sound.play('minor-arpeggio');
   game.music.loopFull(1);
-
 
   game.add.existing(new SaveButton(game));
 
@@ -64,15 +64,14 @@ exports.create = function (game) {
   convoManager.idx = game.player.convoIdx;
   convoManager.shown = game.player.shownConvo;
 
-  // memory bank window object
-  game.memoryBankWindow = new MemoryBankWindow(game);
-  // area transition window object
-  game.areaTransitionWindow = new AreaTransitionWindow(game);
-
   console.log('game state player ', game.player);
 
   // dialogue window object
   game.dialogueWindow = new DialogueWindow(game, convoManager);
+  // memory bank window object
+  game.memoryBankWindow = new MemoryBankWindow(game);
+  // area transition window object
+  game.areaTransitionWindow = new AreaTransitionWindow(game);
 
   game.dialogueWindow.begin(game.player.convoFile);
 

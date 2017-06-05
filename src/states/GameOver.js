@@ -1,40 +1,47 @@
 /*
-* Main Menu state
+* Game Over state
 * ===============
 *
-* The player should be able to restart a saved game or start a new game.
+* The player should be able to restart a saved game or return to the main menu..
 *
 */
 
 'use strict';
 
+exports.init = function(game, gameOverText) {
+  this.gameOverText = gameOverText;
+};
+
 exports.create = function (game) {
+  this.camera.flash('#000000', 2000);
 
   //might not be in quotes, its an issue below
   var screen = game.add.sprite(game.world.centerX, game.world.centerY, 'menu_screen');
   screen.anchor.setTo(0.5, 0.5);
 
-  var logo = game.add.sprite(game.world.centerX, game.world.centerY - 30, 'quasaria-logo-MM');
-  logo.anchor.setTo(0.5, 0.5);
-  logo.alpha = .1;
-
   let screenFont = 'Cinzel Decorative';
   let fillColor = '#42dff4';
 
-  var titleText = game.add.text(game.world.centerX, game.world.centerY- 75, 'Quasaria', {
+  var titleText = game.add.text(game.world.centerX, game.world.centerY- 85, 'Game Over', {
     font: '75px ' + screenFont,
     fontWeight: 'bold',
     fill: fillColor,
     align: 'center'
   });
 
-  var contText = game.add.text(game.world.centerX, game.world.centerY, 'Continue', {
+  var descText = game.add.text(game.world.centerX, game.world.centerY - 20, this.gameOverText, {
+    font: '25px ' + screenFont,
+    fill: fillColor,
+    align: 'center'
+  });
+
+  var contText = game.add.text(game.world.centerX, game.world.centerY + 30, 'Reload', {
     font: '50px ' + screenFont,
     fill: fillColor,
     align: 'center'
   });
 
-  var newGameText = game.add.text(game.world.centerX, game.world.centerY + 55, 'New Game', {
+  var mainMenuText = game.add.text(game.world.centerX, game.world.centerY + 85, 'Main Menu', {
     font: '50px ' + screenFont,
     fill: fillColor,
     align: 'center'
@@ -42,6 +49,7 @@ exports.create = function (game) {
 
   titleText.anchor.setTo(0.5, 0.5);
 
+  descText.anchor.setTo(0.5, 0.5);
 
   contText.anchor.setTo(0.5, 0.5);
   contText.inputEnabled = true;
@@ -58,20 +66,18 @@ exports.create = function (game) {
     game.state.start('Game', true, false, game, resumeGame);
   }, this);
 
-  newGameText.anchor.setTo(0.5, 0.5);
-  newGameText.inputEnabled = true;
-  newGameText.events.onInputOver.add(function() {
-    newGameText.fill = '#ff00ff';
+  mainMenuText.anchor.setTo(0.5, 0.5);
+  mainMenuText.inputEnabled = true;
+  mainMenuText.events.onInputOver.add(function() {
+    mainMenuText.fill = '#ff00ff';
   }, this);
 
-  newGameText.events.onInputOut.add(function() {
-    newGameText.fill = '#42dff4';
+  mainMenuText.events.onInputOut.add(function() {
+    mainMenuText.fill = '#42dff4';
   }, this);
 
-  newGameText.events.onInputDown.add(function () {
-    console.log('you loaded game.');
-    let resumeGame = false;
-    game.state.start('Game', true, false, game, resumeGame);
+  mainMenuText.events.onInputDown.add(function () {
+    game.state.start('MainMenu');
   }, this);
 
 };

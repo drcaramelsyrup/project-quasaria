@@ -26,7 +26,7 @@ exports.main_menu = [{
 }, {
   key: 'menu_screen',
   type: 'image',
-  url: 'backgrounds/menu_screen.png'
+  url: 'backgrounds/menu_screen_scaled.png'
 }];
 
 
@@ -131,7 +131,7 @@ exports.ui = [{
 }, {
   key: 'battle-overlay',
   type: 'image',
-  url: 'ui/battle-overlay.png'
+  url: 'ui/battle-overlay-scaled.png'
 }, {
   key: 'memory-bank-icon-fill',
   type: 'image',

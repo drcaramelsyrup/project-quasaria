@@ -13,3 +13,4 @@ exports.Preloader = require('./Preloader');
 exports.MainMenu = require('./MainMenu');
 exports.Game = require('./Game');
 exports.Battleground = require('./Battleground');
+exports.GameOver = require('./GameOver');

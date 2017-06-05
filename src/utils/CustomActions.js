@@ -32,6 +32,8 @@ CustomActions.prototype.customAction = function(action) {
     this.loadBattle();  
   } else if (action === 'loadMainGameState') {
       this._game.state.start('Game', true, false, this._game, false, true);
+  } else if (action.startsWith('gameover')) {
+    this._game.state.start('GameOver', true, false, this._game, action.substring('gameover'.length));
   }
 };
 
