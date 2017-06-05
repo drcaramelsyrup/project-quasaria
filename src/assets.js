@@ -219,6 +219,22 @@ exports.sounds = [{
   type: 'audio',
   urls: ['music/Ukulele (Demo).mp3']
 }, {
+  key: 'menu-theme-terraform',
+  type: 'audio',
+  urls: ['music/Terraforming-Begins_Looping.mp3']
+}, {
+  key: 'off-limits',
+  type: 'audio',
+  urls: ['music/Sector-Off-Limits_Looping.mp3']
+}, {
+  key: 'puzzle',
+  type: 'audio',
+  urls: ['music/Puzzle-Game_Looping.mp3']
+}, {
+  key: 'cold-moon',
+  type: 'audio',
+  urls: ['music/Cold-Moon.mp3']
+}, {
   key: 'dramatic-battle-theme',
   type: 'audio',
   urls: ['music/neocrey - Last Cyber Dance.ogg']

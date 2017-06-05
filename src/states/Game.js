@@ -50,7 +50,9 @@ exports.create = function (game) {
   game.add.existing(game.room);
   game.room.addItems();
 
-  game.music = game.sound.play('minor-arpeggio');
+  if (typeof game.music !== 'undefined' && game.music !== null)
+    game.music.fadeOut(1000); // fade out previous music
+  game.music = game.sound.play('puzzle');
   game.music.loopFull(1);
 
   game.add.existing(new SaveButton(game));

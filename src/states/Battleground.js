@@ -28,9 +28,9 @@ exports.create = function (game) {
   // Music
   if (typeof game.music !== 'undefined' && game.music !== null)
     game.music.fadeOut(1000); // fade out previous music
-  game.music = game.sound.play('battle-theme');
-  game.music.loopFull(0.95);
-  
+  game.music = game.sound.play('off-limits');
+  game.music.loopFull(1);
+
   game.argumentManager = new ArgumentManager(game);
   game.argumentManager.loadJSONConversation('battle01');
   game.currentArgument = 0;
@@ -98,7 +98,7 @@ function opponentTurn(game) {
     game.opponentDeck[game.currentArgument].destroy();
   } else {
     game.persuasion -= 1;
-    game.battleUi.updatePersuasionBar();    
+    game.battleUi.updatePersuasionBar();
   }
   updateCurrentArgument(game);
   game.battleUi.updateArguments(game.opponentDeck, game.currentArgument);
@@ -121,7 +121,7 @@ function updateArgumentWindow(game) {
 
 function updateCurrentArgument(game) {
   game.currentArgument += 1;
-  
+
   for (var i = 0; i < game.opponentDeck.length; i++) {
     var idx = game.currentArgument + i;
     if (idx >= game.opponentDeck.length)
