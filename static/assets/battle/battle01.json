@@ -97,7 +97,14 @@
         "id": "win",
         "name": "win",
         "speaker": "Gleaming Shoal",
-        "text": "Placeholder win text"
+        "text": "Placeholder win text",
+        "counters": [],
+        "responses": [
+            {
+                "target": -1,
+                "text": "END"
+            }
+        ]
     },
     "onEnd": "loadMainGameState"
 }

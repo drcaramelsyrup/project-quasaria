@@ -94,7 +94,8 @@ function argumentInterlude(game, isCorrect) {
 }
 
 function opponentTurn(game) {
-  if (game.opponentDeck[game.currentArgument] === null) {
+  console.log(game.currentArgument);
+  if (game.opponentDeck[game.currentArgument] === undefined) {
     game.persuasion -= 1;
     game.battleUi.updatePersuasionBar();    
   } else if (game.opponentDeck[game.currentArgument]) {
@@ -120,6 +121,9 @@ function updateArgumentWindow(game) {
   game.argumentManager.advanceToTarget(game.currentArgument);
   if(game.cred === 0) {
     game.argumentManager.idx = 3;
+  }
+  if(game.persuasion === 0) {
+      game.currentArgument.ix = 4;
   }
   game.dialogueWindow.display();
 }
