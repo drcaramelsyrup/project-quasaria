@@ -131,7 +131,7 @@ exports.ui = [{
 }, {
   key: 'battle-overlay',
   type: 'image',
-  url: 'ui/battle-overlay.png'
+  url: 'ui/battle-overlay-scaled.png'
 }, {
   key: 'memory-bank-icon-fill',
   type: 'image',
