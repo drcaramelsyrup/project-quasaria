@@ -257,7 +257,7 @@
         "id": 13,
         "responses": [
             {
-                "target": -1,
+                "target": 59,
                 "text": "END"
             }
         ],
@@ -1046,6 +1046,16 @@
         ],
         "speaker": "Gleaming Shoal",
         "text": "Go meet the scientists. The medical bay is close to the hangar. If you have questions, speak to my assistant, Garnetta, in Administrations."
+    },
+    "59": {
+        "actions": {
+            "custom": "gameoverYour shuttle was blown to bits!"
+        },
+        "comments": [],
+        "id": 59,
+        "responses": [],
+        "speaker": "Gleaming Shoal",
+        "text": "Placeholder"
     },
     "onEnd": "moveToArea:hangar"
 }

@@ -30,6 +30,8 @@ CustomActions.prototype.customAction = function(action) {
     this.moveToArea(action.substring('moveToArea:'.length));
   } else if (action === 'startBattle') {
     this.loadBattle();  
+  } else if (action.startsWith('gameover')) {
+    this._game.state.start('GameOver', true, false, this._game, action.substring('gameover'.length));
   }
 };
 
