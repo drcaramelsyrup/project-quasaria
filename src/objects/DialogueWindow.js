@@ -88,6 +88,7 @@ function DialogueWindow(game, convoManager/*, ...args*/) {
 
   // for removing player choice buttons
   this.buttons = [];
+  this.buttonTweens = [];
   // slider for scrolling overflow
   this.slider = null;
   // stores each button Y value
@@ -127,7 +128,6 @@ DialogueWindow.prototype.display = function (displaysInstant = false
     // Added before our actual display call in case we display instantly
     this._onDialogTextFinished.add(function () {
       this.displayResponses();
-      this.addOverflowScroll();
       this._onDialogTextFinished.removeAll();
     }, this);
     this.displayText(displaysInstant);
@@ -135,6 +135,11 @@ DialogueWindow.prototype.display = function (displaysInstant = false
 };
 
 DialogueWindow.prototype.cleanWindow = function () {
+  // stop all button tweens
+  for (var i = 0; i < this.buttonTweens.length; i++) {
+    this.buttonTweens[i].stop();
+  }
+
   // remove all buttons
   for (var i = 0; i < this.buttons.length; i++) {
     var button = this.buttons[i];
@@ -199,30 +204,38 @@ DialogueWindow.prototype.displayResponses = function () {
   var responses = this.convoManager.getResponses(this._game);
 
   var textBottom = this._dialogTextOriginY + this.dialogText.displayObject.getBounds().height;
-  var nextButtonY = textBottom;
+  this.nextButtonY = textBottom;
 
   if (responses.length === 0) {
     // no responses - waiting on player to do something to progress
-    var waitButton = this.addChoiceButton(this._dialogTextOriginX, nextButtonY,
+    var waitButton = this.addChoiceButton(this._dialogTextOriginX, this.nextButtonY,
       'END', null);
     waitButton.visible = false;
     this.buttons.push(waitButton);
   }
 
-  for (var i = 0; i < responses.length; i++) {
-    var button = this.addChoiceButton(
-      this._dialogTextOriginX, nextButtonY,
-      responses[i]['text'], responses[i]['target']);
+  this.buttonTweens = [];
 
-    // keep track of buttons to be deleted
+  for (var i = 0; i < responses.length; i++) {
+    var responseDelay = 250;
+    var button = this.addChoiceButton(
+      this._dialogTextOriginX, this.nextButtonY,
+      responses[i]['text'], responses[i]['target']);
+    button.alpha = 0;
+    var tween = this._game.add.tween(button).to({alpha: 1}, responseDelay, Phaser.Easing.Linear.None, true, responseDelay * i);
+    if (i === responses.length - 1) {
+      tween.onComplete.add(function() {
+        this.addOverflowScroll();
+      }, this);
+    }
+    this.buttonTweens.push(tween);  // for deletion later
     this.buttons.push(button);
-    // useful for overflow scrolling
     this._buttonsY.push(button.y);
-    nextButtonY += button.sprite.height;
+    this.nextButtonY += button.sprite.height;
   }
 
   // last element is bottom of content
-  this._buttonsY.push(nextButtonY);
+  this._buttonsY.push(this.nextButtonY);
 };
 
 DialogueWindow.prototype.addChoiceButton = function (x, y, responseTextField, responseTarget) {
