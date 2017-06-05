@@ -12,12 +12,12 @@ var npcs = require('../../static/assets/npcs.json');
 
 module.exports = ArgumentManager;
 
-function ArgumentManager(game/*, ...args*/) {
+function ArgumentManager(game, customActions/*, ...args*/) {
   // TODO:
   //   1. Edit constructor parameters accordingly.
   //   2. Adjust object properties.
 
-  ConversationManager.call(this, game);
+  ConversationManager.call(this, game, customActions);
   this.argIdx = 0;
   this.wantsArgumentText = false;
   this.argTextType = 'incorrect';
@@ -36,7 +36,11 @@ ArgumentManager.prototype.update = function () {
 ArgumentManager.prototype.getResponses = function () {
   if (this.wantsArgumentText)
     return [{ 'target': this.argIdx+1, 'text': 'Next' }];
-  return [];
+  if (this.idx === 3)
+      return [{'target': -1, 'text': 'End'}];
+  //console.log(this);
+  //return ConversationManager.prototype.getResponses().call(this);
+  return[];
 };
 
 ArgumentManager.prototype.advanceToTarget = function (targetIdx) {
@@ -51,6 +55,11 @@ ArgumentManager.prototype.advanceToTarget = function (targetIdx) {
   }
   this.idx = targetIdx;
   return true;
+};
+
+
+ArgumentManager.prototype.endConversation = function() {
+  this.customActions.customAction(this.conversation['onEnd']);  
 };
 
 ArgumentManager.prototype.getAvatar = function () {

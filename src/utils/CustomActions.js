@@ -30,8 +30,13 @@ CustomActions.prototype.customAction = function(action) {
     this.moveToArea(action.substring('moveToArea:'.length));
   } else if (action === 'startBattle') {
     this.loadBattle();  
+  } else if (action === 'loadMainGameState') {
+      this._game.state.start('Game', true, false, this._game, false, true);
   }
 };
+
+
+
 
 CustomActions.prototype.loadBattle = function() {
   this._game.dialogueWindow.hide();
