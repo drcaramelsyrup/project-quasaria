@@ -123,7 +123,7 @@ function updateArgumentWindow(game) {
     game.argumentManager.idx = 3;
   }
   if(game.persuasion === 0) {
-      game.currentArgument.ix = 4;
+    game.argumentManager.idx = 4;
   }
   game.dialogueWindow.display();
 }
