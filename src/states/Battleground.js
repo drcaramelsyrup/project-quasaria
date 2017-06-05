@@ -9,6 +9,7 @@ var Room = require('../objects/Room');
 var BattleUi = require('../objects/BattleUi.js');
 var ArgumentManager = require('../objects/ArgumentManager');
 var DialogueWindow = require('../objects/DialogueWindow');
+var CustomActions = require('../utils/CustomActions');
 
 exports.preload = function(game) {
   // preload all UI menu themes.
@@ -30,8 +31,9 @@ exports.create = function (game) {
     game.music.fadeOut(1000); // fade out previous music
   game.music = game.sound.play('battle-theme');
   game.music.loopFull(0.95);
-  
-  game.argumentManager = new ArgumentManager(game);
+    
+  var customActions = new CustomActions(game);
+  game.argumentManager = new ArgumentManager(game, customActions);
   game.argumentManager.loadJSONConversation('battle01');
   game.currentArgument = 0;
   game.playerTurn = true;
@@ -92,7 +94,12 @@ function argumentInterlude(game, isCorrect) {
 }
 
 function opponentTurn(game) {
-  if (game.opponentDeck[game.currentArgument]) {
+  console.log(game.currentArgument);
+  if (game.opponentDeck[game.currentArgument] === undefined) {
+    game.persuasion -= 1;
+    game.battleUi.updatePersuasionBar();    
+  } else if (game.opponentDeck[game.currentArgument]) {
+
     game.cred -= 1;
     game.battleUi.updateCredBar(game.cred, true); // update cred bar with damage indication
     game.opponentDeck[game.currentArgument].destroy();
@@ -116,6 +123,12 @@ function opponentTurn(game) {
 
 function updateArgumentWindow(game) {
   game.argumentManager.advanceToTarget(game.currentArgument);
+  if(game.cred === 0) {
+    game.argumentManager.idx = 3;
+  }
+  if(game.persuasion === 0) {
+    game.argumentManager.idx = 4;
+  }
   game.dialogueWindow.display();
 }
 

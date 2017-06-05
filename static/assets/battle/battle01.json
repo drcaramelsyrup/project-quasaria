@@ -79,5 +79,32 @@
             }
         },
         "counters": ["indecipherable-note-research"]
-    }
+    },
+    "3": {
+        "id": "lose",
+        "name": "lose",
+        "speaker": "Gleaming Shoal",
+        "text": "Placeholder loss text",
+        "counters":[],
+        "responses": [
+            {
+                "target": -1,
+                "text": "END"
+            }
+        ]
+    }, 
+    "4": {
+        "id": "win",
+        "name": "win",
+        "speaker": "Gleaming Shoal",
+        "text": "Placeholder win text",
+        "counters": [],
+        "responses": [
+            {
+                "target": -1,
+                "text": "END"
+            }
+        ]
+    },
+    "onEnd": "loadMainGameState"
 }

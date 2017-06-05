@@ -21,10 +21,12 @@ exports.preload = function(game) {
   game.slickUI.load('ui/kenney-theme/kenney.json');
 };
 
-exports.init = function(game, resumeGame){
+exports.init = function(game, resumeGame, fromBattle){
 
   let playerState = localStorage.getItem('playerState');
-  if (resumeGame && playerState !== null){
+  if (fromBattle) {
+    game.room = new Room(game, 'hangar');  
+  } else if (resumeGame && playerState !== null){
     Player.unserialize(playerState, game);
     //current room is actually room.area
     //need to deep copy, otherwise we will loose the area info
