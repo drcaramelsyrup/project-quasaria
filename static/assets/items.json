@@ -28,5 +28,11 @@
 		"url": "valken.png",
 		"name": "Dr. Valken's Report",
 		"desc": "A briefing on your psychological state from Dr. Valken, Station Zero's xenopsychologist."
+	},
+	"secretaryNote": {
+		"id": "secretaryNote",
+		"url": "secretaryNote.png",
+		"name": "Memo to Garnetta",
+		"desc": "\"Garnetta: keep talking with Clearance staff. You won't be interrupted.\""
 	}
 }
