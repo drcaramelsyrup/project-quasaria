@@ -8,7 +8,6 @@
 
 'use strict';
 
-
 exports.create = function (game) {
 
   //might not be in quotes, its an issue below
