@@ -367,17 +367,26 @@ DialogueWindow.prototype.displayCurrentLine = function () {
   this.dialogPanel.events.onInputDown.add(this.skipText, this);
 
   var nextChar = function () {
+    var delay = 3;
     this.dialogText.displayObject.text =
       this.dialogText.displayObject.text.concat(split[this._cIndex]);
+    if (split[this._cIndex] === ',') {
+      delay = 200;    // brief pause on commas
+    } else if (['.', '?', '!'].indexOf(split[this._cIndex]) > -1) {
+      delay = 300;    // longer pause after each sentence
+    }
     this._cIndex++;
     if (this._cIndex == split.length) {
       // Tell the window when we're done
       this._onDialogTextFinished.dispatch();
+    } else {
+      // Add the next event in the chain
+      this.charTimer = this._game.time.events.add(delay, nextChar, this);
     }
   };
 
-  //  Call the 'nextChar' function once for each word in the line (line.length)
-  this._game.time.events.repeat(charDelay, split.length, nextChar, this);
+  //  Call the 'nextChar' function and chain until it reaches the end of the line
+  this.charTimer = this._game.time.events.add(0, nextChar, this);
 
 };
 
