@@ -105,14 +105,20 @@ DialogueWindow.prototype.constructor = DialogueWindow;
 
 DialogueWindow.prototype.begin = function(jsonKey) {
   if (jsonKey) {
-    this.convoFile = jsonKey;
-    this.convoManager.loadJSONConversation(jsonKey);
+    this.loadJSONConversation(jsonKey);
     this.show();
     this.display();
   } else {
     this.hide();
   }
 };
+
+DialogueWindow.prototype.loadJSONConversation = function (jsonKey) {
+  if (jsonKey) {
+    this.convoFile = jsonKey;
+    this.convoManager.loadJSONConversation(jsonKey);
+  }
+}
 
 DialogueWindow.prototype.display = function (displaysInstant = false 
                               /* by default, not set to display text instantly */) {

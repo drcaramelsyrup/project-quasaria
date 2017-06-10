@@ -21,6 +21,7 @@ function ArgumentManager(game/*, ...args*/) {
   this.nestedIdx = 0;
   this.currentParams = [];
 
+  this.introCompleteSignal = new Phaser.Signal();
   this.interludeCompleteSignal = new Phaser.Signal();
 
 }
@@ -45,15 +46,17 @@ ArgumentManager.prototype.advanceToTarget = function (targetIdx, params = []) {
   if (params.length > 0) {
     if (params[0] === 'ability' || params[0] === 'intro' || params[0] === 'custom') {
       var customType = params[0];
+
       if (targetIdx in this.conversation[customType]) {
         this.nestedIdx = targetIdx;
         return true;
       }
 
+      console.log('end of convo');
       // end of this conversation, go back to whatever we were doing
       this.currentParams = [];
-      this.interludeCompleteSignal.dispatch();
-      return false;
+      this.introCompleteSignal.dispatch();
+      return true;
 
     } else if (params.length >= 2 && params[0] === 'interlude') {
       var interludeType = params[1];
@@ -124,6 +127,11 @@ ArgumentManager.prototype.startArgInterlude = function (isCorrect) {
   this.nestedIdx = 0;
   var textType = isCorrect ? 'correct' : 'incorrect';
   this.currentParams = ['interlude', textType];
+};
+
+ArgumentManager.prototype.startIntro = function () {
+  this.nestedIdx = 0;
+  this.currentParams = ['intro'];
 };
 
 ArgumentManager.prototype.endArgInterlude = function () {
