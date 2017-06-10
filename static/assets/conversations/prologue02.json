@@ -15,6 +15,9 @@
                 "text": "I can't understand you!"
             },
             {
+                "conditions": {
+                    "debug": "true"
+                },
                 "target": 58,
                 "text": "DEBUG - SKIP TO END"
             }

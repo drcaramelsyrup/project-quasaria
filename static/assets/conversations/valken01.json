@@ -17,6 +17,9 @@
                 "text": "You're the one who's going to analyze my brain."
             },
             {
+                "conditions": {
+                    "debug": "true"
+                },
                 "target": 59,
                 "text": "DEBUG - SKIP TO END"
             }

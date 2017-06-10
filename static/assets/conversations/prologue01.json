@@ -13,6 +13,9 @@
                 "text": "What... where am I?"
             },
             {
+                "conditions": {
+                    "debug": "true"
+                },
                 "target": 45,
                 "text": "DEBUG - SKIP TO END"
             }

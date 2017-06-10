@@ -21,6 +21,9 @@
                 "text": "That depends. Are you the xenobiologist who's supposed to study me?"
             },
             {
+                "conditions": {
+                    "debug": "true"
+                },
                 "target": 56,
                 "text": "DEBUG - SKIP TO END"
             }
