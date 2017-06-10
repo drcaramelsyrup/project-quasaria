@@ -101,6 +101,9 @@ function DialogueWindow(game, convoManager/*, ...args*/) {
   // will track the conversation file, so that save checkpoints will
   // go to the correct area in the conversation
   this.convoFile = null;
+
+  // for rendering lines character by character
+  this.charTimer = null;
 }
 
 DialogueWindow.prototype = Object.create(Phaser.Group.prototype);
@@ -190,6 +193,9 @@ DialogueWindow.prototype.displayText = function (displaysInstant) {
 
   if (displaysInstant) {
     this.dialogText.displayObject.text = this.convoManager.getCurrentText();
+    if (this.charTimer != null) {
+      this._game.time.events.remove(this.charTimer);  // stop characters from rendering one by one, if they are currently rendering
+    }
     this._onDialogTextFinished.dispatch();
     return;
   }
@@ -379,6 +385,7 @@ DialogueWindow.prototype.displayCurrentLine = function () {
     if (this._cIndex == split.length) {
       // Tell the window when we're done
       this._onDialogTextFinished.dispatch();
+      this.charTimer = null;
     } else {
       // Add the next event in the chain
       this.charTimer = this._game.time.events.add(delay, nextChar, this);
