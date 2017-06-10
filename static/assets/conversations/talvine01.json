@@ -22,7 +22,7 @@
             },
             {
                 "conditions": {
-                    "debug": "true"
+                    "vardebug": "true"
                 },
                 "target": 56,
                 "text": "DEBUG - SKIP TO END"
