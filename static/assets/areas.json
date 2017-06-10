@@ -3,6 +3,7 @@
 		"id": "shuttle",
 		"name": "Shuttle",
 		"bg": "shuttle",
+		"music": "puzzle2",
 		"items": [
 			{
 				"id": "listener",
@@ -27,6 +28,7 @@
 		"id": "hangar",
 		"name": "Hangar Bay",
 		"bg": "hangar",
+		"music": "lostjungle",
 		"items": [],
 		"placeables": [
 			{
@@ -63,6 +65,7 @@
 		"id": "medbay",
 		"name": "Medical Bay",
 		"bg": "medbay",
+		"music": "puzzle1",
 		"items": [],
 		"placeables": [],
 		"npcs": [

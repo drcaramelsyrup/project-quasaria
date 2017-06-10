@@ -21,6 +21,7 @@ function areaTransitionButtonToggle() {
 
   // hide panel
   if (this.panel.visible) {
+    this._game.sound.play('swish-close');
     this._game.add.tween(this.panel).to(
         {x: 0 - this.panelWidth - this._memoryPadding}, timeToTween, Phaser.Easing.Exponential.Out, true
       ).onComplete.add(
@@ -44,6 +45,7 @@ function areaTransitionButtonToggle() {
   //each time you press the button it should refresh the areas that it displays
 
   this.panel.x = 0 - this.panelWidth - this._memoryPadding;
+  this._game.sound.play('swish-open');
   this._game.add.tween(this.panel).to(
       {x: this._baseX}, timeToTween, Phaser.Easing.Exponential.Out, true
     ).onComplete.add(function () { this._isTweening = false; }, this);

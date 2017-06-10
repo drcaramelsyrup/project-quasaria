@@ -50,10 +50,10 @@ exports.create = function (game) {
   game.add.existing(game.room);
   game.room.addItems();
 
-  if (typeof game.music !== 'undefined' && game.music !== null)
-    game.music.fadeOut(1000); // fade out previous music
-  game.music = game.sound.play('puzzle');
-  game.music.loopFull(1);
+
+  // we previously had music in the game state, but I move it to the room object
+  // so that we can have different themes for different rooms
+  // need to set the music in the other states like logic battles
 
   game.add.existing(new SaveButton(game));
 

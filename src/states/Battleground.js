@@ -29,6 +29,7 @@ exports.create = function (game) {
   if (typeof game.music !== 'undefined' && game.music !== null)
     game.music.fadeOut(1000); // fade out previous music
   game.music = game.sound.play('off-limits');
+  game.music.fadeIn(3000);
   game.music.loopFull(1);
 
   game.argumentManager = new ArgumentManager(game);
@@ -71,12 +72,14 @@ function cardAction(game, card) {
     var isCorrect = card.key === argument.key;
 
     if (isCorrect) {
+
       game.battleUi.playCardAnimation(card, argument, true);
       game.opponentDeck[game.currentArgument] = undefined;
       argument.destroy();
       card.destroy();
     } else {
       game.battleUi.playCardAnimation(card, argument, false);
+
     }
 
     game.battleUi.cardAnimCompleteSignal.add(argumentInterlude, this, game, isCorrect);

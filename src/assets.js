@@ -207,18 +207,6 @@ exports.sounds = [{
   type: 'audio',
   urls: ['music/Sunrise From Orbit (Demo).mp3']
 }, {
-  key: 'minor-arpeggio',
-  type: 'audio',
-  urls: ['music/Minor Arpeggio Thing (Demo).mp3']
-}, {
-  key: 'far-from-home',
-  type: 'audio',
-  urls: ['music/Far From Home (Demo).mp3']
-}, {
-  key: 'ukulele',
-  type: 'audio',
-  urls: ['music/Ukulele (Demo).mp3']
-}, {
   key: 'menu-theme-terraform',
   type: 'audio',
   urls: ['music/Terraforming-Begins_Looping.mp3']
@@ -227,21 +215,45 @@ exports.sounds = [{
   type: 'audio',
   urls: ['music/Sector-Off-Limits_Looping.mp3']
 }, {
-  key: 'puzzle',
+  key: 'puzzle1',
   type: 'audio',
   urls: ['music/Puzzle-Game_Looping.mp3']
+}, {
+  key: 'puzzle2',
+  type: 'audio',
+  urls: ['music/Puzzle-Game-2_Looping.mp3']
+}, {
+  key: 'lostjungle',
+  type: 'audio',
+  urls: ['music/Lost-Jungle_Looping.mp3']
 }, {
   key: 'cold-moon',
   type: 'audio',
   urls: ['music/Cold-Moon.mp3']
 }, {
-  key: 'dramatic-battle-theme',
+  key: 'correct-card',
   type: 'audio',
-  urls: ['music/neocrey - Last Cyber Dance.ogg']
+  urls: ['soundfx/positive/glow_med_L_to_R_002.wav']
 }, {
-  key: 'battle-theme',
+  key: 'wrong-card',
   type: 'audio',
-  urls: ['music/Humble Match.ogg']
+  urls: ['soundfx/negative/SW011_Alarms_construction-kit-element_081.wav']
+}, {
+  key: 'save-notification',
+  type: 'audio',
+  urls: ['soundfx/SFX-ARCADIA_Notification01.wav']
+}, {
+  key: 'swish-close',
+  type: 'audio',
+  urls: ['soundfx/13th-whoosh-swing-sound.mp3']
+}, {
+  key: 'swish-open',
+  type: 'audio',
+  urls: ['soundfx/swoosh-metal-rod-swing-sound-made-with-bamboo-stick.mp3']
+}, {
+  key: 'inventory-add',
+  type: 'audio',
+  urls: ['soundfx/SFX-ARCADIA_Error03.wav']
 }];
 
 // --logic battle placeholder images
