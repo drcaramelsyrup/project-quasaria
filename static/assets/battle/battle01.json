@@ -264,17 +264,21 @@
         "counters": ["call-bluff"]
     },
     "ability": {
-        "0": {
-            "id": "bluff",
-            "name": "Bluff",
-            "speaker": "Gleaming Shoal",
-            "text": "Clearance is a long and arduous process, alien! Don't think you can simply bypass the regulations of the ISS!"
+        "bluff": {
+            "0": {
+                "id": "bluff",
+                "name": "Bluff",
+                "speaker": "Gleaming Shoal",
+                "text": "Clearance is a long and arduous process, alien! Don't think you can simply bypass the regulations of the ISS!"
+            }
         },
-        "1": {
-            "id": "obstinate",
-            "name": "Obstinate Will",
-            "speaker": "Gleaming Shoal",
-            "text": "I refuse to budge on this point. This is a crucial matter, and I will not shirk my duties."
+        "obstinate": {
+            "0": {
+                "id": "obstinate",
+                "name": "Obstinate Will",
+                "speaker": "Gleaming Shoal",
+                "text": "I refuse to budge on this point. This is a crucial matter, and I will not shirk my duties."
+            }
         }
     },
     "custom": {

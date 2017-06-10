@@ -208,9 +208,14 @@ DialogueWindow.prototype.displayResponses = function () {
   }
 
   for (var i = 0; i < responses.length; i++) {
+    // pass along special parameters, if any
+    var params = [];
+    if ('params' in responses[i]) {
+      params = responses[i]['params'];
+    }
     var button = this.addChoiceButton(
       this._dialogTextOriginX, nextButtonY,
-      responses[i]['text'], responses[i]['target']);
+      responses[i]['text'], responses[i]['target'], params);
 
     // keep track of buttons to be deleted
     this.buttons.push(button);
@@ -223,7 +228,7 @@ DialogueWindow.prototype.displayResponses = function () {
   this._buttonsY.push(nextButtonY);
 };
 
-DialogueWindow.prototype.addChoiceButton = function (x, y, responseTextField, responseTarget) {
+DialogueWindow.prototype.addChoiceButton = function (x, y, responseTextField, responseTarget, responseParams = []) {
   // display text
   var buttonSidePadding = 32;
   var buttonTextStyle = { font: '14px Open Sans', fill: '#48f2ff', wordWrap: true, wordWrapWidth: this._dialogTextWidth - buttonSidePadding, align: 'left' };
@@ -253,10 +258,11 @@ DialogueWindow.prototype.addChoiceButton = function (x, y, responseTextField, re
 
   choiceButton.events.onInputUp.add(
     function () {
-      var shouldRefresh = this.dialogueWindow.convoManager.advanceToTarget(responseTarget);
+      var shouldRefresh = this.dialogueWindow.convoManager.advanceToTarget(
+        this.responseTarget, this.responseParams);
       if (shouldRefresh)
         this.dialogueWindow.display();
-    }, {dialogueWindow: this, responseTarget: responseTarget});
+    }, {dialogueWindow: this, responseTarget: responseTarget, responseParams: responseParams});
   // add mask
   choiceButton.sprite.mask = this._scrollMask;
   buttonText.displayObject.mask = this._scrollMask;

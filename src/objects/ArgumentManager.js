@@ -18,11 +18,8 @@ function ArgumentManager(game/*, ...args*/) {
   //   2. Adjust object properties.
 
   ConversationManager.call(this, game);
-  this.argIdx = 0;
-  this.wantsArgumentText = false;
-  this.wantsAbilityText = false;
-  this.wantsIntroText = false;
-  this.argTextType = 'incorrect';
+  this.nestedIdx = 0;
+  this.currentParams = [];
 
   this.interludeCompleteSignal = new Phaser.Signal();
 
@@ -36,21 +33,42 @@ ArgumentManager.prototype.update = function () {
 
 /** BEGIN OVERRIDE FUNCTIONS */
 ArgumentManager.prototype.getResponses = function () {
-  if (this.wantsArgumentText)
-    return [{ 'target': this.argIdx+1, 'text': 'Next' }];
+  if (this.currentParams.length > 0) {
+    return [{ 'target': this.nestedIdx+1, 'text': 'Next', 'params': this.currentParams }];
+  }
   return [];
 };
 
-ArgumentManager.prototype.advanceToTarget = function (targetIdx) {
-  if (this.wantsArgumentText) {
-    if (targetIdx in this.conversation[this.idx][this.argTextType]) {
-      this.argIdx = targetIdx;
-      return true;
-    }
+ArgumentManager.prototype.advanceToTarget = function (targetIdx, params = []) {
+  // pass along current parameters
+  this.currentParams = params;
+  if (params.length > 0) {
+    if (params[0] === 'ability' || params[0] === 'intro' || params[0] === 'custom') {
+      var customType = params[0];
+      if (targetIdx in this.conversation[customType]) {
+        this.nestedIdx = targetIdx;
+        return true;
+      }
 
-    this.endArgInterlude();
-    return false; // do NOT refresh display on end of argument interlude
+      // end of this conversation, go back to whatever we were doing
+      this.currentParams = [];
+      this.interludeCompleteSignal.dispatch();
+      return false;
+
+    } else if (params.length >= 2 && params[0] === 'interlude') {
+      var interludeType = params[1];
+      var argument = this.conversation[this.idx];
+
+      if (interludeType in argument && targetIdx in argument[interludeType]) {
+        this.nestedIdx = targetIdx;
+        return true;
+      }
+
+      this.endArgInterlude();
+      return false; // do NOT refresh display on end of argument interlude
+    }
   }
+
   this.idx = targetIdx;
   return true;
 };
@@ -68,8 +86,15 @@ ArgumentManager.prototype.getCurrentText = function () {
     return '';
   }
 
-  if (this.wantsArgumentText) {
-    return this.conversation[this.idx][this.argTextType][this.argIdx]['text'];
+  if (this.currentParams.length > 0) {
+    var params = this.currentParams;
+    if (params[0] === 'ability' || params[0] === 'intro' || params[0] === 'custom') {
+      // get special text
+      return this.conversation[params[0]][this.nestedIdx]['text'];
+    } else if (params.length >= 2 && params[0] === 'interlude') {
+      // get interlude text
+      return this.conversation[this.idx][params[1]][this.nestedIdx]['text'];
+    }
   }
 
   return this.conversation[this.idx]['text'];
@@ -80,23 +105,30 @@ ArgumentManager.prototype.getSpeaker = function () {
     return '';
   }
 
-  if (this.wantsArgumentText) {
-    return this.conversation[this.idx][this.argTextType][this.argIdx]['speaker'];
+  if (this.currentParams.length > 0) {
+    var params = this.currentParams;
+    if (params[0] === 'ability' || params[0] === 'intro' || params[0] === 'custom') {
+      // get special text
+      return this.conversation[params[0]][this.nestedIdx]['speaker'];
+    } else if (params.length >= 2 && params[0] === 'interlude') {
+      // get interlude text
+      return this.conversation[this.idx][params[1]][this.nestedIdx]['speaker'];
+    }
   }
 
   return npcs[this.conversation[this.idx]['speaker']]['name']; 
 };
 /** END OVERRIDE FUNCTIONS */
 
-ArgumentManager.prototype.startArgInterlude = function (textType) {
-  this.argIdx = 0;
-  this.wantsArgumentText = true;
-  this.argTextType = textType ? 'correct' : 'incorrect';
+ArgumentManager.prototype.startArgInterlude = function (isCorrect) {
+  this.nestedIdx = 0;
+  var textType = isCorrect ? 'correct' : 'incorrect';
+  this.currentParams = ['interlude', textType];
 };
 
 ArgumentManager.prototype.endArgInterlude = function () {
-  this.argIdx = 0;
-  this.wantsArgumentText = false;
+  this.nestedIdx = 0;
+  this.currentParams = [];
   this.interludeCompleteSignal.dispatch();
 };
 
