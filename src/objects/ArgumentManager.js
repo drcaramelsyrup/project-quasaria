@@ -36,10 +36,9 @@ ArgumentManager.prototype.update = function () {
 ArgumentManager.prototype.getResponses = function () {
   if (this.wantsArgumentText)
     return [{ 'target': this.argIdx+1, 'text': 'Next' }];
-  if (this.idx === 3)
-      return [{'target': -1, 'text': 'End'}];
-  //console.log(this);
-  //return ConversationManager.prototype.getResponses().call(this);
+  else if ('responses' in this.conversation[this.idx]) {
+    return this.conversation[this.idx]['responses'];
+  }
   return[];
 };
 
@@ -114,8 +113,10 @@ ArgumentManager.prototype.getCurrentCounters = function () {
 ArgumentManager.prototype.getAllArguments = function () {
   // returns as an array
   var args = [];
-  for (var i = 0; i < Object.keys(this.conversation).length - 3; i++) {
-    args.push(this.conversation[i]);
+  for (var i = 0; i < Object.keys(this.conversation).length - 1; i++) {
+    if (this.conversation[i]['counters'].length > 0) {
+      args.push(this.conversation[i]);
+    }
   }
   return args;
 };
@@ -125,6 +126,14 @@ ArgumentManager.prototype.setArgumentById = function (id) {
     if (this.conversation[i]['id'] === id) {
       this.idx = i;
       return;
+    }
+  }
+};
+
+ArgumentManager.prototype.takeActions = function() {
+  if ('actions' in this.conversation[this.idx]) {
+    for (var action in this.conversation[this.idx]['actions']) {
+      ConversationManager.prototype.takeAction.call(this, this._game, action, this.conversation[this.idx]['actions'][action]);
     }
   }
 };
