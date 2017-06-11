@@ -11,7 +11,7 @@
             },
             "1": {
                 "speaker": "Gleaming Shoal",
-                "text": "You do? I hadn't anticipated that sprite would... well..."
+                "text": "You do? I hadn't anticipated that Sprite would... well..."
             }
         },
         "incorrect": {
@@ -84,11 +84,11 @@
         "id": "lose",
         "name": "lose",
         "speaker": "Gleaming Shoal",
-        "text": "Placeholder loss text",
-        "counters":[],
+        "text": "Enough. I've made my decision. Station Zero cannot accommodate an unknown alien who claims to have no memories. I won't grant you passage.",
+        "counters": [],
         "responses": [
             {
-                "target": -1,
+                "target": 5,
                 "text": "END"
             }
         ]
@@ -97,14 +97,36 @@
         "id": "win",
         "name": "win",
         "speaker": "Gleaming Shoal",
-        "text": "Placeholder win text",
+        "text": "You've made your case, alien. Perhaps this is against my better judgment, but I'll allow you passage onto the station. Watch your step - one wrong move, and I'll be there.",
         "counters": [],
         "responses": [
             {
-                "target": -1,
+                "target": 6,
                 "text": "END"
             }
         ]
+    },
+    "5": {
+        "actions": {
+            "custom": "gameoverYou were forbidden to enter the station..."
+        },
+        "id": "gameover",
+        "name": "gameover",
+        "speaker": "Gleaming Shoal",
+        "text": "Placeholder",
+        "counters": [],
+        "responses": []
+    },
+    "6": {
+        "actions": {
+            "custom": "credits"
+        },
+        "id": "credits",
+        "name": "credits",
+        "speaker": "Gleaming Shoal",
+        "text": "Placeholder",
+        "counters": [],
+        "responses": []
     },
     "onEnd": "loadMainGameState"
 }
