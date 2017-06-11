@@ -12,12 +12,12 @@ var npcs = require('../../static/assets/npcs.json');
 
 module.exports = ArgumentManager;
 
-function ArgumentManager(game/*, ...args*/) {
+function ArgumentManager(game, customActions/*, ...args*/) {
   // TODO:
   //   1. Edit constructor parameters accordingly.
   //   2. Adjust object properties.
 
-  ConversationManager.call(this, game);
+  ConversationManager.call(this, game, customActions);
   this.argIdx = 0;
   this.wantsArgumentText = false;
   this.argTextType = 'incorrect';
@@ -36,7 +36,10 @@ ArgumentManager.prototype.update = function () {
 ArgumentManager.prototype.getResponses = function () {
   if (this.wantsArgumentText)
     return [{ 'target': this.argIdx+1, 'text': 'Next' }];
-  return [];
+  else if ('responses' in this.conversation[this.idx]) {
+    return this.conversation[this.idx]['responses'];
+  }
+  return[];
 };
 
 ArgumentManager.prototype.advanceToTarget = function (targetIdx) {
@@ -51,6 +54,11 @@ ArgumentManager.prototype.advanceToTarget = function (targetIdx) {
   }
   this.idx = targetIdx;
   return true;
+};
+
+
+ArgumentManager.prototype.endConversation = function() {
+  this.customActions.customAction(this.conversation['onEnd']);  
 };
 
 ArgumentManager.prototype.getAvatar = function () {
@@ -105,8 +113,10 @@ ArgumentManager.prototype.getCurrentCounters = function () {
 ArgumentManager.prototype.getAllArguments = function () {
   // returns as an array
   var args = [];
-  for (var i = 0; i < Object.keys(this.conversation).length; i++) {
-    args.push(this.conversation[i]);
+  for (var i = 0; i < Object.keys(this.conversation).length - 1; i++) {
+    if (this.conversation[i]['counters'].length > 0) {
+      args.push(this.conversation[i]);
+    }
   }
   return args;
 };
@@ -116,6 +126,14 @@ ArgumentManager.prototype.setArgumentById = function (id) {
     if (this.conversation[i]['id'] === id) {
       this.idx = i;
       return;
+    }
+  }
+};
+
+ArgumentManager.prototype.takeActions = function() {
+  if ('actions' in this.conversation[this.idx]) {
+    for (var action in this.conversation[this.idx]['actions']) {
+      ConversationManager.prototype.takeAction.call(this, this._game, action, this.conversation[this.idx]['actions'][action]);
     }
   }
 };

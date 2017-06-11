@@ -9,6 +9,7 @@ var Room = require('../objects/Room');
 var BattleUi = require('../objects/BattleUi.js');
 var ArgumentManager = require('../objects/ArgumentManager');
 var DialogueWindow = require('../objects/DialogueWindow');
+var CustomActions = require('../utils/CustomActions');
 
 exports.preload = function(game) {
   // preload all UI menu themes.
@@ -28,16 +29,20 @@ exports.create = function (game) {
   // Music
   if (typeof game.music !== 'undefined' && game.music !== null)
     game.music.fadeOut(1000); // fade out previous music
+  
   game.music = game.sound.play('off-limits');
   game.music.fadeIn(3000);
   game.music.loopFull(1);
 
   game.argumentManager = new ArgumentManager(game);
+  var customActions = new CustomActions(game);
+  game.argumentManager = new ArgumentManager(game, customActions);
+
   game.argumentManager.loadJSONConversation('battle01');
   game.currentArgument = 0;
   game.playerTurn = true;
   game.cred = 4;
-  game.persuasion = 4;
+  game.persuasion = 2;
 
   // adding in player cards and face
   game.playerDeck = [];
@@ -95,7 +100,12 @@ function argumentInterlude(game, isCorrect) {
 }
 
 function opponentTurn(game) {
-  if (game.opponentDeck[game.currentArgument]) {
+  console.log(game.currentArgument);
+  if (game.opponentDeck[game.currentArgument] === undefined) {
+    game.persuasion -= 1;
+    game.battleUi.updatePersuasionBar();    
+  } else if (game.opponentDeck[game.currentArgument]) {
+
     game.cred -= 1;
     game.battleUi.updateCredBar(game.cred, true); // update cred bar with damage indication
     game.opponentDeck[game.currentArgument].destroy();
@@ -119,6 +129,12 @@ function opponentTurn(game) {
 
 function updateArgumentWindow(game) {
   game.argumentManager.advanceToTarget(game.currentArgument);
+  if(game.cred === 0) {
+    game.argumentManager.idx = 3;
+  }
+  if(game.persuasion === 0) {
+    game.argumentManager.idx = 4;
+  }
   game.dialogueWindow.display();
 }
 
