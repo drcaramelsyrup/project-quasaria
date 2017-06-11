@@ -49,11 +49,12 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
   this._background.width = game.width;
   this._background.height = game.height;
   this._background.alpha = 0.85;
-  this._background.tint = 0x33343a;
 
   this._overlay = game.add.sprite(0,0,'battle-overlay');
   this._overlay.width = game.width;
   this._overlay.height = game.height;
+  // hide overlay initially
+  this._overlay.alpha = 0;
 
   /** Enemy display */
   var enemyBarConfig = {x: this._centerX, y: 50, height:20, width:150, flipped:true};
@@ -299,6 +300,24 @@ BattleUi.prototype.positionArguments = function (game, isTweening = true) {
     }
     tweens[j].start();
   }
+};
+
+BattleUi.prototype.introTweens = function () {
+  var tweenTime = 500;
+  this.tweenInOverlay(tweenTime);
+  return this.tweenInBackgroundTint(tweenTime);
+};
+
+BattleUi.prototype.tweenInOverlay = function (tweenTime) {
+  var tween = this._game.add.tween(this._overlay);
+  tween.to( {alpha: 1}, tweenTime, Phaser.Easing.Exponential.In, true, 0);
+  return tween;
+};
+
+BattleUi.prototype.tweenInBackgroundTint = function (tweenTime) {
+  var tween = this._game.add.tween(this._background);
+  tween.to( {tint: 0x33343a}, tweenTime, Phaser.Easing.Exponential.In, true, 0);
+  return tween;
 };
 
 BattleUi.prototype.flickerOverlay = function () {

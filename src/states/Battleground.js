@@ -29,10 +29,6 @@ exports.create = function (game) {
   // Music
   if (typeof game.music !== 'undefined' && game.music !== null)
     game.music.fadeOut(1000); // fade out previous music
-  
-  game.music = game.sound.play('off-limits');
-  game.music.fadeIn(3000);
-  game.music.loopFull(1);
 
   game.argumentManager = new ArgumentManager(game);
   var customActions = new CustomActions(game);
@@ -82,13 +78,17 @@ function startLogicBattle(game) {
   // Disable and then reenable input
   game.battleUi.cardsInputEnabled(false);
   game.argumentManager.introCompleteSignal.add(function () {
-    game.battleUi.cardsInputEnabled(true);
-
     /* Fun intro display stuff */
-    // Start music
-    game.music = game.sound.play('battle-theme');
-    game.music.loopFull(0.95);
     // Display overlay and intro text
+    var introTween = game.battleUi.introTweens();
+    introTween.onComplete.add(function () {
+      game.battleUi.cardsInputEnabled(true);
+   
+      // Start music
+      game.music = game.sound.play('off-limits');
+      game.music.fadeIn(1000);
+      game.music.loopFull(1);
+    });
 
     game.argumentManager.introCompleteSignal.removeAll();
   });
