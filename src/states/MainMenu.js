@@ -11,6 +11,9 @@
 exports.create = function (game) {
 
   //might not be in quotes, its an issue below
+  game.music = game.sound.play('menu-theme-terraform');
+  game.music.loopFull(1);
+
   var screen = game.add.sprite(game.world.centerX, game.world.centerY, 'menu_screen');
   screen.anchor.setTo(0.5, 0.5);
 

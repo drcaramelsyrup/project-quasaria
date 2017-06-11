@@ -31,6 +31,12 @@ Room.prototype = Object.create(Phaser.Sprite.prototype);
 module.exports = Room.prototype.constructor = Room;
 
 Room.prototype.addItems = function() {
+  //would prefer this in load areas TODO restructure
+  if (typeof this._game.music !== 'undefined' && this._game.music !== null)
+    this._game.music.fadeOut(1000); // fade out previous music
+  this._game.music = this._game.sound.play(this.area.music);
+  this._game.music.loopFull(1);
+
   for (var i = 0; i < this.area['items'].length; i++) {
     var item = this.area['items'][i];
     this._game.add.existing(item = new Clickable(this._game, item['x'], item['y'], item['id'], item['height'], item['width']));
@@ -83,6 +89,8 @@ Room.prototype.clearItems = function() {
 
 Room.prototype.loadArea = function(area) {
   this.area = areas[area];
+  console.log('in load area');
+
   //below should track areas seen so that when area transition is pressed
   //it will update with what the specific player has access to.
   if (!this._game.player.seenAreas.includes(area)){

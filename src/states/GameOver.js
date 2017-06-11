@@ -15,6 +15,10 @@ exports.init = function(game, gameOverText) {
 exports.create = function (game) {
   this.camera.flash('#000000', 2000);
 
+  if (typeof game.music !== 'undefined' && game.music !== null)
+    game.music.fadeOut(1000); // fade out previous music
+  game.music = game.sound.play('cold-moon');
+  game.music.loopFull(1);
   //might not be in quotes, its an issue below
   var screen = game.add.sprite(game.world.centerX, game.world.centerY, 'menu_screen');
   screen.anchor.setTo(0.5, 0.5);

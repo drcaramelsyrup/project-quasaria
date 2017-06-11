@@ -59,13 +59,13 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
   var enemyBarConfig = {x: this._centerX, y: 50, height:20, width:150, flipped:true};
   this.persuadeBar = new HealthBar(game, enemyBarConfig);
   var enemyIcon = game.add.existing(new Icon(game,
-    this._centerX - this._portraitSize/2, this._enemyOriginY - this._portraitSize/2, 
+    this._centerX - this._portraitSize/2, this._enemyOriginY - this._portraitSize/2,
     'gleaming-shoal-portrait', null, null, this._portraitSize));
   enemyIcon.alpha = 1;
-  
+
   /** Enemy deck display */
   for (var i = 0; i < enemyDeck.length; i++) {
-    var argIcon = game.add.existing(new Icon(game, 0,0, 
+    var argIcon = game.add.existing(new Icon(game, 0,0,
       enemyDeck[i].assetName, 'memory-bank-icon-mask', 'memory-bank-icon', this._cardSize));
     this.enemyDeckIcons.push(argIcon);
   }
@@ -87,7 +87,7 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
   game.slickUI.add(this.credIcon);
 
   this.credIcon.add(
-    this.credText = new SlickUI.Element.DisplayObject(0, 0, 
+    this.credText = new SlickUI.Element.DisplayObject(0, 0,
       game.make.text(0, 0, ''+this._game.cred, textstyles['credibility']))
   );
   this.credText.displayObject.setTextBounds(0, 0, this._credSize, this.credIcon.displayObject.height);
@@ -97,7 +97,7 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
   var deckOriginY = this.credIcon.y + (this._credSize - this._cardSize) / 2;
 
   for (i = 0; i < playerDeck.length; i++) {
-    var playerCardIcon = game.add.existing(new Icon(game, 0,0, 
+    var playerCardIcon = game.add.existing(new Icon(game, 0,0,
       playerDeck[i].assetName, 'memory-bank-icon-mask', 'memory-bank-icon', this._cardSize));
     playerCardIcon.x = deckOriginX + i*(this._cardSize);
     playerCardIcon.y = deckOriginY;
@@ -112,7 +112,7 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
     playerCardIcon.input.useHandCursor = true;
 
     this.playerDeckIcons.push(playerCardIcon);
-    this.addTooltip(i, 
+    this.addTooltip(i,
       this._centerX + this._argumentRadius, this._enemyOriginY - this._argumentRadius);
   }
 
@@ -148,12 +148,15 @@ BattleUi.prototype.getCardIcon = function (card) {
 };
 
 BattleUi.prototype.startCorrectCardTween = function (cardIcon, cardIdx, targetedArg) {
+  //this sounds best when it starts at click
+  this._game.sound.play('correct-card');
   var tween = this._game.add.tween(cardIcon);
   tween.to(
-    { x: targetedArg.x, y: targetedArg.y }, 1000, 
+    { x: targetedArg.x, y: targetedArg.y }, 1000,
     Phaser.Easing.Exponential.In, true, 0);
 
   // create fill sprite
+
   var shatterSprite = this._game.make.sprite(
     targetedArg.x + targetedArg.width/2,
     targetedArg.y + targetedArg.height/2, 'memory-bank-icon-fill');
@@ -188,6 +191,11 @@ BattleUi.prototype.startIncorrectCardTween = function (cardIcon, targetedArg) {
   tween.to({ x: targetedArg.x, y: targetedArg.y }, 1000,
     Phaser.Easing.Exponential.InOut, false, 0);
   // add an additional tween to return to original position
+  tween.onComplete.add(function () {
+    this._game.sound.play('wrong-card');
+
+  }, this);
+
   var lastTween = this._game.add.tween(cardIcon);
   lastTween.to({ x: originX, y: originY }, 1000,
     Phaser.Easing.Exponential.In, false, 0);
@@ -224,6 +232,7 @@ BattleUi.prototype.playCardAnimation = function (card, argument, isCorrect) {
       }
       lastTween.onComplete.add(function () {
         this.cardAnimCompleteSignal.dispatch(this._game);
+
       }, this);
       return;
     }
@@ -255,7 +264,7 @@ BattleUi.prototype.updateArguments = function (args, currentArgIdx) {
 BattleUi.prototype.positionArguments = function (game, isTweening = true) {
   var nArgs = this.enemyDeckIcons.length;
   var argIcon;
-  
+
   if (!isTweening) {
     for (var i = 0; i < nArgs; i++) {
       argIcon = this.enemyDeckIcons[i];
@@ -264,7 +273,7 @@ BattleUi.prototype.positionArguments = function (game, isTweening = true) {
     }
     return;
   }
-  
+
   var tweeningPositions = [];
   var tweens = [];
   for (var j = 0; j < nArgs; j++) {
@@ -278,7 +287,7 @@ BattleUi.prototype.positionArguments = function (game, isTweening = true) {
     if (typeof argIcon === 'undefined' || argIcon === null)
       continue;
     tweens.push(game.add.tween(argIcon).to(
-      { x: tweeningPositions[j].x, y: tweeningPositions[j].y}, 
+      { x: tweeningPositions[j].x, y: tweeningPositions[j].y},
       1000, Phaser.Easing.Quadratic.InOut, false, 0));
   }
   for (j = 0; j < tweens.length; j++) {
@@ -303,7 +312,7 @@ BattleUi.prototype.flickerOverlay = function () {
 
   for (var i = 0; i < nFlickers; i++) {
     // use up all remaining time if it is the last flicker
-    var randTime = i == nFlickers - 1 
+    var randTime = i == nFlickers - 1
       ? timeLeft
       : this._game.rnd.frac() * timeLeft;
 
@@ -365,7 +374,7 @@ BattleUi.prototype.addTooltip = function (cardIdx, x, y) {
     this.tooltip.alpha = 0.8;
 
     var nameTextStyle = { font: '14px Goudy Bookletter 1911', fill: '#48f2ff', wordWrap: true, wordWrapWidth: tooltipWidth, fontWeight: 'bold', boundsAlignH: 'center' };
-    var nameText = new SlickUI.Element.DisplayObject(0,0, 
+    var nameText = new SlickUI.Element.DisplayObject(0,0,
       this._game.make.text(0,0, items[playerCardIcon.id]['name'].toUpperCase(), nameTextStyle));
     this.tooltip.add(nameText);
     // for alignment purposes
@@ -374,7 +383,7 @@ BattleUi.prototype.addTooltip = function (cardIdx, x, y) {
 
     var descTextStyle = { font: '14px Open Sans', fill: '#48f2ff', wordWrap: true, wordWrapWidth: tooltipWidth, align: 'left' };
     var descText = new SlickUI.Element.DisplayObject(
-      0, Math.round(nameTextHeight), 
+      0, Math.round(nameTextHeight),
       this._game.make.text(0,0, items[playerCardIcon.id]['desc'], descTextStyle));
     this.tooltip.add(descText);
   };
@@ -393,4 +402,3 @@ BattleUi.prototype.addTooltip = function (cardIdx, x, y) {
   playerCardIcon.events.onInputOut.add(deleteTooltip, playerCardIcon);
 
 };
-

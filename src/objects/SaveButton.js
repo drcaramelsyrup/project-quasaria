@@ -27,6 +27,7 @@ function SaveButton(game) {
 }
 
 function click() {
+  this._game.sound.play('save-notification');
   this._game.add.existing(new Toast(this._game, 'Game Saved!', 5));
   this._game.dialogueWindow.display(true); // refresh dialogue display
   var saveString = this._game.player.serialize(this._game);
