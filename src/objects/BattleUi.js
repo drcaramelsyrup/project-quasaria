@@ -68,7 +68,20 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
   for (var i = 0; i < enemyDeck.length; i++) {
     var argIcon = game.add.existing(new Icon(game, 0,0,
       enemyDeck[i].assetName, 'memory-bank-icon-mask', 'memory-bank-icon', this._cardSize));
-    this.enemyDeckIcons.push(argIcon);
+    this.enemyDeckIcons.push({'id': enemyDeck[i].assetName, 'icon': argIcon});
+
+  //     this.credIcon = new SlickUI.Element.DisplayObject(
+  //   this._centerX - this._credSize/2, game.height * 5 / 8 - this._credSize / 2,
+  //   new Icon(game, 0,0,
+  //   'memory-bank-icon-mask', null, 'memory-bank-icon', this._credSize));
+  // game.slickUI.add(this.credIcon);
+
+  // this.credIcon.add(
+  //   this.credText = new SlickUI.Element.DisplayObject(0, 0,
+  //     game.make.text(0, 0, ''+this._game.cred, textstyles['credibility']))
+  // );
+  // this.credText.displayObject.setTextBounds(0, 0, this._credSize, this.credIcon.displayObject.height);
+
   }
   this.positionArguments(game, false);
 
@@ -130,12 +143,23 @@ BattleUi.prototype.update = function () {
 
 BattleUi.prototype.getArgIcon = function (argument) {
   for (var i = 0; i < this.enemyDeckIcons.length; i++) {
-    var argIcon = this.enemyDeckIcons[i];
-    if (argument.assetName === argIcon.id) {
-      return {'index': i, 'icon': argIcon};
+    var argIconWithIdx = this.enemyDeckIcons[i];
+    if (argument.assetName === argIconWithIdx['id']) {
+      return {'index': i, 'id': argIconWithIdx['id'], 'icon': argIconWithIdx['icon']};
     }
   }
   return {'index': -1, 'icon': null};
+};
+
+BattleUi.prototype.revealArgIcon = function (id, argIcon) {
+  var trash = argIcon;
+  var newIcon = this._game.add.existing(new Icon(this._game, 0,0,
+    id, 'memory-bank-icon-mask', 'memory-bank-icon', this._cardSize));
+  newIcon.x = argIcon.x;
+  newIcon.y = argIcon.y;
+  this._game.world.swap(argIcon, newIcon);  // swap display ordering
+  trash.destroy();
+  return newIcon;
 };
 
 BattleUi.prototype.getCardIcon = function (card) {
@@ -211,7 +235,7 @@ BattleUi.prototype.playCardAnimation = function (card, argument, isCorrect) {
   // find matching argument icon
   var targetedArg = undefined;
   for (var i = 0; i < this.enemyDeckIcons.length; i++) {
-    var argIcon = this.enemyDeckIcons[i];
+    var argIcon = this.enemyDeckIcons[i]['icon'];
     if (argument.assetName === argIcon.id) {
       targetedArg = argIcon;
       break;
@@ -252,11 +276,14 @@ BattleUi.prototype.updateArguments = function (args, currentArgIdx) {
     if (typeof args[idx] === 'undefined' || args[idx] === null)
       continue;
 
-    var argIcon = this.getArgIcon(args[idx]);
+    var argIconWithId = this.getArgIcon(args[idx]);
     // not found
-    if (argIcon['index'] === -1)
+    if (argIconWithId['index'] === -1)
       continue;
-    newEnemyDeckIcons.push(argIcon['icon']);
+    newEnemyDeckIcons.push({
+      'id': argIconWithId['id'], 
+      'icon': argIconWithId['icon']
+    });
   }
 
   this.enemyDeckIcons = newEnemyDeckIcons;
@@ -268,7 +295,7 @@ BattleUi.prototype.positionArguments = function (game, isTweening = true) {
 
   if (!isTweening) {
     for (var i = 0; i < nArgs; i++) {
-      argIcon = this.enemyDeckIcons[i];
+      argIcon = this.enemyDeckIcons[i]['icon'];
       argIcon.x = this._centerX + Math.sin(i / nArgs * 2*Math.PI) * this._argumentRadius - this._cardSize / 2;
       argIcon.y = this._enemyOriginY + Math.cos(i / nArgs * 2*Math.PI) * this._argumentRadius - this._cardSize / 2;
     }
@@ -284,7 +311,7 @@ BattleUi.prototype.positionArguments = function (game, isTweening = true) {
         this._enemyOriginY + Math.cos(j / nArgs * 2*Math.PI) * this._argumentRadius - this._cardSize / 2));
   }
   for (j = 0; j < nArgs; j++) {
-    argIcon = this.enemyDeckIcons[j];
+    argIcon = this.enemyDeckIcons[j]['icon'];
     if (typeof argIcon === 'undefined' || argIcon === null)
       continue;
     tweens.push(game.add.tween(argIcon).to(
@@ -295,6 +322,8 @@ BattleUi.prototype.positionArguments = function (game, isTweening = true) {
     // Notify completion of argument rotation
     if (j === 0) {
       tweens[j].onComplete.add(function () {
+        var deckIconWithId = this.enemyDeckIcons[0];
+        deckIconWithId['icon'] = this.revealArgIcon(deckIconWithId['id'], deckIconWithId['icon']);
         this.argAnimCompleteSignal.dispatch(this._game);
       }, this);
     }
@@ -365,7 +394,6 @@ BattleUi.prototype.updateCredBar = function (value, isDamage) {
 };
 
 BattleUi.prototype.updatePersuasionBar = function () {
-  console.log(this._game.persuasion);
   this.persuadeBar.setPercent(this._game.persuasion * 25);
 };
 
