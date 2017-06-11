@@ -300,14 +300,7 @@
             "id": "lose",
             "name": "lose",
             "speaker": "Gleaming Shoal",
-            "text": "Enough. I've made my decision. Station Zero cannot accommodate an unknown alien who claims to have no memories. I won't grant you passage.",
-            "counters": [],
-            "responses": [
-                {
-                    "target": 8,
-                    "text": "END"
-                }
-            ]
+            "text": "Enough. I've made my decision. Station Zero cannot accommodate an unknown alien who claims to have no memories. I won't grant you passage."
         },
         "1": {
             "actions": {
@@ -316,9 +309,7 @@
             "id": "gameover",
             "name": "gameover",
             "speaker": "Gleaming Shoal",
-            "text": "Placeholder",
-            "counters": [],
-            "responses": []
+            "text": "Placeholder"
         }
     }, 
     "win": {
@@ -326,14 +317,7 @@
             "id": "win",
             "name": "win",
             "speaker": "Gleaming Shoal",
-            "text": "You've made your case, alien. Perhaps this is against my better judgment, but I'll allow you passage onto the station. Watch your step - one wrong move, and I'll be there.",
-            "counters": [],
-            "responses": [
-                {
-                    "target": 9,
-                    "text": "END"
-                }
-            ]
+            "text": "You've made your case, alien. Perhaps this is against my better judgment, but I'll allow you passage onto the station. Watch your step - one wrong move, and I'll be there."
         },
         "1": {
             "actions": {
@@ -342,9 +326,7 @@
             "id": "credits",
             "name": "credits",
             "speaker": "Gleaming Shoal",
-            "text": "Placeholder",
-            "counters": [],
-            "responses": []
+            "text": "Placeholder"
         }
     },
     "onEnd": "loadMainGameState"

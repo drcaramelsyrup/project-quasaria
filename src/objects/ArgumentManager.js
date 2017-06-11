@@ -42,6 +42,7 @@ ArgumentManager.prototype.getResponses = function () {
   if (this.currentParams.length > 0) {
     return [{ 'target': this.nestedIdx+1, 'text': '[Next]', 'params': this.currentParams }];
   }
+
   return [];
 };
 
@@ -86,18 +87,6 @@ ArgumentManager.prototype.endConversation = function() {
 
 ArgumentManager.prototype.getAvatar = function () {
   return 'invisible';
-};
-
-ArgumentManager.prototype.takeActions = function () {
-  var argument = this.getArgument();
-  if (argument === null)
-    return '';
-
-  if ('actions' in argument) {
-    for (var action in argument['actions']) {
-      ConversationManager.prototype.takeAction.call(this, this._game, action, argument['actions'][action]);
-    }
-  }
 };
 
 ArgumentManager.prototype.getCurrentText = function () {
@@ -201,9 +190,13 @@ ArgumentManager.prototype.setArgumentById = function (id) {
 };
 
 ArgumentManager.prototype.takeActions = function() {
-  if ('actions' in this.conversation[this.idx]) {
-    for (var action in this.conversation[this.idx]['actions']) {
-      ConversationManager.prototype.takeAction.call(this, this._game, action, this.conversation[this.idx]['actions'][action]);
+  var argument = this.getArgument();
+  if (argument === null)
+    return '';
+
+  if ('actions' in argument) {
+    for (var action in argument['actions']) {
+      ConversationManager.prototype.takeAction.call(this, this._game, action, argument['actions'][action]);
     }
   }
 };
