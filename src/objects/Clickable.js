@@ -31,6 +31,7 @@ function Clickable(game, x, y, id, height, width) {
 }
 
 function click() {
+  this._game.sound.play('inventory-add');
   this.destroy();
   this._game.add.existing(new Toast(this._game, 'You\'ve acquired ' + this.name + '!', 5));
   this._game.player.inventory.push(this.id);

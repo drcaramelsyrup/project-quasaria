@@ -294,5 +294,58 @@
                 "text": "There's nothing that irritates me more than the single-minded will of this dracon. If you can't somehow address or get him to move on from this argument, he will simply keep harping on it forever."
             }
         }
-    }
+    },
+    "lose": {
+        "0": {
+            "id": "lose",
+            "name": "lose",
+            "speaker": "Gleaming Shoal",
+            "text": "Enough. I've made my decision. Station Zero cannot accommodate an unknown alien who claims to have no memories. I won't grant you passage.",
+            "counters": [],
+            "responses": [
+                {
+                    "target": 8,
+                    "text": "END"
+                }
+            ]
+        },
+        "1": {
+            "actions": {
+                "custom": "gameoverYou were forbidden to enter the station..."
+            },
+            "id": "gameover",
+            "name": "gameover",
+            "speaker": "Gleaming Shoal",
+            "text": "Placeholder",
+            "counters": [],
+            "responses": []
+        }
+    }, 
+    "win": {
+        "0": {
+            "id": "win",
+            "name": "win",
+            "speaker": "Gleaming Shoal",
+            "text": "You've made your case, alien. Perhaps this is against my better judgment, but I'll allow you passage onto the station. Watch your step - one wrong move, and I'll be there.",
+            "counters": [],
+            "responses": [
+                {
+                    "target": 9,
+                    "text": "END"
+                }
+            ]
+        },
+        "1": {
+            "actions": {
+                "custom": "credits"
+            },
+            "id": "credits",
+            "name": "credits",
+            "speaker": "Gleaming Shoal",
+            "text": "Placeholder",
+            "counters": [],
+            "responses": []
+        }
+    },
+    "onEnd": "loadMainGameState"
 }
