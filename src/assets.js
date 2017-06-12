@@ -136,6 +136,14 @@ exports.ui = [{
   key: 'memory-bank-icon-fill',
   type: 'image',
   url: 'ui/memory-bank-icon-fill.png'
+}, {
+  key: 'companion-icon',
+  type: 'image',
+  url: 'ui/companion-icon.png'
+}, {
+  key: 'enemy-arg-icon',
+  type: 'image',
+  url: 'ui/enemy-arg-icon.png'
 }];
 
 // -- Conversation jsons and avatars.

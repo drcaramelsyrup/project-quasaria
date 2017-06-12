@@ -71,7 +71,7 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
   for (var i = 0; i < enemyDeck.length; i++) {
 
     var argIcon = game.add.existing(new Icon(game, 0,0,
-      'question-mark', 'memory-bank-icon-mask', 'memory-bank-icon', this._cardSize));
+      'question-mark', 'memory-bank-icon-mask', 'enemy-arg-icon', this._cardSize));
     argIcon.borderSprite.tint = 0xff00ff;
 
     this.enemyDeckIcons.push({'id': enemyDeck[i].assetName, 'icon': argIcon});
@@ -80,7 +80,7 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
   this.positionArguments(game, false);
 
   /* Current argument position marker */
-  var currentArgMarker = game.add.sprite(0, 0, 'memory-bank-icon');
+  var currentArgMarker = game.add.sprite(0, 0, 'enemy-arg-icon');
   currentArgMarker.scale.setTo(this._cardSize * 1.2 / currentArgMarker.width);
   currentArgMarker.anchor.setTo(0.5, 0.5);
 
@@ -129,7 +129,7 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
     var companionName = npcs[game.companions[i]]['name'];
     var companionAvatar = npcs[game.companions[i]]['avatar'];
     var companionIcon = game.add.existing(new Icon(game, 0,0,
-      companionAvatar, 'memory-bank-icon-mask', 'memory-bank-icon', this._cardSize));
+      companionAvatar, 'memory-bank-icon-mask', 'companion-icon', this._cardSize));
     companionIcon.borderSprite.tint = 0x00ffff;
     companionIcon.x = game.width * 1/5 + i*(this._cardSize);
     companionIcon.y = this.credIcon.y - this._cardSize / 2;
@@ -173,7 +173,7 @@ BattleUi.prototype.revealCurrent = function () {
 BattleUi.prototype.revealArgIcon = function (id, argIcon) {
   var trash = argIcon;
   var newIcon = this._game.add.existing(new Icon(this._game, 0,0,
-    id, 'memory-bank-icon-mask', 'memory-bank-icon', this._cardSize));
+    id, 'memory-bank-icon-mask', 'enemy-arg-icon', this._cardSize));
   newIcon.x = argIcon.x;
   newIcon.y = argIcon.y;
   this._game.world.swap(argIcon, newIcon);  // swap display ordering
