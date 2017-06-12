@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <title>Quasaria</title>
+    <meta name="description" content="visual novel negotiation adventure">
+    <style>
+      html { box-sizing: border-box; }
+      html, body { background: #000; overflow: hidden; -ms-touch-action: none; touch-action: none; }
+      * { margin: 0; padding: 0; }
+      *, *:before, *:after { box-sizing: inherit; }
+    </style>
+
+    <!-- From http://souzou.com.au/google-font-integration-with-phaser/ -->
+    <!-- For Google WebFonts -->
+    <script type="text/javascript">
+      WebFontConfig = {
+        google: { families: [ 'Open Sans', 'Goudy Bookletter 1911', 'Exo', 'Cinzel Decorative', "Megrim" ] }
+      };
+      (function() {
+        var wf = document.createElement('script');
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+        '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+      })();
+    </script>
+  </head>
+
+  <body>
+    <script src="phaser.min.js"></script>
+    <!-- NOTE: Add third-party library scripts here. -->
+    <script src="libraries/slick-ui.min.js"></script>
+    <script src="game.min.js"></script>
+    <script>window.app.init()</script>
+  </body>
+
+</html>
