@@ -28,7 +28,7 @@ function ArgumentManager(game, customActions/*, ...args*/) {
   /* PRIVATE */
   // TODO: remove companions from here!
   this.specialArgumentTypes = ['ability', 'intro', 'custom', 
-    'lose', 'win', 'gameover', 'credits', 'Mysterious Voice', 'Kismet'];
+    'lose', 'win', 'gameover', 'credits'];
 
 }
 ArgumentManager.prototype = Object.create(ConversationManager.prototype);

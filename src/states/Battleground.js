@@ -40,7 +40,7 @@ exports.create = function (game) {
   game.currentArgument = 0;
   game.playerTurn = true;
   game.cred = 4;
-  game.persuasion = 5;
+  game.persuasion = 2;
   game.turnCount = 0;
 
   // adding in player cards and face
