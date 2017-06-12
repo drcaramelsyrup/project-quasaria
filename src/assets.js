@@ -309,4 +309,20 @@ exports.logic_battle = [{
   key: 'battle01',
   type: 'json',
   url: 'battle/battle01.json'
+}, {
+  key: 'question-mark',
+  type: 'image',
+  url: 'ui/question-mark-button.png'
+}, {
+  key: 'sponsor',
+  type: 'image',
+  url: 'battle/sponsor.png'
+}, {
+  key: 'currency',
+  type: 'image',
+  url: 'battle/currency.png'
+}, {
+  key: 'emp',
+  type: 'image',
+  url: 'battle/emp.png'
 }];

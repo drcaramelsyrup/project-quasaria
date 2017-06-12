@@ -66,21 +66,12 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
 
   /** Enemy deck display */
   for (var i = 0; i < enemyDeck.length; i++) {
+
     var argIcon = game.add.existing(new Icon(game, 0,0,
-      enemyDeck[i].assetName, 'memory-bank-icon-mask', 'memory-bank-icon', this._cardSize));
+      'question-mark', 'memory-bank-icon-mask', 'memory-bank-icon', this._cardSize));
+    argIcon.borderSprite.tint = 0xff00ff;
+
     this.enemyDeckIcons.push({'id': enemyDeck[i].assetName, 'icon': argIcon});
-
-  //     this.credIcon = new SlickUI.Element.DisplayObject(
-  //   this._centerX - this._credSize/2, game.height * 5 / 8 - this._credSize / 2,
-  //   new Icon(game, 0,0,
-  //   'memory-bank-icon-mask', null, 'memory-bank-icon', this._credSize));
-  // game.slickUI.add(this.credIcon);
-
-  // this.credIcon.add(
-  //   this.credText = new SlickUI.Element.DisplayObject(0, 0,
-  //     game.make.text(0, 0, ''+this._game.cred, textstyles['credibility']))
-  // );
-  // this.credText.displayObject.setTextBounds(0, 0, this._credSize, this.credIcon.displayObject.height);
 
   }
   this.positionArguments(game, false);
@@ -151,6 +142,12 @@ BattleUi.prototype.getArgIcon = function (argument) {
   return {'index': -1, 'icon': null};
 };
 
+BattleUi.prototype.revealCurrent = function () {
+  var currentIconWithId = this.enemyDeckIcons[0];
+  currentIconWithId['icon'] = this.revealArgIcon(
+    currentIconWithId['id'], currentIconWithId['icon']);
+};
+
 BattleUi.prototype.revealArgIcon = function (id, argIcon) {
   var trash = argIcon;
   var newIcon = this._game.add.existing(new Icon(this._game, 0,0,
@@ -158,6 +155,7 @@ BattleUi.prototype.revealArgIcon = function (id, argIcon) {
   newIcon.x = argIcon.x;
   newIcon.y = argIcon.y;
   this._game.world.swap(argIcon, newIcon);  // swap display ordering
+  newIcon.borderSprite.tint = 0xff00ff;
   trash.destroy();
   return newIcon;
 };
@@ -235,9 +233,9 @@ BattleUi.prototype.playCardAnimation = function (card, argument, isCorrect) {
   // find matching argument icon
   var targetedArg = undefined;
   for (var i = 0; i < this.enemyDeckIcons.length; i++) {
-    var argIcon = this.enemyDeckIcons[i]['icon'];
-    if (argument.assetName === argIcon.id) {
-      targetedArg = argIcon;
+    var argIconId = this.enemyDeckIcons[i]['id'];
+    if (argument.assetName === argIconId) {
+      targetedArg = this.enemyDeckIcons[i]['icon'];
       break;
     }
   }
@@ -278,8 +276,13 @@ BattleUi.prototype.updateArguments = function (args, currentArgIdx) {
 
     var argIconWithId = this.getArgIcon(args[idx]);
     // not found
-    if (argIconWithId['index'] === -1)
-      continue;
+    if (argIconWithId['index'] === -1) {
+      // add a new argument icon
+      argIconWithId['id'] = args[idx]['id'];
+      argIconWithId['icon'] = this._game.add.existing(new Icon(this._game, 0,0,
+        'question-mark', 'memory-bank-icon-mask', 'memory-bank-icon', this._cardSize));
+      argIconWithId['icon'].borderSprite.tint = 0xff00ff;
+    }
     newEnemyDeckIcons.push({
       'id': argIconWithId['id'], 
       'icon': argIconWithId['icon']
@@ -322,13 +325,17 @@ BattleUi.prototype.positionArguments = function (game, isTweening = true) {
     // Notify completion of argument rotation
     if (j === 0) {
       tweens[j].onComplete.add(function () {
-        var deckIconWithId = this.enemyDeckIcons[0];
-        deckIconWithId['icon'] = this.revealArgIcon(deckIconWithId['id'], deckIconWithId['icon']);
+        this.revealCurrent();
         this.argAnimCompleteSignal.dispatch(this._game);
       }, this);
     }
     tweens[j].start();
   }
+};
+
+BattleUi.prototype.battleStart = function () {
+  this.cardsInputEnabled(true);
+  this.revealCurrent();
 };
 
 BattleUi.prototype.introTweens = function () {

@@ -38,7 +38,8 @@ exports.create = function (game) {
   game.currentArgument = 0;
   game.playerTurn = true;
   game.cred = 4;
-  game.persuasion = 2;
+  game.persuasion = 5;
+  game.turnCount = 0;
 
   // adding in player cards and face
   game.playerDeck = [];
@@ -48,16 +49,16 @@ exports.create = function (game) {
 
   // adding opponent face and opponent cards --to do: fetch these from main game state
   game.opponentDeck = [];
-  var args = game.argumentManager.getAllArguments();
-  for (i = 0; i < args.length; i++) {
+  game.args = game.argumentManager.getAllArguments();
+  for (i = 0; i < game.args.length; i++) {
     // TODO: support for multiple counters
-    if ('bluff' in args[i] && args[i]['bluff'] === true) {
+    if ('bluff' in game.args[i] && game.args[i]['bluff'] === true) {
       // do not include bluffs
       continue;
     }
-    if (args[i]['counters'].length <= 0)
+    if (game.args[i]['counters'].length <= 0)
       continue;
-    game.opponentDeck.push(new Argument(game, 0,0, args[i]['id'], args[i]['counters'][0], i));
+    game.opponentDeck.push(new Argument(game, 0,0, game.args[i]['id'], game.args[i]['counters'][0], i));
   }
 
   game.battleUi = new BattleUi(game, game.playerDeck, game.opponentDeck);
@@ -82,7 +83,7 @@ function startLogicBattle(game) {
     // Display overlay and intro text
     var introTween = game.battleUi.introTweens();
     introTween.onComplete.add(function () {
-      game.battleUi.cardsInputEnabled(true);
+      game.battleUi.battleStart();  // enable cards and reveal current arg
    
       // Start music
       game.music = game.sound.play('off-limits');
@@ -92,6 +93,8 @@ function startLogicBattle(game) {
 
     game.argumentManager.introCompleteSignal.removeAll();
   });
+
+  game.turnCount = 1;
 }
 
 function cardAction(game, card) {
@@ -128,8 +131,42 @@ function argumentInterlude(game, isCorrect) {
   game.battleUi.cardAnimCompleteSignal.removeAll();
 }
 
+function gleamingShoalBluff(game) {
+  // special bluff. no shuffle. hard-coded.
+  var lastArgument = game.opponentDeck.pop();
+  for (var i = 0; i < game.args.length; i++) {
+    if ('bluff' in game.args[i] && game.args[i]['bluff'] === true) {
+      // TODO: use Mersenne-Twister for more randomness
+      var randPosition = Math.random();
+      var newBluff = new Argument(game, 0,0, game.args[i]['id'], game.args[i]['counters'][0], i);
+      if (randPosition > 0.5) {
+        game.opponentDeck.unshift(newBluff);
+      } else {
+        game.opponentDeck.push(newBluff);
+      }
+    }
+  }
+  // add last argument to the end.
+  game.opponentDeck.push(lastArgument);
+}
+
+function specialActions(game) {
+  if (game.turnCount === 2) {
+    // on the second turn, bluff
+    gleamingShoalBluff(game);
+    game.battleUi.updateArguments(game.opponentDeck, game.currentArgument);
+    return true;
+  }
+  // randomly entrench or shuffle
+  if (game.turnCount > 2) {
+    // do nothing for now.
+    return false;
+  }
+}
+
 function opponentTurn(game) {
-  console.log(game.currentArgument);
+  game.turnCount++;
+
   if (game.opponentDeck[game.currentArgument] === undefined) {
     game.persuasion -= 1;
     game.battleUi.updatePersuasionBar();    
@@ -141,6 +178,7 @@ function opponentTurn(game) {
     game.persuasion -= 1;
     game.battleUi.updatePersuasionBar();
   }
+
   updateCurrentArgument(game);
   game.battleUi.updateArguments(game.opponentDeck, game.currentArgument);
   game.battleUi.positionArguments(game, true);
