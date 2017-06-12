@@ -40,7 +40,7 @@ module.exports = function (gulp, $, config) {
       .bundle()
       .pipe(getNamedBuffer('game.min.js')())
       .pipe($.sourcemaps.init({loadMaps: true}))
-      .pipe($.uglify())
+      //.pipe($.uglify())
       .pipe($.sourcemaps.write('.'))
       .pipe(gulp.dest(dirs.dist)));
 
