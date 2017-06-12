@@ -346,7 +346,6 @@ BattleUi.prototype.updateCredBar = function (value, isDamage) {
 };
 
 BattleUi.prototype.updatePersuasionBar = function () {
-  console.log(this._game.persuasion);
   this.persuadeBar.setPercent(this._game.persuasion * 25);
 };
 

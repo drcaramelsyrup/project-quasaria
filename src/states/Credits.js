@@ -8,7 +8,7 @@
 
 'use strict';
 
-exports.init = function(game) {
+exports.init = function() {
   this.description = 'Congratulations! You\'ve reached the end of our playable demo. \
   We hope you enjoyed the first chapter of Quasaria as much as we enjoyed making it!';
   this.credits = 'Developed by:\nAlexandros Christodoulou-Rubalcava\nHana Lee\nAmber Thomas\nEdward Wang';

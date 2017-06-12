@@ -100,7 +100,6 @@ function argumentInterlude(game, isCorrect) {
 }
 
 function opponentTurn(game) {
-  console.log(game.currentArgument);
   if (game.opponentDeck[game.currentArgument] === undefined) {
     game.persuasion -= 1;
     game.battleUi.updatePersuasionBar();    

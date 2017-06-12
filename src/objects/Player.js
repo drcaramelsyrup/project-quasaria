@@ -45,7 +45,6 @@ Player.prototype.serialize = function(game){
   //player whenever a new file is started.
   //or we could store that also in the Dialogue manager??
   obj['convoFile'] = game.dialogueWindow.convoFile;
-  console.log('saved object', obj);
   return JSON.stringify(obj);
 };
 

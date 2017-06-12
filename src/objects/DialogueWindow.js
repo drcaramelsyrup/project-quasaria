@@ -144,8 +144,8 @@ DialogueWindow.prototype.cleanWindow = function () {
   }
 
   // remove all buttons
-  for (var i = 0; i < this.buttons.length; i++) {
-    var button = this.buttons[i];
+  for (var j = 0; j < this.buttons.length; j++) {
+    var button = this.buttons[j];
     button.container.displayGroup.removeAll(true);
     button.container.displayGroup.destroy();
     button.container.children = [];
@@ -366,7 +366,7 @@ DialogueWindow.prototype.displayCurrentLine = function () {
   //  Reset the word index to zero (the first word in the line)
   this._cIndex = 0;
   // TODO: make this a selectable option
-  var charDelay = 3;
+  //var charDelay = 3;
 
   // Add an option to skip the text on clicking down.
   this.dialogPanel.displayObject.inputEnabled = true;
