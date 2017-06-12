@@ -67,8 +67,6 @@ exports.create = function (game) {
   convoManager.idx = game.player.convoIdx;
   convoManager.shown = game.player.shownConvo;
 
-  console.log('game state player ', game.player);
-
   // dialogue window object
   game.dialogueWindow = new DialogueWindow(game, convoManager);
   // memory bank window object

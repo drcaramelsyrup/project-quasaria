@@ -190,11 +190,8 @@ AreaTransitionWindow.prototype.cleanWindow = function () {
 };
 
 AreaTransitionWindow.prototype.displayAreas = function () {
-  console.log('room.name ', this._game.room.name);
   this.areasToShow = Object.keys(areas).filter(function(area) {
-    console.log('areas: ', area);
     let seen = this._game.player.seenAreas.includes(area);
-    console.log('seen ', seen);
     //this filter will add rooms seen in the past that should be avaliable in the window
     return areas[area]['navigable'] == true && this._game.room.name != area && seen;
   }, this);
@@ -207,7 +204,6 @@ AreaTransitionWindow.prototype.displayAreas = function () {
     if (!this.areasToShow.includes(area)){
       this.areasToShow.push(area);
     }
-    console.log('areas to show', this.areasToShow);
   }
 
   var itemEnd = this._itemStart + this._rowCapacity < this.areasToShow.length

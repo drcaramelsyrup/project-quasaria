@@ -89,7 +89,6 @@ Room.prototype.clearItems = function() {
 
 Room.prototype.loadArea = function(area) {
   this.area = areas[area];
-  console.log('in load area');
 
   //below should track areas seen so that when area transition is pressed
   //it will update with what the specific player has access to.
@@ -97,7 +96,6 @@ Room.prototype.loadArea = function(area) {
     this._game.player.seenAreas.push(area);
   }
   this.name = area;
-  console.log('load area area :)', this);
   this._game.camera.fade('#000000', 2000);
   this._game.camera.onFadeComplete.addOnce(function() {
     this.clearItems();

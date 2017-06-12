@@ -160,7 +160,6 @@ ConversationManager.prototype.takeAction = function(game, action, value) {
     }
   } else if (action.startsWith('inv')) {
     var item = action.substring(3);
-    console.log(item);
     if (value.startsWith('!')) {
       if (!(item in game.player.inventory)) {
         var index = game.player.inventory.indexOf(item);
@@ -171,7 +170,6 @@ ConversationManager.prototype.takeAction = function(game, action, value) {
     } else {
       game.player.inventory.push(item); //add item to player inventory
     }
-    console.log(game.player.inventory);
   } else if (action === 'custom') {
     this.customActions.customAction(value);
   }

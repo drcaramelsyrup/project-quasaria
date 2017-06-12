@@ -150,8 +150,8 @@ DialogueWindow.prototype.cleanWindow = function () {
   }
 
   // remove all buttons
-  for (i = 0; i < this.buttons.length; i++) {
-    var button = this.buttons[i];
+  for (var j = 0; j < this.buttons.length; j++) {
+    var button = this.buttons[j];
     button.container.displayGroup.removeAll(true);
     button.container.displayGroup.destroy();
     button.container.children = [];

@@ -72,7 +72,6 @@ exports.create = function (game) {
   }, this);
 
   newGameText.events.onInputDown.add(function () {
-    console.log('you loaded game.');
     let resumeGame = false;
     game.state.start('Game', true, false, game, resumeGame);
   }, this);
