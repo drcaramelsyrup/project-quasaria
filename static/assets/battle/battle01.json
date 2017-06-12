@@ -54,13 +54,13 @@
                 "text": "For all I know, that could have thousands of lethal microbes on it. No thanks."
             }
         },
-        "kismet": {
+        "Kismet": {
             "0": {
                 "speaker": "Kismet",
                 "text": "You did make sure you weren't contagious... right?"
             }
         },
-        "mysterious": {
+        "Mysterious Voice": {
             "0": {
                 "speaker": "Mysterious Voice",
                 "text": "Surely you had the sense to get the clearance needed? It should be on your datapad, no?"
@@ -97,16 +97,16 @@
                 "text": "You really aren't."
             }
         },
-        "kismet": {
+        "Kismet": {
             "0": {
                 "speaker": "Kismet",
                 "text": "Well, I certainly thought you were insane as well."
             }
         },
-        "mysterious": {
+        "Mysterious Voice": {
             "0": {
                 "speaker": "Mysterious Voice",
-                "text": "Surely you had the sense to get the clearance needed? It should be on your datapad, no??"
+                "text": "Surely you had the sense to get the clearance needed? It should be on your datapad, no?"
             }
         },
         "counters": ["psychologistApproval"]
@@ -136,13 +136,13 @@
                 "text": "You think that's going to change my mind? Think again. Otherwise stop wasting my time."
             }
         },
-        "kismet": {
+        "Kismet": {
             "0": {
                 "speaker": "Kismet",
                 "text": "... he's mad! It is true he can impose jus ca'val xeno-quaesar, which categorizes you as an object rather than a sentient species, but this is unprecedented. The fact that he's using this antiquated law means he's desperate. You may be forced to convince him by other means."
             }
         },
-        "mysterious": {
+        "Mysterious Voice": {
             "0": {
                 "speaker": "Mysterious Voice",
                 "text": "It's been a long time since I was on this station. Perhaps that Kismet woman knows more."
@@ -176,13 +176,13 @@
                 "text": "It seems your species, whatever it may be, is incapable of handling reason."
             }
         },
-        "kismet": {
+        "Kismet": {
             "0": {
                 "speaker": "Kismet",
                 "text": "To be honest, I have... never heard of this regulation before. If I remember correctly, similar legislation was repealed by the Council almost two septuagenium ago."
             }
         },
-        "mysterious": {
+        "Mysterious Voice": {
             "0": {
                 "speaker": "Mysterious Voice",
                 "text": "It's been a long time since I was on this station. Perhaps that Kismet woman knows more."
@@ -217,13 +217,17 @@
                 "text": "That hardly looks relevant in my view."
             }
         },
-        "kismet": {
-            "speaker": "Kismet",
-            "text": "I think he speaks of the attack two days ago. I had the same thought as well, but your shuttle did not appear to store any active pulse-carrying devices the last time I searched it."
+        "Kismet": {
+            "0": {
+                "speaker": "Kismet",
+                "text": "I think he speaks of the attack two days ago. I had the same thought as well, but your shuttle did not appear to store any active pulse-carrying devices the last time I searched it."
+            }
         },
-        "mysterious": {
-            "speaker": "Mysterious Voice",
-            "text": "It's been a long time since I was on this station. Perhaps that Kismet woman knows more."
+        "Mysterious Voice": {
+            "0": {
+                "speaker": "Mysterious Voice",
+                "text": "It's been a long time since I was on this station. Perhaps that Kismet woman knows more."
+            }
         },
         "counters": ["call-bluff"]
     },
@@ -253,13 +257,17 @@
                 "text": "... does that bear any relation at all to the present topic?"
             }
         },
-        "kismet": {
-            "speaker": "Kismet",
-            "text": "Ah, the Council does think highly of such things. Do you have any material, digital, or ethereal credit? Anything that might be fairly valuable?"
+        "Kismet": {
+            "0": {
+                "speaker": "Kismet",
+                "text": "Ah, the Council does think highly of such things. Do you have any material, digital, or ethereal credit? Anything that might be fairly valuable?"
+            }
         },
-        "mysterious": {
-            "speaker": "Mysterious Voice",
-            "text": "I wouldn't hand anything over if I were you. I can hear the unease in his voice."
+        "Mysterious Voice": {
+            "0": {
+                "speaker": "Mysterious Voice",
+                "text": "I wouldn't hand anything over if I were you. I can hear the unease in his voice."
+            }
         },
         "counters": ["call-bluff"]
     },
@@ -270,6 +278,10 @@
                 "name": "Bluff",
                 "speaker": "Gleaming Shoal",
                 "text": "Clearance is a long and arduous process, alien! Don't think you can simply bypass the regulations of the ISS!"
+            },
+            "1": {
+                "speaker": "Mysterious Voice",
+                "text": "He's resorted to bluffing, has he? Watch out for suspicious statements, and call his bluff when you think he's lying."
             }
         },
         "obstinate": {
@@ -278,18 +290,8 @@
                 "name": "Obstinate Will",
                 "speaker": "Gleaming Shoal",
                 "text": "I refuse to budge on this point. This is a crucial matter, and I will not shirk my duties."
-            }
-        }
-    },
-    "custom": {
-        "bluff": {
-            "0": {
-                "speaker": "Mysterious Voice",
-                "text": "He's resorted to bluffing, has he? Watch out for suspicious statements, and call his bluff when you think he's lying."
-            }
-        },
-        "obstinate": {
-            "0": {
+            },
+            "1": {
                 "speaker": "Kismet",
                 "text": "There's nothing that irritates me more than the single-minded will of this dracon. If you can't somehow address or get him to move on from this argument, he will simply keep harping on it forever."
             }

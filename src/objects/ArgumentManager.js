@@ -22,12 +22,13 @@ function ArgumentManager(game, customActions/*, ...args*/) {
   this.currentParams = [];
 
   /* Signals */
-  this.introCompleteSignal = new Phaser.Signal();
+  this.specialCompleteSignal = new Phaser.Signal();
   this.interludeCompleteSignal = new Phaser.Signal();
 
   /* PRIVATE */
+  // TODO: remove companions from here!
   this.specialArgumentTypes = ['ability', 'intro', 'custom', 
-    'lose', 'win', 'gameover', 'credits'];
+    'lose', 'win', 'gameover', 'credits', 'Mysterious Voice', 'Kismet'];
 
 }
 ArgumentManager.prototype = Object.create(ConversationManager.prototype);
@@ -60,7 +61,7 @@ ArgumentManager.prototype.advanceToTarget = function (targetIdx, params = []) {
 
       // end of this conversation, go back to whatever we were doing
       this.currentParams = [];
-      this.introCompleteSignal.dispatch();
+      this.specialCompleteSignal.dispatch();
       return true;
 
     } else if (params.length >= 2 && params[0] === 'interlude') {
@@ -129,10 +130,9 @@ ArgumentManager.prototype.getArgument = function () {
   return this.conversation[this.idx];
 };
 
-ArgumentManager.prototype.startInterlude = function (isCorrect) {
+ArgumentManager.prototype.startInterlude = function (type) {
   this.nestedIdx = 0;
-  var textType = isCorrect ? 'correct' : 'incorrect';
-  this.currentParams = ['interlude', textType];
+  this.currentParams = ['interlude', type];
 };
 
 ArgumentManager.prototype.endArgInterlude = function () {

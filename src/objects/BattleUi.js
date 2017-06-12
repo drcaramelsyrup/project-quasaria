@@ -13,6 +13,7 @@ var HealthBar = require('./HealthBar.js');
 var Icon = require('./Icon');
 var items = require('../../static/assets/items.json');
 var textstyles = require('../../static/assets/textstyles.json');
+var npcs = require('../../static/assets/npcs.json');
 
 function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
   Phaser.Group.call(this, game/*, ...args*/);
@@ -26,11 +27,13 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
 
   /** Signals */
   this.cardSignal = new Phaser.Signal();
+  this.companionSignal = new Phaser.Signal();
   this.cardAnimCompleteSignal = new Phaser.Signal();
   this.argAnimCompleteSignal = new Phaser.Signal();
 
   this.playerDeckIcons = [];
   this.enemyDeckIcons = [];
+  this.companionIcons = [];
 
   /** Private properties */
   this._game = game;
@@ -121,7 +124,26 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
       this._centerX + this._argumentRadius, this._enemyOriginY - this._argumentRadius);
   }
 
-  /** Persuasion meter */
+  /** Companion display */
+  for (i = 0; i < game.companions.length; i++) {
+    var companionName = npcs[game.companions[i]]['name'];
+    var companionAvatar = npcs[game.companions[i]]['avatar'];
+    var companionIcon = game.add.existing(new Icon(game, 0,0,
+      companionAvatar, 'memory-bank-icon-mask', 'memory-bank-icon', this._cardSize));
+    companionIcon.borderSprite.tint = 0x00ffff;
+    companionIcon.x = game.width * 1/5 + i*(this._cardSize);
+    companionIcon.y = this.credIcon.y - this._cardSize / 2;
+
+    var companionSignal = this.companionSignal;
+    companionIcon.events.onInputDown.add(function () {
+      companionSignal.dispatch(this.game, this.companionName);
+    }, {game: game, companionName: companionName});
+
+    companionIcon.inputEnabled = true;
+    playerCardIcon.input.useHandCursor = true;
+
+    this.companionIcons.push(companionIcon);
+  }
 
 }
 
@@ -407,6 +429,9 @@ BattleUi.prototype.updatePersuasionBar = function () {
 BattleUi.prototype.cardsInputEnabled = function (isEnabled) {
   for (var i = 0; i < this.playerDeckIcons.length; i++) {
     this.playerDeckIcons[i].inputEnabled = isEnabled;
+  }
+  for (i = 0; i < this.companionIcons.length; i++) {
+    this.companionIcons[i].inputEnabled = isEnabled;
   }
 };
 

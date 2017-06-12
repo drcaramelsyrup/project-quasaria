@@ -54,7 +54,6 @@ ConversationManager.prototype.getResponses = function () {
   if (!this.conversation === null) {
     return [''];
   }
-  console.log(this);
   var responses = this.conversation[this.idx]['responses'];
   var ret = [];
   for (var i = 0; i < responses.length; i++) {

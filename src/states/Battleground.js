@@ -25,6 +25,8 @@ exports.create = function (game) {
     game.room = (new Room(game, 'hangar'));
     // END DUMMY DATA
   }
+  // Companions
+  game.companions = ['Mysterious Voice', 'Kismet'];  // DUMMY DATA
 
   // Music
   if (typeof game.music !== 'undefined' && game.music !== null)
@@ -63,6 +65,7 @@ exports.create = function (game) {
 
   game.battleUi = new BattleUi(game, game.playerDeck, game.opponentDeck);
   game.battleUi.cardSignal.add(cardAction, this);
+  game.battleUi.companionSignal.add(companionText, this);
 
   game.dialogueWindow = new DialogueWindow(game, game.argumentManager);
   startLogicBattle(game);
@@ -78,7 +81,7 @@ function startLogicBattle(game) {
 
   // Disable and then reenable input
   game.battleUi.cardsInputEnabled(false);
-  game.argumentManager.introCompleteSignal.add(function () {
+  game.argumentManager.specialCompleteSignal.add(function () {
     /* Fun intro display stuff */
     // Display overlay and intro text
     var introTween = game.battleUi.introTweens();
@@ -91,7 +94,7 @@ function startLogicBattle(game) {
       game.music.loopFull(1);
     });
 
-    game.argumentManager.introCompleteSignal.removeAll();
+    game.argumentManager.specialCompleteSignal.removeAll();
   });
 
   game.turnCount = 1;
@@ -119,12 +122,30 @@ function cardAction(game, card) {
 
     }
 
-    game.battleUi.cardAnimCompleteSignal.add(argumentInterlude, this, game, isCorrect);
+    var textType = isCorrect ? 'correct' : 'incorrect';
+
+    game.battleUi.cardAnimCompleteSignal.add(argumentInterlude, this, game, textType);
   }
 }
 
-function argumentInterlude(game, isCorrect) {
-  game.argumentManager.startInterlude(isCorrect);
+function companionText(game, speaker) {
+  if (game.playerTurn) {
+    game.dialogueWindow.skipText();
+    game.battleUi.cardsInputEnabled(false);
+
+    game.argumentManager.startInterlude(speaker);
+    game.dialogueWindow.display();
+
+    game.argumentManager.interludeCompleteSignal.add(function () {
+      game.battleUi.cardsInputEnabled(true);
+      game.dialogueWindow.display();
+      game.argumentManager.interludeCompleteSignal.removeAll();
+    });
+  }
+}
+
+function argumentInterlude(game, type) {
+  game.argumentManager.startInterlude(type);
   game.dialogueWindow.display();
   game.argumentManager.interludeCompleteSignal.add(opponentTurn, this, 0, game);
 
