@@ -8,7 +8,6 @@
 'use strict';
 
 var ConversationManager = require('./ConversationManager');
-var npcs = require('../../static/assets/npcs.json');
 
 module.exports = ArgumentManager;
 
@@ -53,8 +52,17 @@ ArgumentManager.prototype.advanceToTarget = function (targetIdx, params = []) {
   if (params.length > 0) {
     if (this.specialArgumentTypes.includes(params[0])) {
       var customType = params[0];
+      var custom = this.conversation[customType];
 
-      if (targetIdx in this.conversation[customType]) {
+      if (params.length >= 2) {
+        // Traverse through parameters
+        for (var i = 1; i < params.length; i++) {
+          if (params[i] in custom)
+            custom = custom[params[i]];
+        }
+      }
+
+      if (targetIdx in custom) {
         this.nestedIdx = targetIdx;
         return true;
       }
@@ -62,7 +70,7 @@ ArgumentManager.prototype.advanceToTarget = function (targetIdx, params = []) {
       // end of this conversation, go back to whatever we were doing
       this.currentParams = [];
       this.specialCompleteSignal.dispatch();
-      return true;
+      return false; // do NOT refresh display on end of special argument; DialogueWindow waits for a display call
 
     } else if (params.length >= 2 && params[0] === 'interlude') {
       var interludeType = params[1];
@@ -119,8 +127,22 @@ ArgumentManager.prototype.getArgument = function () {
     var params = this.currentParams;
     if (this.specialArgumentTypes.includes(params[0])) {
       // special argument
-      // TODO: add support for multiple params
-      return this.conversation[params[0]][this.nestedIdx];
+      // support for multiple params
+      var customType = params[0];
+      var custom = this.conversation[customType];
+
+      if (params.length >= 2) {
+        // Traverse through parameters
+        for (var i = 1; i < params.length; i++) {
+          var param = params[i];
+          if (param in custom) {
+            custom = custom[param];
+          }
+        }
+      }
+
+      return custom[this.nestedIdx];
+
     } else if (params.length >= 2 && params[0] === 'interlude') {
       // interlude
       return this.conversation[this.idx][params[1]][this.nestedIdx];

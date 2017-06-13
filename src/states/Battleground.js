@@ -1,6 +1,7 @@
 'use strict';
 
 var Card = require('../objects/Card');
+var Tactic = require('../objects/Tactic');
 var Argument = require('../objects/Argument');
 var items = require('../../static/assets/items.json');
 var Player = require('../objects/Player');
@@ -40,7 +41,7 @@ exports.create = function (game) {
   game.currentArgument = 0;
   game.playerTurn = true;
   game.cred = 4;
-  game.persuasion = 2;
+  game.persuasion = 5;
   game.turnCount = 0;
 
   // adding in player cards and face
@@ -87,6 +88,7 @@ function startLogicBattle(game) {
     var introTween = game.battleUi.introTweens();
     introTween.onComplete.add(function () {
       game.battleUi.battleStart();  // enable cards and reveal current arg
+      game.dialogueWindow.display();
    
       // Start music
       game.music = game.sound.play('off-limits');
@@ -116,7 +118,10 @@ function cardAction(game, card) {
       game.battleUi.playCardAnimation(card, argument, true);
       game.opponentDeck[game.currentArgument] = undefined;
       argument.destroy();
-      card.destroy();
+      if (!card.multiUse) {
+        card.destroy();
+      }
+        
     } else {
       game.battleUi.playCardAnimation(card, argument, false);
 
@@ -147,13 +152,19 @@ function companionText(game, speaker) {
 function argumentInterlude(game, type) {
   game.argumentManager.startInterlude(type);
   game.dialogueWindow.display();
-  game.argumentManager.interludeCompleteSignal.add(opponentTurn, this, 0, game);
+  game.argumentManager.interludeCompleteSignal.add(function () {
+    opponentTurn(game);
+    game.argumentManager.interludeCompleteSignal.removeAll();
+  });
 
   game.battleUi.cardAnimCompleteSignal.removeAll();
 }
 
 function gleamingShoalBluff(game) {
-  // special bluff. no shuffle. hard-coded.
+  game.argumentManager.startSpecialArgument('ability', 'bluff');
+  game.dialogueWindow.display();
+
+  // special bluff. hard-coded.
   var lastArgument = game.opponentDeck.pop();
   for (var i = 0; i < game.args.length; i++) {
     if ('bluff' in game.args[i] && game.args[i]['bluff'] === true) {
@@ -171,14 +182,42 @@ function gleamingShoalBluff(game) {
   game.opponentDeck.push(lastArgument);
 }
 
+function giveCallBluffTactic(game) {
+  // Give player a special Call Bluff tactic.
+  var callBluff = new Tactic(game, 0, 0, 'call-bluff', true /* multiUse */);
+  game.playerDeck.push(callBluff);
+  game.battleUi.makeCardIcon(callBluff);
+}
+
+/** TODO: HARDCODED SPECIAL ACTIONS = AWFUL */
+function checkSpecialActions(game) {
+  return game.turnCount === 2;
+}
 function specialActions(game) {
   if (game.turnCount === 2) {
     // on the second turn, bluff
-    gleamingShoalBluff(game);
-    game.battleUi.updateArguments(game.opponentDeck, game.currentArgument);
+    gleamingShoalBluff(game); // adds arguments into model
+    // when we finish the ability text...
+    game.argumentManager.specialCompleteSignal.add(function () {
+      // shuffle
+      var rouletteTween = game.battleUi.rouletteArguments();
+      rouletteTween.onComplete.add(function () {
+        // add arguments into ui view
+        updateCurrentArgument(game);
+        game.battleUi.updateArguments(game.opponentDeck, game.currentArgument);
+        game.battleUi.positionArguments(game);
+        game.battleUi.argAnimCompleteSignal.add(function () {
+          finishOpponentTurn(game);
+          giveCallBluffTactic(game);
+          game.battleUi.argAnimCompleteSignal.removeAll();
+        });
+      }, this);
+      game.argumentManager.specialCompleteSignal.removeAll();
+    });
+    
     return true;
   }
-  // randomly entrench or shuffle
+  // TODO: randomly entrench or shuffle
   if (game.turnCount > 2) {
     // do nothing for now.
     return false;
@@ -205,17 +244,28 @@ function opponentTurn(game) {
   game.battleUi.positionArguments(game, true);
   // Display arguments on animation completion
   game.battleUi.argAnimCompleteSignal.add(function () {
-    updateArgumentWindow(game);
-    game.battleUi.cardsInputEnabled(true);
-    game.playerTurn = true;
+    var hasSpecialAction = checkSpecialActions(game);
+    if (hasSpecialAction) {
+      game.battleUi.argAnimCompleteSignal.removeAll();
+      specialActions(game);
+      return;
+    }
+    finishOpponentTurn(game);
     game.battleUi.argAnimCompleteSignal.removeAll();
   }, this);
 
-  game.argumentManager.interludeCompleteSignal.removeAll();
 }
 
-function useOpponentAbility(game) {
-  
+function finishOpponentTurn(game) {
+  // upon finishing argument positioning
+  // reveal current argument
+  game.battleUi.revealCurrent();
+
+  // reenable player input and start player turn
+  updateArgumentWindow(game);
+  game.battleUi.positionCards();
+  game.battleUi.cardsInputEnabled(true);
+  game.playerTurn = true;
 }
 
 // For ArgumentManager

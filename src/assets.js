@@ -333,4 +333,8 @@ exports.logic_battle = [{
   key: 'emp',
   type: 'image',
   url: 'battle/emp.png'
+}, {
+  key: 'call-bluff',
+  type: 'image',
+  url: 'battle/call-bluff.png'
 }];
