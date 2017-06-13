@@ -13,6 +13,7 @@ var HealthBar = require('./HealthBar.js');
 var Icon = require('./Icon');
 var items = require('../../static/assets/items.json');
 var textstyles = require('../../static/assets/textstyles.json');
+var npcs = require('../../static/assets/npcs.json');
 
 function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
   Phaser.Group.call(this, game/*, ...args*/);
@@ -26,11 +27,13 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
 
   /** Signals */
   this.cardSignal = new Phaser.Signal();
+  this.companionSignal = new Phaser.Signal();
   this.cardAnimCompleteSignal = new Phaser.Signal();
   this.argAnimCompleteSignal = new Phaser.Signal();
 
   this.playerDeckIcons = [];
   this.enemyDeckIcons = [];
+  this.companionIcons = [];
 
   /** Private properties */
   this._game = game;
@@ -49,11 +52,12 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
   this._background.width = game.width;
   this._background.height = game.height;
   this._background.alpha = 0.85;
-  this._background.tint = 0x33343a;
 
   this._overlay = game.add.sprite(0,0,'battle-overlay');
   this._overlay.width = game.width;
   this._overlay.height = game.height;
+  // hide overlay initially
+  this._overlay.alpha = 0;
 
   /** Enemy display */
   var enemyBarConfig = {x: this._centerX, y: 50, height:20, width:150, flipped:true};
@@ -65,14 +69,18 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
 
   /** Enemy deck display */
   for (var i = 0; i < enemyDeck.length; i++) {
+
     var argIcon = game.add.existing(new Icon(game, 0,0,
-      enemyDeck[i].assetName, 'memory-bank-icon-mask', 'memory-bank-icon', this._cardSize));
-    this.enemyDeckIcons.push(argIcon);
+      'question-mark', 'memory-bank-icon-mask', 'enemy-arg-icon', this._cardSize));
+    argIcon.borderSprite.tint = 0xff00ff;
+
+    this.enemyDeckIcons.push({'id': enemyDeck[i].assetName, 'icon': argIcon});
+
   }
   this.positionArguments(game, false);
 
   /* Current argument position marker */
-  var currentArgMarker = game.add.sprite(0, 0, 'memory-bank-icon');
+  var currentArgMarker = game.add.sprite(0, 0, 'enemy-arg-icon');
   currentArgMarker.scale.setTo(this._cardSize * 1.2 / currentArgMarker.width);
   currentArgMarker.anchor.setTo(0.5, 0.5);
 
@@ -116,7 +124,26 @@ function BattleUi(game, playerDeck, enemyDeck/*, ...args*/) {
       this._centerX + this._argumentRadius, this._enemyOriginY - this._argumentRadius);
   }
 
-  /** Persuasion meter */
+  /** Companion display */
+  for (i = 0; i < game.companions.length; i++) {
+    var companionName = npcs[game.companions[i]]['name'];
+    var companionAvatar = npcs[game.companions[i]]['avatar'];
+    var companionIcon = game.add.existing(new Icon(game, 0,0,
+      companionAvatar, 'memory-bank-icon-mask', 'companion-icon', this._cardSize));
+    companionIcon.borderSprite.tint = 0x00ffff;
+    companionIcon.x = game.width * 1/5 + i*(this._cardSize);
+    companionIcon.y = this.credIcon.y - this._cardSize / 2;
+
+    var companionSignal = this.companionSignal;
+    companionIcon.events.onInputDown.add(function () {
+      companionSignal.dispatch(this.game, this.companionName);
+    }, {game: game, companionName: companionName});
+
+    companionIcon.inputEnabled = true;
+    playerCardIcon.input.useHandCursor = true;
+
+    this.companionIcons.push(companionIcon);
+  }
 
 }
 
@@ -129,12 +156,30 @@ BattleUi.prototype.update = function () {
 
 BattleUi.prototype.getArgIcon = function (argument) {
   for (var i = 0; i < this.enemyDeckIcons.length; i++) {
-    var argIcon = this.enemyDeckIcons[i];
-    if (argument.assetName === argIcon.id) {
-      return {'index': i, 'icon': argIcon};
+    var argIconWithIdx = this.enemyDeckIcons[i];
+    if (argument.assetName === argIconWithIdx['id']) {
+      return {'index': i, 'id': argIconWithIdx['id'], 'icon': argIconWithIdx['icon']};
     }
   }
   return {'index': -1, 'icon': null};
+};
+
+BattleUi.prototype.revealCurrent = function () {
+  var currentIconWithId = this.enemyDeckIcons[0];
+  currentIconWithId['icon'] = this.revealArgIcon(
+    currentIconWithId['id'], currentIconWithId['icon']);
+};
+
+BattleUi.prototype.revealArgIcon = function (id, argIcon) {
+  var trash = argIcon;
+  var newIcon = this._game.add.existing(new Icon(this._game, 0,0,
+    id, 'memory-bank-icon-mask', 'enemy-arg-icon', this._cardSize));
+  newIcon.x = argIcon.x;
+  newIcon.y = argIcon.y;
+  this._game.world.swap(argIcon, newIcon);  // swap display ordering
+  newIcon.borderSprite.tint = 0xff00ff;
+  trash.destroy();
+  return newIcon;
 };
 
 BattleUi.prototype.getCardIcon = function (card) {
@@ -210,9 +255,9 @@ BattleUi.prototype.playCardAnimation = function (card, argument, isCorrect) {
   // find matching argument icon
   var targetedArg = undefined;
   for (var i = 0; i < this.enemyDeckIcons.length; i++) {
-    var argIcon = this.enemyDeckIcons[i];
-    if (argument.assetName === argIcon.id) {
-      targetedArg = argIcon;
+    var argIconId = this.enemyDeckIcons[i]['id'];
+    if (argument.assetName === argIconId) {
+      targetedArg = this.enemyDeckIcons[i]['icon'];
       break;
     }
   }
@@ -251,11 +296,19 @@ BattleUi.prototype.updateArguments = function (args, currentArgIdx) {
     if (typeof args[idx] === 'undefined' || args[idx] === null)
       continue;
 
-    var argIcon = this.getArgIcon(args[idx]);
+    var argIconWithId = this.getArgIcon(args[idx]);
     // not found
-    if (argIcon['index'] === -1)
-      continue;
-    newEnemyDeckIcons.push(argIcon['icon']);
+    if (argIconWithId['index'] === -1) {
+      // add a new argument icon
+      argIconWithId['id'] = args[idx]['id'];
+      argIconWithId['icon'] = this._game.add.existing(new Icon(this._game, 0,0,
+        'question-mark', 'memory-bank-icon-mask', 'memory-bank-icon', this._cardSize));
+      argIconWithId['icon'].borderSprite.tint = 0xff00ff;
+    }
+    newEnemyDeckIcons.push({
+      'id': argIconWithId['id'], 
+      'icon': argIconWithId['icon']
+    });
   }
 
   this.enemyDeckIcons = newEnemyDeckIcons;
@@ -267,7 +320,7 @@ BattleUi.prototype.positionArguments = function (game, isTweening = true) {
 
   if (!isTweening) {
     for (var i = 0; i < nArgs; i++) {
-      argIcon = this.enemyDeckIcons[i];
+      argIcon = this.enemyDeckIcons[i]['icon'];
       argIcon.x = this._centerX + Math.sin(i / nArgs * 2*Math.PI) * this._argumentRadius - this._cardSize / 2;
       argIcon.y = this._enemyOriginY + Math.cos(i / nArgs * 2*Math.PI) * this._argumentRadius - this._cardSize / 2;
     }
@@ -283,7 +336,7 @@ BattleUi.prototype.positionArguments = function (game, isTweening = true) {
         this._enemyOriginY + Math.cos(j / nArgs * 2*Math.PI) * this._argumentRadius - this._cardSize / 2));
   }
   for (j = 0; j < nArgs; j++) {
-    argIcon = this.enemyDeckIcons[j];
+    argIcon = this.enemyDeckIcons[j]['icon'];
     if (typeof argIcon === 'undefined' || argIcon === null)
       continue;
     tweens.push(game.add.tween(argIcon).to(
@@ -294,11 +347,35 @@ BattleUi.prototype.positionArguments = function (game, isTweening = true) {
     // Notify completion of argument rotation
     if (j === 0) {
       tweens[j].onComplete.add(function () {
+        this.revealCurrent();
         this.argAnimCompleteSignal.dispatch(this._game);
       }, this);
     }
     tweens[j].start();
   }
+};
+
+BattleUi.prototype.battleStart = function () {
+  this.cardsInputEnabled(true);
+  this.revealCurrent();
+};
+
+BattleUi.prototype.introTweens = function () {
+  var tweenTime = 500;
+  this.tweenInOverlay(tweenTime);
+  return this.tweenInBackgroundTint(tweenTime);
+};
+
+BattleUi.prototype.tweenInOverlay = function (tweenTime) {
+  var tween = this._game.add.tween(this._overlay);
+  tween.to( {alpha: 1}, tweenTime, Phaser.Easing.Exponential.In, true, 0);
+  return tween;
+};
+
+BattleUi.prototype.tweenInBackgroundTint = function (tweenTime) {
+  var tween = this._game.add.tween(this._background);
+  tween.to( {tint: 0x33343a}, tweenTime, Phaser.Easing.Exponential.In, true, 0);
+  return tween;
 };
 
 BattleUi.prototype.flickerOverlay = function () {
@@ -352,6 +429,9 @@ BattleUi.prototype.updatePersuasionBar = function () {
 BattleUi.prototype.cardsInputEnabled = function (isEnabled) {
   for (var i = 0; i < this.playerDeckIcons.length; i++) {
     this.playerDeckIcons[i].inputEnabled = isEnabled;
+  }
+  for (i = 0; i < this.companionIcons.length; i++) {
+    this.companionIcons[i].inputEnabled = isEnabled;
   }
 };
 

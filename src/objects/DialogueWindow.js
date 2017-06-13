@@ -111,12 +111,18 @@ DialogueWindow.prototype.constructor = DialogueWindow;
 
 DialogueWindow.prototype.begin = function(jsonKey) {
   if (jsonKey) {
-    this.convoFile = jsonKey;
-    this.convoManager.loadJSONConversation(jsonKey);
+    this.loadJSONConversation(jsonKey);
     this.show();
     this.display();
   } else {
     this.hide();
+  }
+};
+
+DialogueWindow.prototype.loadJSONConversation = function (jsonKey) {
+  if (jsonKey) {
+    this.convoFile = jsonKey;
+    this.convoManager.loadJSONConversation(jsonKey);
   }
 };
 
@@ -223,10 +229,17 @@ DialogueWindow.prototype.displayResponses = function () {
   this.buttonTweens = [];
 
   for (var i = 0; i < responses.length; i++) {
+    // pass along special parameters, if any
+    var params = [];
+    if ('params' in responses[i]) {
+      params = responses[i]['params'];
+    }
+
+    // keep track of buttons to be deleted
     var responseDelay = 250;
     var button = this.addChoiceButton(
       this._dialogTextOriginX, this.nextButtonY,
-      responses[i]['text'], responses[i]['target']);
+      responses[i]['text'], responses[i]['target'], params);
     button.alpha = 0;
     var tween = this._game.add.tween(button).to({alpha: 1}, responseDelay, Phaser.Easing.Linear.None, true, responseDelay * i);
     if (i === responses.length - 1) {
@@ -244,7 +257,7 @@ DialogueWindow.prototype.displayResponses = function () {
   this._buttonsY.push(this.nextButtonY);
 };
 
-DialogueWindow.prototype.addChoiceButton = function (x, y, responseTextField, responseTarget) {
+DialogueWindow.prototype.addChoiceButton = function (x, y, responseTextField, responseTarget, responseParams = []) {
   // display text
   var buttonSidePadding = 32;
   var buttonTextStyle = textstyles['choiceButton'];
@@ -275,10 +288,11 @@ DialogueWindow.prototype.addChoiceButton = function (x, y, responseTextField, re
 
   choiceButton.events.onInputUp.add(
     function () {
-      var shouldRefresh = this.dialogueWindow.convoManager.advanceToTarget(responseTarget);
+      var shouldRefresh = this.dialogueWindow.convoManager.advanceToTarget(
+        this.responseTarget, this.responseParams);
       if (shouldRefresh)
         this.dialogueWindow.display();
-    }, {dialogueWindow: this, responseTarget: responseTarget});
+    }, {dialogueWindow: this, responseTarget: responseTarget, responseParams: responseParams});
   // add mask
   choiceButton.sprite.mask = this._scrollMask;
   buttonText.displayObject.mask = this._scrollMask;
@@ -365,15 +379,15 @@ DialogueWindow.prototype.displayCurrentLine = function () {
 
   //  Reset the word index to zero (the first word in the line)
   this._cIndex = 0;
-  // TODO: make this a selectable option
-  //var charDelay = 3;
 
   // Add an option to skip the text on clicking down.
   this.dialogPanel.displayObject.inputEnabled = true;
   this.dialogPanel.events.onInputDown.add(this.skipText, this);
 
   var nextChar = function () {
+    // TODO: make this a selectable option
     var delay = 3;
+    
     this.dialogText.displayObject.text =
       this.dialogText.displayObject.text.concat(split[this._cIndex]);
     if (split[this._cIndex] === ',') {
