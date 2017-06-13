@@ -29,7 +29,7 @@ module.exports = function (gulp, $, config) {
   gulp.task('copyPhaser', () =>
     gulp.src([files.phaser])
       .pipe($.sourcemaps.init({loadMaps: true}))
-      .pipe($.uglify())
+      //.pipe($.uglify())
       .pipe($.rename('phaser.min.js'))
       .pipe($.sourcemaps.write('.'))
       .pipe(gulp.dest(dirs.dist)));
@@ -40,7 +40,7 @@ module.exports = function (gulp, $, config) {
       .bundle()
       .pipe(getNamedBuffer('game.min.js')())
       .pipe($.sourcemaps.init({loadMaps: true}))
-      .pipe($.uglify())
+      //.pipe($.uglify())
       .pipe($.sourcemaps.write('.'))
       .pipe(gulp.dest(dirs.dist)));
 
