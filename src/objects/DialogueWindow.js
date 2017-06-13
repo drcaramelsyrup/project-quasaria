@@ -245,7 +245,6 @@ DialogueWindow.prototype.addChoiceButton = function (x, y, responseTextField, re
   choiceButton.sprite.width = this._dialogTextWidth;
   choiceButton.sprite.height = responseText.height;
 
-
   // end of conversation. action deletes window
   if (responseTarget < 0) {
     choiceButton.events.onInputUp.add(
@@ -257,6 +256,7 @@ DialogueWindow.prototype.addChoiceButton = function (x, y, responseTextField, re
 
   choiceButton.events.onInputUp.add(
     function () {
+      this.dialogueWindow._game.sound.play('tap');
       var shouldRefresh = this.dialogueWindow.convoManager.advanceToTarget(responseTarget);
       if (shouldRefresh)
         this.dialogueWindow.display();

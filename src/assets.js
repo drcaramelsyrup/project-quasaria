@@ -265,7 +265,7 @@ exports.sounds = [{
 }, {
   key: 'tap',
   type: 'audio',
-  urls: ['soundfx/positive/glass-tap.wav']
+  urls: ['soundfx/glass-tap.wav']
 }];
 
 // --logic battle placeholder images
