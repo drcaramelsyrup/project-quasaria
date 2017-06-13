@@ -5,7 +5,7 @@
         "id": 0,
         "responses": [
             {
-                "target": 1,
+                "target": 3,
                 "text": "Yes, I'm ready."
             },
             {
@@ -46,5 +46,106 @@
         "showOnce": 0,
         "speaker": "Gleaming Shoal",
         "text": "Don't keep me waiting, alien."
+    },
+
+    "3": {
+        "actions": {},
+        "comments": [],
+        "id": 3,
+        "responses": [
+            {
+                "target": 4,
+                "text": "Kismet?"
+            },
+            {
+                "target": 4,
+                "text": "Oh boy. Both of you?"
+            }
+        ],
+        "showOnce": 0,
+        "speaker": "Kismet",
+        "text": "Greetings, alien. And sir."
+    },
+    "4": {
+        "actions": {},
+        "comments": [],
+        "id": 4,
+        "responses": [
+            {
+                "target": 5,
+                "text": "Why are you here, Kismet?"
+            },
+            {
+                "target": 5,
+                "text": "..."
+            }
+        ],
+        "showOnce": 0,
+        "speaker": "Gleaming Shoal",
+        "text": "Kismet. I thought you were with Garnetta."
+    },
+    "5": {
+        "actions": {},
+        "comments": [],
+        "id": 5,
+        "responses": [
+            {
+                "target": 7,
+                "text": "Oh. That's good."
+            },
+            {
+                "target": 6,
+                "text": "Going back your boss's back? That was a bold move."
+            }
+        ],
+        "showOnce": 0,
+        "speaker": "Kismet",
+        "text": "Garnetta was busy running your errands, if I recall. This is far more interesting than delivering gifts to senior Security. Don't mind me, I'm just here to observe. Observe protocol being followed. I just contacted station Immigration to let them know that we have a new alien on our docking sector."
+    },
+    "6": {
+        "actions": {},
+        "comments": [],
+        "id": 6,
+        "responses": [
+            {
+                "target": 7,
+                "text": "I see..."
+            },
+            {
+                "target": 7,
+                "text": "Finally, someone with common courtesy!"
+            }
+        ],
+        "showOnce": 0,
+        "speaker": "Kismet",
+        "text": "I suspect he won't be my boss much longer, quite frankly. I have to say, I don't think we've followed first contact protocol to the letter here."
+    },
+    "7": {
+        "actions": {},
+        "comments": [],
+        "id": 7,
+        "responses": [
+            {
+                "target": 8,
+                "text": "..."
+            }
+        ],
+        "showOnce": 0,
+        "speaker": "Gleaming Shoal",
+        "text": "You lack faith in my authority? You dare to undermine your superior? There are a hundred legitimate reasons why this alien cannot be allowed on board the station."
+    },
+    "8": {
+        "actions": {},
+        "comments": [],
+        "id": 8,
+        "responses": [
+            {
+                "target": 1,
+                "text": "Here we go."
+            }
+        ],
+        "showOnce": 0,
+        "speaker": "Kismet",
+        "text": "Then prove it."
     }
 }

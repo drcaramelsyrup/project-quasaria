@@ -136,6 +136,14 @@ exports.ui = [{
   key: 'memory-bank-icon-fill',
   type: 'image',
   url: 'ui/memory-bank-icon-fill.png'
+}, {
+  key: 'companion-icon',
+  type: 'image',
+  url: 'ui/companion-icon.png'
+}, {
+  key: 'enemy-arg-icon',
+  type: 'image',
+  url: 'ui/enemy-arg-icon.png'
 }];
 
 // -- Conversation jsons and avatars.
@@ -321,4 +329,24 @@ exports.logic_battle = [{
   key: 'battle01',
   type: 'json',
   url: 'battle/battle01.json'
+}, {
+  key: 'question-mark',
+  type: 'image',
+  url: 'ui/question-mark-button.png'
+}, {
+  key: 'sponsor',
+  type: 'image',
+  url: 'battle/sponsor.png'
+}, {
+  key: 'currency',
+  type: 'image',
+  url: 'battle/currency.png'
+}, {
+  key: 'emp',
+  type: 'image',
+  url: 'battle/emp.png'
+}, {
+  key: 'call-bluff',
+  type: 'image',
+  url: 'battle/call-bluff.png'
 }];

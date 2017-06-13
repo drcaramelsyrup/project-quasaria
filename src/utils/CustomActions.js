@@ -30,10 +30,17 @@ CustomActions.prototype.customAction = function(action) {
     this.moveToArea(action.substring('moveToArea:'.length));
   } else if (action === 'startBattle') {
     this.loadBattle();  
+  } else if (action === 'loadMainGameState') {
+    this._game.state.start('Game', true, false, this._game, false, true);
   } else if (action.startsWith('gameover')) {
     this._game.state.start('GameOver', true, false, this._game, action.substring('gameover'.length));
+  } else if (action === 'credits') {
+    this._game.state.start('Credits', true, false, this._game);
   }
 };
+
+
+
 
 CustomActions.prototype.loadBattle = function() {
   this._game.dialogueWindow.hide();
