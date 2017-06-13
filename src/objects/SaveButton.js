@@ -10,7 +10,7 @@
 var Toast = require('./Toast');
 
 function SaveButton(game) {
-  Phaser.Sprite.call(this, game, 20, 20, 'saveButton');
+  Phaser.Sprite.call(this, game, 25, 20, 'saveButton');
   this.height = 30;
   this.width = 50;
 
@@ -36,11 +36,12 @@ function click() {
 
 function mouseover() {
   this.alpha = 1;
-  this._game.add.existing(this.toast = new Toast(this._game, this.name, 5));
+  this._game.add.existing(this.toast = new Toast(this._game, this.name, 3));
 }
 
 function mouseout() {
   if (this.toast) {
+    this.alpha = 0.5;
     this.toast.toast.container.displayGroup.removeAll();
     this.toast.destroy();
   }

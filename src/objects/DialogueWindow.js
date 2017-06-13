@@ -77,7 +77,7 @@ function DialogueWindow(game, convoManager/*, ...args*/) {
   var bodyStyle = textstyles['dialogueBody'];
   bodyStyle.wordWrapWidth = this._dialogTextWidth;
   this.dialogPanel.add(
-    this.dialogText = new SlickUI.Element.DisplayObject(this._dialogTextOriginX, this._dialogTextOriginY, 
+    this.dialogText = new SlickUI.Element.DisplayObject(this._dialogTextOriginX, this._dialogTextOriginY,
       game.make.text(0, 0, 'placeholder text', bodyStyle)));
   this.dialogText.displayObject.lineSpacing = 0;
 
@@ -116,7 +116,7 @@ DialogueWindow.prototype.begin = function(jsonKey) {
   }
 };
 
-DialogueWindow.prototype.display = function (displaysInstant = false 
+DialogueWindow.prototype.display = function (displaysInstant = false
                               /* by default, not set to display text instantly */) {
   this.cleanWindow();
   if (this.convoFile) {
@@ -191,7 +191,7 @@ DialogueWindow.prototype.displayText = function (displaysInstant) {
 
   // character-by-character display
   this.displayCurrentLine();
-  
+
 };
 
 DialogueWindow.prototype.displayResponses = function () {
@@ -244,6 +244,7 @@ DialogueWindow.prototype.addChoiceButton = function (x, y, responseTextField, re
   choiceButton.add(buttonText);
   choiceButton.sprite.width = this._dialogTextWidth;
   choiceButton.sprite.height = responseText.height;
+
 
   // end of conversation. action deletes window
   if (responseTarget < 0) {

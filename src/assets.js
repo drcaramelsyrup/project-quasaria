@@ -254,6 +254,18 @@ exports.sounds = [{
   key: 'inventory-add',
   type: 'audio',
   urls: ['soundfx/SFX-ARCADIA_Error03.wav']
+}, {
+  key: 'marble-impact',
+  type: 'audio',
+  urls: ['soundfx/Rupture - Marble_Impacts_06.wav']
+}, {
+  key: 'success',
+  type: 'audio',
+  urls: ['soundfx/positive/success-1.wav']
+}, {
+  key: 'tap',
+  type: 'audio',
+  urls: ['soundfx/positive/glass-tap.wav']
 }];
 
 // --logic battle placeholder images
