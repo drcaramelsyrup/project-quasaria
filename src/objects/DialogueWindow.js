@@ -77,7 +77,7 @@ function DialogueWindow(game, convoManager/*, ...args*/) {
   var bodyStyle = textstyles['dialogueBody'];
   bodyStyle.wordWrapWidth = this._dialogTextWidth;
   this.dialogPanel.add(
-    this.dialogText = new SlickUI.Element.DisplayObject(this._dialogTextOriginX, this._dialogTextOriginY, 
+    this.dialogText = new SlickUI.Element.DisplayObject(this._dialogTextOriginX, this._dialogTextOriginY,
       game.make.text(0, 0, 'placeholder text', bodyStyle)));
   this.dialogText.displayObject.lineSpacing = 0;
 
@@ -126,7 +126,7 @@ DialogueWindow.prototype.loadJSONConversation = function (jsonKey) {
   }
 };
 
-DialogueWindow.prototype.display = function (displaysInstant = false 
+DialogueWindow.prototype.display = function (displaysInstant = false
                               /* by default, not set to display text instantly */) {
   this.cleanWindow();
   if (this.convoFile) {
@@ -208,7 +208,7 @@ DialogueWindow.prototype.displayText = function (displaysInstant) {
 
   // character-by-character display
   this.displayCurrentLine();
-  
+
 };
 
 DialogueWindow.prototype.displayResponses = function () {
@@ -288,6 +288,7 @@ DialogueWindow.prototype.addChoiceButton = function (x, y, responseTextField, re
 
   choiceButton.events.onInputUp.add(
     function () {
+      this.dialogueWindow._game.sound.play('tap');
       var shouldRefresh = this.dialogueWindow.convoManager.advanceToTarget(
         this.responseTarget, this.responseParams);
       if (shouldRefresh)

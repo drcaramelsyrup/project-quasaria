@@ -445,6 +445,7 @@ BattleUi.prototype.updateCredBar = function (value, isDamage) {
   // damage indication
   if (isDamage) {
     this.flickerOverlay();
+    this._game.sound.play('marble-impact');
   }
   this.credText.displayObject.text = value;
   var originalTint = this.credText.displayObject.tint;
@@ -458,6 +459,7 @@ BattleUi.prototype.updateCredBar = function (value, isDamage) {
 
 BattleUi.prototype.updatePersuasionBar = function () {
   this.persuadeBar.setPercent(this._game.persuasion * 25);
+  this._game.sound.play('success');
 };
 
 BattleUi.prototype.cardsInputEnabled = function (isEnabled) {
