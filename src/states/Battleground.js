@@ -30,8 +30,7 @@ exports.create = function (game) {
   game.companions = ['Mysterious Voice', 'Kismet'];  // DUMMY DATA
 
   // Music
-  if (typeof game.music !== 'undefined' && game.music !== null)
-    game.music.fadeOut(1000); // fade out previous music
+  
 
   game.argumentManager = new ArgumentManager(game);
   var customActions = new CustomActions(game);
@@ -91,6 +90,8 @@ function startLogicBattle(game) {
       game.dialogueWindow.display();
    
       // Start music
+      if (typeof game.music !== 'undefined' && game.music !== null)
+        game.music.fadeOut(1000); // fade out previous music
       game.music = game.sound.play('off-limits');
       game.music.fadeIn(1000);
       game.music.loopFull(1);

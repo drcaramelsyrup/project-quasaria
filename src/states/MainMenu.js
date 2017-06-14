@@ -11,6 +11,8 @@
 exports.create = function (game) {
 
   //might not be in quotes, its an issue below
+  if (typeof game.music !== 'undefined' && game.music !== null)
+    game.music.fadeOut(1000); // fade out previous music
   game.music = game.sound.play('menu-theme-terraform');
   game.music.loopFull(1);
 

@@ -37,7 +37,7 @@ exports.init = function(game, resumeGame, fromBattle){
   } else { //check if old model blinks
     localStorage.clear();
     game.player = (new Player(game));
-    game.player.variables['debug'] = 'true';    // comment this out to get rid of DEBUG - SKIP TO END conversation options
+    // game.player.variables['debug'] = 'true';    // comment this out to get rid of DEBUG - SKIP TO END conversation options
     game.player.convoFile = 'prologue01';
     game.room = (new Room(game, 'shuttle'));
 
