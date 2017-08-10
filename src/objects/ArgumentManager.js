@@ -8,23 +8,26 @@
 'use strict';
 
 var ConversationManager = require('./ConversationManager');
-var npcs = require('../../static/assets/npcs.json');
 
 module.exports = ArgumentManager;
 
-function ArgumentManager(game/*, ...args*/) {
+function ArgumentManager(game, customActions/*, ...args*/) {
   // TODO:
   //   1. Edit constructor parameters accordingly.
   //   2. Adjust object properties.
 
-  ConversationManager.call(this, game);
-  this.argIdx = 0;
-  this.wantsArgumentText = false;
-  this.wantsAbilityText = false;
-  this.wantsIntroText = false;
-  this.argTextType = 'incorrect';
+  ConversationManager.call(this, game, customActions);
+  this.nestedIdx = 0;
+  this.currentParams = [];
 
+  /* Signals */
+  this.specialCompleteSignal = new Phaser.Signal();
   this.interludeCompleteSignal = new Phaser.Signal();
+
+  /* PRIVATE */
+  // TODO: remove companions from here!
+  this.specialArgumentTypes = ['ability', 'intro', 'custom', 
+    'lose', 'win', 'gameover', 'credits'];
 
 }
 ArgumentManager.prototype = Object.create(ConversationManager.prototype);
@@ -36,43 +39,74 @@ ArgumentManager.prototype.update = function () {
 
 /** BEGIN OVERRIDE FUNCTIONS */
 ArgumentManager.prototype.getResponses = function () {
-  if (this.wantsArgumentText)
-    return [{ 'target': this.argIdx+1, 'text': 'Next' }];
+  if (this.currentParams.length > 0) {
+    return [{ 'target': this.nestedIdx+1, 'text': '[Next]', 'params': this.currentParams }];
+  }
+
   return [];
 };
 
-ArgumentManager.prototype.advanceToTarget = function (targetIdx) {
-  if (this.wantsArgumentText) {
-    if (targetIdx in this.conversation[this.idx][this.argTextType]) {
-      this.argIdx = targetIdx;
-      return true;
-    }
+ArgumentManager.prototype.advanceToTarget = function (targetIdx, params = []) {
+  // pass along current parameters
+  this.currentParams = params;
+  if (params.length > 0) {
+    if (this.specialArgumentTypes.includes(params[0])) {
+      var customType = params[0];
+      var custom = this.conversation[customType];
 
-    this.endArgInterlude();
-    return false; // do NOT refresh display on end of argument interlude
+      if (params.length >= 2) {
+        // Traverse through parameters
+        for (var i = 1; i < params.length; i++) {
+          if (params[i] in custom)
+            custom = custom[params[i]];
+        }
+      }
+
+      if (targetIdx in custom) {
+        this.nestedIdx = targetIdx;
+        return true;
+      }
+
+      // end of this conversation, go back to whatever we were doing
+      this.currentParams = [];
+      this.specialCompleteSignal.dispatch();
+      return false; // do NOT refresh display on end of special argument; DialogueWindow waits for a display call
+
+    } else if (params.length >= 2 && params[0] === 'interlude') {
+      var interludeType = params[1];
+      var argument = this.conversation[this.idx];
+
+      if (interludeType in argument && targetIdx in argument[interludeType]) {
+        this.nestedIdx = targetIdx;
+        return true;
+      }
+
+      this.endArgInterlude();
+      return false; // do NOT refresh display on end of argument interlude
+    }
   }
+
   this.idx = targetIdx;
   return true;
+};
+
+ArgumentManager.prototype.endConversation = function() {
+  this.customActions.customAction(this.conversation['onEnd']);  
 };
 
 ArgumentManager.prototype.getAvatar = function () {
   return 'invisible';
 };
 
-ArgumentManager.prototype.takeActions = function () {
-  /** stub */
-};
-
 ArgumentManager.prototype.getCurrentText = function () {
-  if (this.conversation === null) {
+  if (this.conversation === null)
     return '';
-  }
 
-  if (this.wantsArgumentText) {
-    return this.conversation[this.idx][this.argTextType][this.argIdx]['text'];
-  }
+  var arg = this.getArgument();
+  if (arg === null)
+    return '';
 
-  return this.conversation[this.idx]['text'];
+  return arg['text'];
 };
 
 ArgumentManager.prototype.getSpeaker = function () {
@@ -80,24 +114,59 @@ ArgumentManager.prototype.getSpeaker = function () {
     return '';
   }
 
-  if (this.wantsArgumentText) {
-    return this.conversation[this.idx][this.argTextType][this.argIdx]['speaker'];
-  }
+  var arg = this.getArgument();
+  if (arg === null)
+    return '';
 
-  return npcs[this.conversation[this.idx]['speaker']]['name']; 
+  return arg['speaker']; 
 };
 /** END OVERRIDE FUNCTIONS */
 
-ArgumentManager.prototype.startArgInterlude = function (textType) {
-  this.argIdx = 0;
-  this.wantsArgumentText = true;
-  this.argTextType = textType ? 'correct' : 'incorrect';
+ArgumentManager.prototype.getArgument = function () {
+  if (this.currentParams.length > 0) {
+    var params = this.currentParams;
+    if (this.specialArgumentTypes.includes(params[0])) {
+      // special argument
+      // support for multiple params
+      var customType = params[0];
+      var custom = this.conversation[customType];
+
+      if (params.length >= 2) {
+        // Traverse through parameters
+        for (var i = 1; i < params.length; i++) {
+          var param = params[i];
+          if (param in custom) {
+            custom = custom[param];
+          }
+        }
+      }
+
+      return custom[this.nestedIdx];
+
+    } else if (params.length >= 2 && params[0] === 'interlude') {
+      // interlude
+      return this.conversation[this.idx][params[1]][this.nestedIdx];
+    }
+  }
+
+  return this.conversation[this.idx];
+};
+
+ArgumentManager.prototype.startInterlude = function (type) {
+  this.nestedIdx = 0;
+  this.currentParams = ['interlude', type];
 };
 
 ArgumentManager.prototype.endArgInterlude = function () {
-  this.argIdx = 0;
-  this.wantsArgumentText = false;
+  this.nestedIdx = 0;
+  this.currentParams = [];
   this.interludeCompleteSignal.dispatch();
+};
+
+ArgumentManager.prototype.startSpecialArgument = function (/*... arguments*/) {
+  this.nestedIdx = 0;
+  for (var i = 0; i < arguments.length; i++)
+    this.currentParams.push(arguments[i]);
 };
 
 ArgumentManager.prototype.getCurrentCounters = function () {
@@ -138,6 +207,18 @@ ArgumentManager.prototype.setArgumentById = function (id) {
     if (this.conversation[i]['id'] === id) {
       this.idx = i;
       return;
+    }
+  }
+};
+
+ArgumentManager.prototype.takeActions = function() {
+  var argument = this.getArgument();
+  if (argument === null)
+    return '';
+
+  if ('actions' in argument) {
+    for (var action in argument['actions']) {
+      ConversationManager.prototype.takeAction.call(this, this._game, action, argument['actions'][action]);
     }
   }
 };

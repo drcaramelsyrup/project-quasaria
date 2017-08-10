@@ -136,6 +136,14 @@ exports.ui = [{
   key: 'memory-bank-icon-fill',
   type: 'image',
   url: 'ui/memory-bank-icon-fill.png'
+}, {
+  key: 'companion-icon',
+  type: 'image',
+  url: 'ui/companion-icon.png'
+}, {
+  key: 'enemy-arg-icon',
+  type: 'image',
+  url: 'ui/enemy-arg-icon.png'
 }];
 
 // -- Conversation jsons and avatars.
@@ -207,25 +215,65 @@ exports.sounds = [{
   type: 'audio',
   urls: ['music/Sunrise From Orbit (Demo).mp3']
 }, {
-  key: 'minor-arpeggio',
+  key: 'menu-theme-terraform',
   type: 'audio',
-  urls: ['music/Minor Arpeggio Thing (Demo).mp3']
+  urls: ['music/Terraforming-Begins_Looping.mp3']
 }, {
-  key: 'far-from-home',
+  key: 'off-limits',
   type: 'audio',
-  urls: ['music/Far From Home (Demo).mp3']
+  urls: ['music/Sector-Off-Limits_Looping.mp3']
 }, {
-  key: 'ukulele',
+  key: 'puzzle1',
   type: 'audio',
-  urls: ['music/Ukulele (Demo).mp3']
+  urls: ['music/Puzzle-Game_Looping.mp3']
 }, {
-  key: 'dramatic-battle-theme',
+  key: 'puzzle2',
   type: 'audio',
-  urls: ['music/neocrey - Last Cyber Dance.ogg']
+  urls: ['music/Puzzle-Game-2_Looping.mp3']
 }, {
-  key: 'battle-theme',
+  key: 'lostjungle',
   type: 'audio',
-  urls: ['music/Humble Match.ogg']
+  urls: ['music/Lost-Jungle_Looping.mp3']
+}, {
+  key: 'cold-moon',
+  type: 'audio',
+  urls: ['music/Cold-Moon.mp3']
+}, {
+  key: 'correct-card',
+  type: 'audio',
+  urls: ['soundfx/positive/glow_med_L_to_R_002.wav']
+}, {
+  key: 'wrong-card',
+  type: 'audio',
+  urls: ['soundfx/negative/SW011_Alarms_construction-kit-element_081.wav']
+}, {
+  key: 'save-notification',
+  type: 'audio',
+  urls: ['soundfx/SFX-ARCADIA_Notification01.wav']
+}, {
+  key: 'swish-close',
+  type: 'audio',
+  urls: ['soundfx/13th-whoosh-swing-sound.mp3']
+}, {
+  key: 'swish-open',
+  type: 'audio',
+  urls: ['soundfx/swoosh-metal-rod-swing-sound-made-with-bamboo-stick.mp3']
+}, {
+  key: 'inventory-add',
+  type: 'audio',
+  urls: ['soundfx/SFX-ARCADIA_Error03.wav']
+}, {
+  key: 'marble-impact',
+  type: 'audio',
+  urls: ['soundfx/Rupture - Marble_Impacts_06.wav']
+}, {
+  key: 'success',
+  type: 'audio',
+  urls: ['soundfx/positive/success-1.wav']
+}, {
+  key: 'tap',
+  type: 'audio',
+  urls: ['soundfx/glass-tap.wav']
 }];
 
 // --logic battle placeholder images
@@ -281,4 +329,24 @@ exports.logic_battle = [{
   key: 'battle01',
   type: 'json',
   url: 'battle/battle01.json'
+}, {
+  key: 'question-mark',
+  type: 'image',
+  url: 'ui/question-mark-button.png'
+}, {
+  key: 'sponsor',
+  type: 'image',
+  url: 'battle/sponsor.png'
+}, {
+  key: 'currency',
+  type: 'image',
+  url: 'battle/currency.png'
+}, {
+  key: 'emp',
+  type: 'image',
+  url: 'battle/emp.png'
+}, {
+  key: 'call-bluff',
+  type: 'image',
+  url: 'battle/call-bluff.png'
 }];

@@ -31,6 +31,7 @@ function Clickable(game, x, y, id, height, width) {
 }
 
 function click() {
+  this._game.sound.play('inventory-add');
   this.destroy();
   this._game.add.existing(new Toast(this._game, 'You\'ve acquired ' + this.name + '!', 5));
   this._game.player.inventory.push(this.id);
@@ -44,10 +45,7 @@ function click() {
   }
   if (remove_item > -1) {
     items.splice(remove_item, 1);
-  } else {
-    console.log('unexpected error, please check');
   }
-  console.log('Click log', this._game.room.area.items);
   this._game.dialogueWindow.display(true); // refresh dialogue display, display instantly
   this._game.memoryBankWindow.display();  // refresh memory bank display
 }

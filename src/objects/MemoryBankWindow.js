@@ -22,6 +22,7 @@ function memoryBankButtonToggle() {
 
   // hide panel
   if (this.panel.visible) {
+    this._game.sound.play('swish-close');
     this._game.add.tween(this.panel).to(
         {x: this._baseX + this.panelWidth + this._memoryPadding}, timeToTween, Phaser.Easing.Exponential.Out, true
       ).onComplete.add(
@@ -34,7 +35,7 @@ function memoryBankButtonToggle() {
   }
 
   // show panel
-  
+
   // if area transition window is open, close it
   if (this._game.areaTransitionWindow.panel.visible) {
     this._game.areaTransitionWindow.panel.visible = false;
@@ -43,6 +44,7 @@ function memoryBankButtonToggle() {
   this.display();
 
   this.panel.x = this._baseX + this.panelWidth + this._memoryPadding;
+  this._game.sound.play('swish-open');
   this._game.add.tween(this.panel).to(
       {x: this._baseX}, timeToTween, Phaser.Easing.Exponential.Out, true
     ).onComplete.add(function () { this._isTweening = false; }, this);
@@ -79,7 +81,7 @@ function MemoryBankWindow(game/*, ...args*/) {
   /**
    * Panel
    */
-  
+
   game.slickUI.add(
     this.panel = new SlickUI.Element.DisplayObject(
       this._baseX, this._baseY, game.make.sprite(0,0, 'memory-bank'),
@@ -113,7 +115,7 @@ function MemoryBankWindow(game/*, ...args*/) {
   this.panel.add(
     this.nameText = new SlickUI.Element.DisplayObject(
       this._memoryTextOriginX,
-      this._memoryTextOriginY, 
+      this._memoryTextOriginY,
       game.make.text(0,0, '', nameTextStyle), this._memoryTextWidth));
   // for alignment purposes
   var nameTextHeight = this.nameText.displayObject.getBounds().height;
@@ -123,7 +125,7 @@ function MemoryBankWindow(game/*, ...args*/) {
   this.panel.add(
     this.descText = new SlickUI.Element.DisplayObject(
       this._memoryTextOriginX,
-      this._memoryTextOriginY + nameTextHeight, 
+      this._memoryTextOriginY + nameTextHeight,
       game.make.text(0,0, '', descTextStyle), this._memoryTextWidth));
 
   /**
@@ -162,8 +164,8 @@ MemoryBankWindow.prototype.cleanWindow = function () {
 MemoryBankWindow.prototype.displayItems = function () {
   var inventory = this._game.player.inventory;
 
-  var itemEnd = this._itemStart + this._rowCapacity < inventory.length 
-    ? this._itemStart + this._rowCapacity 
+  var itemEnd = this._itemStart + this._rowCapacity < inventory.length
+    ? this._itemStart + this._rowCapacity
     : inventory.length;
 
   // Assumes InventoryItem objects in inventory.
@@ -219,7 +221,7 @@ MemoryBankWindow.prototype.showNavButtons = function () {
 
     var slickPrev;
     this.panel.add(slickPrev = new SlickUI.Element.DisplayObject(
-      this._prevOriginX, this._prevOriginY, 
+      this._prevOriginX, this._prevOriginY,
       prevButton));
     this._navButtons.push(slickPrev);
 

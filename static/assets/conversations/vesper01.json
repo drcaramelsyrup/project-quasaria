@@ -17,6 +17,9 @@
                 "text": "Leaving now."
             },
             {
+                "conditions": {
+                    "vardebug": "true"
+                },
                 "target": 38,
                 "text": "DEBUG - SKIP TO END"
             }

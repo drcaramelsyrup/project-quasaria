@@ -8,6 +8,7 @@ function Argument(game, x, y, assetName, match, jsonIdx) {
   this.input.useHandCursor = true;
   this.key = match;
   this.jsonIdx = jsonIdx;
+  this.shown = false;
 }
 
 Argument.prototype = Object.create(Phaser.Sprite.prototype);
