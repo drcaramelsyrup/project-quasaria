@@ -6,6 +6,7 @@ yarn.lock
 dist/
 build/
 node_modules/
+old-es-5/
 
 !.git*
 !.babelrc

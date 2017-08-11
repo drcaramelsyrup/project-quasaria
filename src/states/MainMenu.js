@@ -8,74 +8,88 @@
 
 'use strict';
 
-exports.create = function (game) {
+export default class MainMenu extends Phaser.State {
 
-  //might not be in quotes, its an issue below
-  if (typeof game.music !== 'undefined' && game.music !== null)
-    game.music.fadeOut(1000); // fade out previous music
-  game.music = game.sound.play('menu-theme-terraform');
-  game.music.loopFull(1);
+  create() {
+    /**
+     * MUSIC 
+     */
+    // if not abstract falsy (neither undefined nor null)
+    if (this.music != null)
+      this.music.fadeOut(1000); // fade out previous music
+    this.music = this.sound.play('menu-theme-terraform');
+    this.music.loopFull(1);
 
-  var screen = game.add.sprite(game.world.centerX, game.world.centerY, 'menu_screen');
-  screen.anchor.setTo(0.5, 0.5);
+    /**
+     * SCREEN
+     */
 
-  var logo = game.add.sprite(game.world.centerX, game.world.centerY - 30, 'quasaria-logo-MM');
-  logo.anchor.setTo(0.5, 0.5);
-  logo.alpha = .1;
+    let screen = this.add.sprite(this.world.centerX, this.world.centerY, 'menu_screen');
+    screen.anchor.setTo(0.5, 0.5);
 
-  let screenFont = 'Cinzel Decorative';
-  let fillColor = '#42dff4';
+    let logo = this.add.sprite(this.world.centerX, this.world.centerY - 30, 'quasaria-logo-MM');
+    logo.anchor.setTo(0.5, 0.5);
+    logo.alpha = .1;
 
-  var titleText = game.add.text(game.world.centerX, game.world.centerY- 75, 'Quasaria', {
-    font: '75px ' + screenFont,
-    fontWeight: 'bold',
-    fill: fillColor,
-    align: 'center'
-  });
+    /**
+     * TEXT
+     */
 
-  var contText = game.add.text(game.world.centerX, game.world.centerY, 'Continue', {
-    font: '50px ' + screenFont,
-    fill: fillColor,
-    align: 'center'
-  });
+    let screenFont = 'Cinzel Decorative';
+    let fillColor = '#42dff4';
 
-  var newGameText = game.add.text(game.world.centerX, game.world.centerY + 55, 'New Game', {
-    font: '50px ' + screenFont,
-    fill: fillColor,
-    align: 'center'
-  });
+    let titleText = this.add.text(this.world.centerX, this.world.centerY- 75, 'Quasaria', {
+      font: '75px ' + screenFont,
+      fontWeight: 'bold',
+      fill: fillColor,
+      align: 'center'
+    });
 
-  titleText.anchor.setTo(0.5, 0.5);
+    let contText = this.add.text(this.world.centerX, this.world.centerY, 'Continue', {
+      font: '50px ' + screenFont,
+      fill: fillColor,
+      align: 'center'
+    });
 
+    let newGameText = this.add.text(this.world.centerX, this.world.centerY + 55, 'New Game', {
+      font: '50px ' + screenFont,
+      fill: fillColor,
+      align: 'center'
+    });
 
-  contText.anchor.setTo(0.5, 0.5);
-  contText.inputEnabled = true;
-  contText.events.onInputOver.add(function() {
-    contText.fill = '#ff00ff';
-  }, this);
+    titleText.anchor.setTo(0.5, 0.5);
+    contText.anchor.setTo(0.5, 0.5);
 
-  contText.events.onInputOut.add(function() {
-    contText.fill = '#42dff4';
-  }, this);
+    /**
+     * INTERACTIVITY
+     */
+    contText.inputEnabled = true;
+    contText.events.onInputOver.add(() => {
+      contText.fill = '#ff00ff';
+    });
 
-  contText.events.onInputDown.add(function () {
-    let resumeGame = true;
-    game.state.start('Game', true, false, game, resumeGame);
-  }, this);
+    contText.events.onInputOut.add(() => {
+      contText.fill = '#42dff4';
+    });
 
-  newGameText.anchor.setTo(0.5, 0.5);
-  newGameText.inputEnabled = true;
-  newGameText.events.onInputOver.add(function() {
-    newGameText.fill = '#ff00ff';
-  }, this);
+    contText.events.onInputDown.add(() => {
+      let resumeGame = true;
+      this.state.start('Game', true, false, this, resumeGame);
+    });
 
-  newGameText.events.onInputOut.add(function() {
-    newGameText.fill = '#42dff4';
-  }, this);
+    newGameText.anchor.setTo(0.5, 0.5);
+    newGameText.inputEnabled = true;
+    newGameText.events.onInputOver.add(() => {
+      newGameText.fill = '#ff00ff';
+    });
 
-  newGameText.events.onInputDown.add(function () {
-    let resumeGame = false;
-    game.state.start('Game', true, false, game, resumeGame);
-  }, this);
+    newGameText.events.onInputOut.add(() => {
+      newGameText.fill = '#42dff4';
+    });
 
+    newGameText.events.onInputDown.add(() => {
+      let resumeGame = false;
+      this.state.start('Game', true, false, this, resumeGame);
+    });
+  }
 };

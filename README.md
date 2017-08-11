@@ -1,20 +1,13 @@
-# [Quasaria](https://example.com/my-game/)
-
->   Quasaria is a blend between sci-fi roleplaying game, tactical card game,
->   point-and-click adventure, and visual novel. Built using the 2D JavaScript
->   game framework, Phaser.
+# [project-quasaria](https://example.com/my-game/)
 
 ---
 
-## Development
+Congrats! To manage your project and start developing your new game right away,
+the following npm scripts are available:
 
-First, install dependencies:
+>   TIP: You can also use Gulp to manage development tasks.
 
-```sh
-npm install
-```
-
-And then run with `npm start`! The following npm scripts are available:
+The following npm scripts are also available:
 
 ```sh
 npm start         # Or `gulp`: launches the project development environment.
@@ -24,6 +17,5 @@ npm run clean     # Or `gulp clean`: Deletes build files.
 npm run test-dist # Build and run your project
 ```
 
-## Stack
-
-Bootstrapped with [generator-phaser-plus](https://github.com/rblopes/generator-phaser-plus). As such, uses Gulp, BrowserSync, Browserify, and ESLint.
+Should you consider distributing your game as an open source project, please
+choose and [include a LICENSE file](http://choosealicense.com/) for your project.

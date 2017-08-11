@@ -2,20 +2,20 @@
  * Logo
  * ====
  *
- * A sample prefab (extended game object class), displaying a spinning
+ * A sample prefab (extended game object class), displaying a spinning Phaser
  * logo.
  */
 
-'use strict';
+export default class Logo extends Phaser.Sprite {
 
-function Logo(game, x, y) {
-  Phaser.Sprite.call(this, game, x, y, 'quasaria-logo');
+  constructor(game, x, y) {
+    super(game, x, y, 'phaser');
 
-  this.anchor.set(0.5);
+    this.anchor.set(0.5);
+  }
+
+  update() {
+    this.angle += 0.1;
+  }
+
 }
-Logo.prototype = Object.create(Phaser.Sprite.prototype);
-module.exports = Logo.prototype.constructor = Logo;
-
-Logo.prototype.update = function () {
-  this.angle += 0.1;
-};
